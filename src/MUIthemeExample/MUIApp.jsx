@@ -32,10 +32,10 @@ export default function MUIapp() {
 	The method by which the user expresses their preference can vary.
 	It might be a system-wide setting exposed by the Operating System,
 	or a setting controlled by the User Agent.
-  
+
 	You can leverage this preference dynamically with the useMediaQuery
 	hook and the prefers-color-scheme media query.
-  
+
 	For instance, you can enable the dark mode automatically: */
 
 	const [theme, toggleDarkMode] = useDarkmode();
@@ -51,20 +51,25 @@ export default function MUIapp() {
 		menuButton: {
 			marginRight: themeConfig.spacing(2),
 		},
+
 		toolbar: {
 			/*  minHeight: 128, */
 			/* alignItems: 'flex-center', */
 			/*  paddingTop: themeConfig.spacing(1), */
 			/* paddingBottom: themeConfig.spacing(3), */
 			background: themeConfig.palette.background.paper,
-			boxShadow: '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0)',
+			boxShadow: '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0)',
 
 		},
+
 		title: {
-			flexGrow: 1,
 			alignSelf: 'center',
+			flexGrow: 1,
 		},
+
 		muipapermain: {
+
+			background: themeConfig.palette.background.paper,
 			/* root: { */
 			/* background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', */
 			border: 0,
@@ -75,9 +80,7 @@ export default function MUIapp() {
 			/*  padding: '0 30px', */
 			height: '100vh',
 			padding: themeConfig.spacing(2),
-			textAlign: 'center',
-
-			background: themeConfig.palette.background.paper
+			textAlign: 'center'
 			/* } */
 		},
 	}));
@@ -94,38 +97,38 @@ export default function MUIapp() {
 
 	/* Now if we had another piece of state that we wanted distinct to local storage whenever it changed we
   would need to duplicate this code duplicate this code:
-  
+
 	// This required us to return null inside todolist else react will crash because TODOS isnt containing anything.
 	/*   const initialTodos = JSON.parse(window.localStorage.getItem('todos')) || [""];
-  
+
 	/* Instead we could make a new hook a custom hook called use local storage state.
-  
+
   And all we would do is pass in something like this.
-  
+
 	/// /////
 	/// /////
   const [todos] = useLocalStorageState("todos", []);
 	/// /////
 	/// /////
-  
+
   Use local storage state.
   We would give it a key.
   So in our case to dos and then a default value and we could pass in an array instead of the string of
   an array.
-  
+
   So we pass in an array and then it's going to return to dos just like we have now.
   Something like that and maybe set to dos and then anytime we change to dos it will automatically sync
   to local storage.
-  
+
   So that way we can move this code out move this code out.
   But also if we wanted to save anything to local storage and have it update or sync anytime that piece
   of State changed we could use that in this application in another application.
-  
+
   It's a pretty common use case.
   So if we wanted to add in a dark mode or a light mode or a language preference like if a user could
   specify French instead of English we might want to store that in local storage but that doesn't really
   belong with the to dos in that array. You'd need a separate piece of state a separate piece of local storage so it would be best to use a
-  
+
   custom hook. as seen below: useLocalStorageState.
    */
 
@@ -175,7 +178,10 @@ export default function MUIapp() {
 						>
 							<Typography
 								className={classes.title}
-								style={{ marginRight: '20px', marginTop: '6px' }}
+								style={{
+									marginRight: '20px',
+									marginTop: '6px'
+								}}
 								noWrap
 							>
 								{themeConfig.palette.type === 'dark'
