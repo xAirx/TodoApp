@@ -4,11 +4,9 @@ description: This project is created as part of an assignment for the company Ni
 
 # Introduction
 
-## Project 
+## Setup & Installation
 
-## Installation & Setup.
-
-Installation and getting up and running:
+Becoming a super hero is a fairly straight forward process:
 
 ```
 $ give me super-powers
