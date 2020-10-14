@@ -48,8 +48,8 @@
 			"jsx": true
 		},
 		"ecmaVersion": 11,
-		"sourceType": "module",
-		"project": "./tsconfig.json"
+		"sourceType": "module"
+		/* 	"project": "tsconfig.json" */
 	},
 	"rules": {
 		"react-hooks/rules-of-hooks": "error",
@@ -119,7 +119,7 @@
 		"prefer-const": 1,
 		"react/prefer-es6-class": 0,
 		"react/prop-types": [
-			1
+			0
 		],
 		"react/no-array-index-key": [
 			1
