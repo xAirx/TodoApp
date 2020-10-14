@@ -202,9 +202,17 @@ here we use the useDarkMode hook, and control the light and dark theme via "togg
 Also we create the themeConfig, which will globally create the MUI theme with the theme that is now set \(either light or dark\)
 
 ```javascript
-	const [theme, toggleDarkMode] = useDarkmode();
 	
-	const themeConfig = createMuiTheme(theme);
+ export const MUIapp: React.FC = () => {
+
+	const [theme, toggleDarkMode] = useDarkmode(themeObject);
+
+	const themeConfig = React.useMemo(
+		() => {
+			return createMuiTheme(theme);
+		}, [theme]
+	);
+
 ```
 
 #### Toggle functionality
