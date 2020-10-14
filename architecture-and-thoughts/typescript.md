@@ -70,7 +70,7 @@ export const EditTodoForm: React.FC<EditTodo> = ({ id, editTodo, task, toggleEdi
 
 ![](../.gitbook/assets/image%20%286%29.png)
 
-#### See the section on Pure **C**TODO:omponents and Optimization here:
+#### See the section on Pure **C**omponents and Optimization here:
 
 {% page-ref page="../performance-considerations/optimization.md" %}
 
