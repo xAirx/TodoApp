@@ -70,6 +70,25 @@ function Todoform({ addTodo }) {
 </form>
 ```
 
+## useToggleState
+
+```javascript
+import { useState } from 'react';
+
+//declare explicit return type.
+export const useToggle = (initialVal = false): [boolean, () => void] => {
+	// call useState, "reserve a piece of state";
+
+	const [state, setState] = useState(initialVal);
+	const toggle = () => {
+		setState(!state);
+	};
+
+	return [state, toggle];
+}
+
+```
+
 ## \(NOT DONE\) useLocalStorageState
 
 This hook was created to be able to easily store our todos in localstorage, so that when the user logs in or out the data is persisted and we can cut down on graphQL calls.
@@ -116,14 +135,31 @@ function UseLocalStorageState(key, defaultVal) {
 
 ## \(NOT DONE\) UseTodoState
 
-Here we handle all of our "crud operations" when it comes to handling the "todos data", the graphQL calls are implemented here, as well. 
+Write more here:
+
+
+
+We have declared our types here, for easy export and usage within other components.
 
 ```javascript
-import { useState } from 'react';
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* import { useState } from 'react'; */
 import uuid from 'uuid/v4';
 import useLocalStorageState from './useLocalStorageState';
+import { useCallback } from 'react';
 
-export default (initialTodos) => {
+export type AddTodoHandler = (value: string) => void;
+export type RemoveTodoHandler = (id: number) => void;
+export type EditTodoHandler = (id: number, value: string) => void;
+export type ToggleTodoHandler = (id: number) => void;
+export type Todos = {
+	id: number;
+	task: string;
+	completed: boolean
+}
+
+export const useTodos = (initialTodos: Todos[]) => {
 	// UselocalStorage state will initialize the state and make the state for us.
 	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
 	// Localstorage functionality here.
@@ -131,67 +167,53 @@ export default (initialTodos) => {
 
 	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
 
+	const removeTodo: RemoveTodoHandler = useCallback((todoId) => {
+		console.log('removetodocalled');
+
+		const updatedTodos = todos.filter((todo: { id: number; }) => todo.id !== todoId);
+		console.log(updatedTodos);
+
+		setTodos(updatedTodos);
+
+	}, [])
+
+	const addTodo: AddTodoHandler = useCallback((newTodoText) => {
+		setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
+	}, [])
+
+	const editTodo: EditTodoHandler = useCallback((todoId, newTodoText) => {
+		console.log('editTodoCalled');
+	
+		const updatedTodos = todos.map((todo: { id: number; }) => (todo.id === todoId
+			? { ...todo, task: newTodoText } : todo));
+		console.log('this is the new todos changed from edit', updatedTodos);
+		setTodos(updatedTodos);
+		/* console.log('These are the updated todos', todos); */
+	}, [])
+	const toggleTodo: ToggleTodoHandler = useCallback((todoId) => {
+		const updatedTodos = todos.map((todo: { id: number; completed: boolean; }) => (todo.id === todoId ? {
+			...todo,
+			completed: !todo.completed,
+		} : todo));
+		setTodos(updatedTodos);
+	}, [])
+
+
 	return {
+		// Return our todos.
 		todos,
-
-		addTodo: (newTodoText) => {
-			setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-		},
-		removeTodo: (todoId) => {
-			console.log('removetodocalled');
-			// filter out removed todo
-			const updatedTodos = todos.filter((todo) => todo.id !== todoId);
-			console.log(updatedTodos);
-			// call setTodos with new todosArray
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-		editTodo: (todoId, newTodoText) => {
-			console.log('editTodoCalled');
-			// filter out removed todo
-			/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
-			   /*  console.log(updatedTodos); */
-			/*  updatedTodos.task = newTodoText; */
-			// call setTodos with new todosArray
-			const updatedTodos = todos.map((todo) => (todo.id === todoId
-				? { ...todo, task: newTodoText } : todo));
-			console.log('this is the new todos changed from edit', updatedTodos);
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-
-		toggleTodo: (todoId) => {
-			const updatedTodos = todos.map((todo) => (todo.id === todoId ? {
-				...todo,
-				completed: !todo.completed,
-			} : todo));
-			setTodos(updatedTodos);
-		},
-
+		removeTodo,
+		addTodo,
+		editTodo,
+		toggleTodo
 	};
 };
-```
-
-## useToggleState
-
-a simple hook to toggle state if needed.
-
-```javascript
-import { useState } from 'react';
-
-function useToggle(initialVal = false) {
-  // call useState, "reserve a piece of state";
-
-  const [state, setState] = useState(initialVal);
-  const toggle = () => {
-    setState(!state);
-  };
-
-  return [state, toggle];
-}
-export default useToggle;
 
 ```
+
+## Usage of useCallback
+
+see the below chapters.
 
 ## Performance optimizing hooks 
 
@@ -199,5 +221,5 @@ see the following chapter here:
 
 {% page-ref page="../performance-considerations/optimization.md" %}
 
-
+{% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 

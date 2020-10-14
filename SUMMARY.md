@@ -18,6 +18,13 @@
 * [TODO: React Router](architecture-and-thoughts/react-router.md)
 * [TODO: Apollo + GraphQL](architecture-and-thoughts/apollo-+-graphql.md)
 
+## Performance Considerations
+
+* [TODO: Introduction to Optimization](performance-considerations/optimization.md)
+* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
+* [Webpack-bundle-analyzer](performance-considerations/webpack-bundle-analyzer.md)
+* [TODO: Google Pagespeed + GTMetrix + Lighthouse](performance-considerations/google-pagespeed-+-gtmetrix-+-lighthouse.md)
+
 ## API Documentation
 
 * [TODO: Endpoints](api-documentation/endpoints.md)
@@ -30,13 +37,6 @@
 ## UnitTesting
 
 * [TODO: Overview of Unittests](unittesting/overview-of-unittests.md)
-
-## Performance Considerations
-
-* [TODO: Introduction to Optimization](performance-considerations/optimization.md)
-* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
-* [Webpack-bundle-analyzer](performance-considerations/webpack-bundle-analyzer.md)
-* [TODO: Google Pagespeed + GTMetrix + Lighthouse](performance-considerations/google-pagespeed-+-gtmetrix-+-lighthouse.md)
 
 ## CI/CD setup
 
