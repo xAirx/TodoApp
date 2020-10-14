@@ -8,7 +8,7 @@ This allows you to still use `makeStyles()` with Lifecycle Methods [without addi
 
 Which is much simpler.
 
-```text
+```javascript
 const useStyles = makeStyles(() => ({
 		root: {
 			flexGrow: 1,
@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => ({
 
 ### Applying styles to "components"
 
-```text
+```javascript
 <Paper
 		className={classes.muipapermain}
 					variant="outlined"
@@ -67,7 +67,7 @@ const useStyles = makeStyles(() => ({
 
 Here we use the styled components variant of global styles as the MUI alternative can in my own opinon be harder to implement.
 
-```text
+```javascript
 export const GlobalStyle = createGlobalStyle`
 	*,
 	*::after,
@@ -92,7 +92,7 @@ Here we have our custom ThemeWrapper function, this is created to abstract some 
 
 We have the Globalstyle as referenced above and the CSS-Baseline, which gives us a CSS reset lke normalize.css
 
-```text
+```javascript
 function ThemeWrapper(children: any, theme: any) {
 	console.log('THIS IS THEME INSIDE THEMEWRAPPER', theme);
 	return (
@@ -129,7 +129,7 @@ I wanted to add a preferred theme functionality, along with more control over sp
 
 #### `Example` Dark Theme.
 
-```text
+```javascript
 const darkTheme = {
 
 	palette: {
@@ -157,25 +157,25 @@ const darkTheme = {
 
 #### Setting preferred user theme using useMediaQuery and useMemo
 
-```text
+```javascript
 const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
 const themeObject = React.useMemo(
 	() => {
 		return prefersDarkMode ? darkTheme : lightTheme
-	}),
-	[prefersDarkMode],
+	},
+	[prefersDarkMode]
 );
 
 
 export default function MUIapp() {
 
-	const [theme, toggleDarkMode] = useDarkmode(prefersDarkMode);
+const [theme, toggleDarkMode] = useDarkmode(themeObject);
 ```
 
 ####  Custom Hook - useDarkMode function.
 
-```text
+```javascript
 
 export const useDarkmode = (prefersDarkMode: any) => {
 	const [theme, setTheme] = useState(prefersDarkMode);
@@ -201,7 +201,7 @@ here we use the useDarkMode hook, and control the light and dark theme via "togg
 
 Also we create the themeConfig, which will globally create the MUI theme with the theme that is now set \(either light or dark\)
 
-```text
+```javascript
 	const [theme, toggleDarkMode] = useDarkmode();
 	
 	const themeConfig = createMuiTheme(theme);
@@ -209,30 +209,34 @@ Also we create the themeConfig, which will globally create the MUI theme with th
 
 #### Toggle functionality
 
-```text
+```javascript
 <IconButton
-							aria-label="light and dark mode toggle"
-							edge="end"
-							justify="center"
-							color="inherit"
-						>
-							<Typography
-								className={classes.title}
-								style={{
-									marginRight: '20px',
-									marginTop: '6px'
-								}}
-								noWrap
-							>
-								{themeConfig.palette.type === 'dark'
-									? <Brightness4Icon variant="outlined" />
-									: <Brightness7Icon />}
-							</Typography>
+			aria-label="light and dark mode toggle"
+			edge="end"
+			justify="center"
+			color="inherit" 
+>
 
-							<FormControlLabel
-								checked={themeConfig.palette.type === 'dark'}
-								control={<Switch onClick={toggleDarkMode} />}
-							/>
+<Typography
+			className={classes.title}
+			style={{
+						marginRight: '20px',
+						marginTop: '6px'
+				}}
+				noWrap
+>
+
+{themeConfig.palette.type === 'dark'
+? <Brightness4Icon variant="outlined" />
+	: <Brightness7Icon />}
+
+</Typography>
+
+<FormControlLabel
+		   checked={themeConfig.palette.type === 'dark'}
+       control={<Switch onClick={toggleDarkMode} />}
+/>
+
 </IconButton>
 ```
 
@@ -248,7 +252,7 @@ Quite a lot is happening in a small amount of code:
 
 Finally, inside of our component, we can call our style hook, allowing us to apply the styles as a className:
 
-```text
+```javascript
 const classes = useStyles()
 ```
 

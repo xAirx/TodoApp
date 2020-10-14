@@ -1,4 +1,4 @@
-# TODO:  TypeScript
+# TypeScript
 
 ## Why are we using TypeScript?
 
@@ -62,11 +62,9 @@ more robust code will involve less bugfixing, so again it will mean saving time,
 
 
 
-## TODO: **Disadvantages**
+## **Disadvantages**
 
-![](../.gitbook/assets/image%20%284%29.png)
-
-![](../.gitbook/assets/image%20%283%29.png)
+There's not really any downsides to be fair, the only annoying thing is that some libs don't have types, either included, or at all
 
 #### 
 

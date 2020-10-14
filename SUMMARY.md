@@ -13,8 +13,8 @@
 ## Architecture & Thoughts
 
 * [TODO: Material UI](architecture-and-thoughts/material-ui.md)
+* [TypeScript](architecture-and-thoughts/typescript.md)
 * [TODO: Custom Hooks](architecture-and-thoughts/hooks.md)
-* [TODO:  TypeScript](architecture-and-thoughts/typescript.md)
 * [TODO: React Router](architecture-and-thoughts/react-router.md)
 * [TODO: Apollo + GraphQL](architecture-and-thoughts/apollo-+-graphql.md)
 
