@@ -142,72 +142,7 @@ Write more here:
 We have declared our types here, for easy export and usage within other components.
 
 ```javascript
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* import { useState } from 'react'; */
-import uuid from 'uuid/v4';
-import useLocalStorageState from './useLocalStorageState';
-import { useCallback } from 'react';
 
-export type AddTodoHandler = (value: string) => void;
-export type RemoveTodoHandler = (id: number) => void;
-export type EditTodoHandler = (id: number, value: string) => void;
-export type ToggleTodoHandler = (id: number) => void;
-export type Todos = {
-	id: number;
-	task: string;
-	completed: boolean
-}
-
-export const useTodos = (initialTodos: Todos[]) => {
-	// UselocalStorage state will initialize the state and make the state for us.
-	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
-	// Localstorage functionality here.
-	const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
-
-	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
-
-	const removeTodo: RemoveTodoHandler = useCallback((todoId) => {
-		console.log('removetodocalled');
-
-		const updatedTodos = todos.filter((todo: { id: number; }) => todo.id !== todoId);
-		console.log(updatedTodos);
-
-		setTodos(updatedTodos);
-
-	}, [])
-
-	const addTodo: AddTodoHandler = useCallback((newTodoText) => {
-		setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-	}, [])
-
-	const editTodo: EditTodoHandler = useCallback((todoId, newTodoText) => {
-		console.log('editTodoCalled');
-	
-		const updatedTodos = todos.map((todo: { id: number; }) => (todo.id === todoId
-			? { ...todo, task: newTodoText } : todo));
-		console.log('this is the new todos changed from edit', updatedTodos);
-		setTodos(updatedTodos);
-		/* console.log('These are the updated todos', todos); */
-	}, [])
-	const toggleTodo: ToggleTodoHandler = useCallback((todoId) => {
-		const updatedTodos = todos.map((todo: { id: number; completed: boolean; }) => (todo.id === todoId ? {
-			...todo,
-			completed: !todo.completed,
-		} : todo));
-		setTodos(updatedTodos);
-	}, [])
-
-
-	return {
-		// Return our todos.
-		todos,
-		removeTodo,
-		addTodo,
-		editTodo,
-		toggleTodo
-	};
-};
 
 ```
 
