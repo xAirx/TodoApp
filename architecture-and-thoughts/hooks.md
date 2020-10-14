@@ -11,27 +11,28 @@ This custom hook enables me to reset a state for a formfield and also gives the 
 ```bash
 import { useState } from 'react';
 
-function useUpdate(initialVal = 'testdata') {
-  // call useState, "reserve a piece of state";
+function useInputState(initialVal = 'testdata') {
+	// call useState, "reserve a piece of state";
 
-  const [state, setState] = useState(initialVal);
+	const [state, setState] = useState(initialVal);
 
-  const update = (e) => {
-    setState(e.target.value);
-  };
+	const update = (e: React.SyntheticEvent) => {
+		setState(e.target.value);
+	};
 
-  /*  const change = () => {
-    setState('testxxx');
-  };
- */
-  const reset = () => {
-    setState('');
-  };
+	/*  const change = () => {
+	  setState('testxxx');
+	};
+   */
 
-  return [state, update, reset];
+	const reset = () => {
+		setState('');
+	};
+
+	return [state, update, reset];
 }
 
-export default useUpdate;
+export default useInputState;
 
 ```
 

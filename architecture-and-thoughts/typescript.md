@@ -40,9 +40,23 @@ more robust code will involve less bugfixing, so again it will mean saving time,
 
  Typescript allows you to transpile javascript code which will be compatible with multiple browsers and versions. I know this can be also achieved with ECMA Script and babel, which is great, but in typescript you will have that out of the box.
 
-#### 
 
 
+## Example implementation
+
+```javascript
+interface EditTodo {
+    id: number,
+    editTodo: (id: number, value: any) => void,
+    task: string,
+    toggleEditForm: () => void,
+}
+```
+
+```javascript
+
+export const EditTodoForm: React.FC<EditTodo> = ({ id, editTodo, task, toggleEditForm }) => {
+```
 
 ## OOP principles & Functional Design patterns
 
