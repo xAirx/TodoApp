@@ -6,17 +6,17 @@ description: This project is created as part of an assignment for the company Ni
 
 ## Setup & Installation
 
-Becoming a super hero is a fairly straight forward process:
+To start the project up do the following:
 
 ```
 $ give me super-powers
 ```
 
 {% hint style="info" %}
- Super-powers are granted randomly so please submit an issue if you're not happy with yours.
+You need to have the backend running: 
 {% endhint %}
 
-Once you're strong enough, save the world:
+This is done like this: 
 
 {% code title="hello.sh" %}
 ```bash
