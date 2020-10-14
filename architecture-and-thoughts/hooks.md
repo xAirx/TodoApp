@@ -43,30 +43,31 @@ function Todoform({ addTodo }) {
 	const [value, update, reset] = useInputState('');
 ```
 
-```bash
+```javascript
 <form
-				Validate
-				onSubmit={(e) => {
-					e.preventDefault();
-					// addtodo is passed from MUIAPP.jsx, we use it to set the new todo.
-					addTodo(value);
-					reset();
-				}}
-			>
-				<TextField
-					fullwidth
-					/*  label="Filled" */
-					label="Try it out and add a new todo!"
-					className={classes.textfield}
-					margin="normal"
-					/* label="Add New Todo" */
-					required
-					value={value}
-					onChange={update}
-				/>
+	Validate
+	onSubmit={(e) => {
+		e.preventDefault();
+		// addtodo is passed from MUIAPP.jsx, we use it to set the new todo.
+		addTodo(value);
+		reset();
+	}}
+>
 
-				<Button className={classes.button} type="submit">Submit</Button>
-			</form>
+	<TextField
+		fullwidth
+		/*  label="Filled" */
+		label="Try it out and add a new todo!"
+		className={classes.textfield}
+		margin="normal"
+		/* label="Add New Todo" */
+		required
+		value={value}
+		onChange={update}
+	/>
+
+	<Button className={classes.button} type="submit">Submit</Button>
+</form>
 ```
 
 ## \(NOT DONE\) useLocalStorageState
