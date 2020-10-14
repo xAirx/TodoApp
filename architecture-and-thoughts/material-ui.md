@@ -1,4 +1,4 @@
-# Material UI
+# TODO: Material UI
 
 ## Examples of usage within the project:
 
@@ -127,7 +127,7 @@ I wanted to add a preferred theme functionality, along with more control over sp
 
 
 
-#### Dark Theme.
+#### `Example` Dark Theme.
 
 ```text
 const darkTheme = {
@@ -173,7 +173,7 @@ export default function MUIapp() {
 	const [theme, toggleDarkMode] = useDarkmode(prefersDarkMode);
 ```
 
-#### custom hook - useDarkMode function.
+####  Custom Hook - useDarkMode function.
 
 ```text
 
@@ -237,6 +237,20 @@ Also we create the themeConfig, which will globally create the MUI theme with th
 ```
 
 ## Extra
+
+Quite a lot is happening in a small amount of code:
+
+* We pass our `theme`, which we defined earlier, into the `makeStyles` function
+* We define style objects \(root, media, and title\), which we can access later
+* We access default and custom variables using our theme \(theme.spacing is a [default value](https://material-ui.com/customization/default-theme/)\)
+
+**Note:** when defining styles we write a style object, similar to adding [an inline style](https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822) to a React element`style={{ height: '100px' }}`
+
+Finally, inside of our component, we can call our style hook, allowing us to apply the styles as a className:
+
+```text
+const classes = useStyles()
+```
 
 Material-UI Next also works with [SSR](https://material-ui-next.com/guides/server-rendering/), if you’re into that. Besides, although it comes with JSS out of the box, it can me made to work with just about any [other library](https://material-ui-next.com/guides/interoperability/), like Styled Components, or even raw CSS.
 

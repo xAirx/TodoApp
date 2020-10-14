@@ -12,26 +12,31 @@
 
 ## Architecture & Thoughts
 
-* [Material UI](architecture-and-thoughts/material-ui.md)
-* [TypeScript](architecture-and-thoughts/typescript.md)
-* [Hooks](architecture-and-thoughts/hooks.md)
-* [React Router](architecture-and-thoughts/react-router.md)
-* [Apollo + GraphQL](architecture-and-thoughts/apollo-+-graphql.md)
+* [TODO: Material UI](architecture-and-thoughts/material-ui.md)
+* [TODO: Custom Hooks](architecture-and-thoughts/hooks.md)
+* [TODO:  TypeScript](architecture-and-thoughts/typescript.md)
+* [TODO: React Router](architecture-and-thoughts/react-router.md)
+* [TODO: Apollo + GraphQL](architecture-and-thoughts/apollo-+-graphql.md)
 
 ## API Documentation
 
-* [Endpoints](api-documentation/endpoints.md)
-* [Authentication](api-documentation/authentication.md)
+* [TODO: Endpoints](api-documentation/endpoints.md)
+* [TODO: Authentication](api-documentation/authentication.md)
 
-## Performance Considerations
+## Security <a id="security-1"></a>
 
-* [Optimization](performance-considerations/optimization.md)
-* [Webpack-bundle-analyzer](performance-considerations/webpack-bundle-analyzer.md)
-* [Google Pagespeed + GTMetrix + Lighthouse](performance-considerations/google-pagespeed-+-gtmetrix-+-lighthouse.md)
+* [TODO: Security](security-1/todo-security.md)
 
 ## UnitTesting
 
-* [Overview of Unittests](unittesting/overview-of-unittests.md)
+* [TODO: Overview of Unittests](unittesting/overview-of-unittests.md)
+
+## Performance Considerations
+
+* [TODO: Introduction to Optimization](performance-considerations/optimization.md)
+* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
+* [Webpack-bundle-analyzer](performance-considerations/webpack-bundle-analyzer.md)
+* [TODO: Google Pagespeed + GTMetrix + Lighthouse](performance-considerations/google-pagespeed-+-gtmetrix-+-lighthouse.md)
 
 ## CI/CD setup
 
