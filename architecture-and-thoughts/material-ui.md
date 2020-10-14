@@ -1,4 +1,4 @@
-# TODO: Material UI
+# Material UI
 
 ## Examples of usage within the project:
 

@@ -1,7 +1,5 @@
 # TODO: Implemented optimizations
 
-
-
 ```text
 //////// Will be refactored to GRAPHQL USE EFFECT GRABBING DATA.
 /* basically on initial load
@@ -19,5 +17,9 @@
      and to backend if you want
 ```
 
-\*/
+## UseCallback
+
+
+
+## UseMemo
 
