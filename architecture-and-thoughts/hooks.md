@@ -1,4 +1,4 @@
-# Custom Hooks
+# TODO LAST Custom Hooks
 
 ## Custom Hooks
 
@@ -165,76 +165,7 @@ function UseSyncTodosToLocalStorage(key: string, defaultVal: Todo) {
 **We have declared our types here, for easy export and usage within other components**
 
 ```javascript
-import uuid from 'uuid/v4';
-import UseSyncTodosToLocalStorage from './useSyncTodosToLocalStorage';
-import { useCallback } from 'react';
 
-export type AddTodoHandler = (value: string) => void;
-export type RemoveTodoHandler = (id: number) => void;
-export type EditTodoHandler = (id: number, value: string) => void;
-export type ToggleTodoHandler = (id: number) => void;
-export type Todo = {
-	id: number;
-	task: string;
-	completed: boolean
-}[]
-
-export const useTodos = (initialTodos: Todo) => {
-	// UselocalStorage state will initialize the state and make the state for us.
-	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
-	// Localstorage functionality here.
-
-
-	const [todos, setTodos] = UseSyncTodosToLocalStorage('todos', initialTodos);
-
-	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
-
-	const removeTodo: RemoveTodoHandler = useCallback((todoId) => {
-		console.log('removetodocalled');
-		// filter out removed todo
-		const updatedTodos = todos.filter((todo: { id: number; }) => todo.id !== todoId);
-		console.log(updatedTodos);
-		// call setTodos with new todosArray
-		setTodos(updatedTodos);
-		/* console.log('These are the updated todos', todos); */
-	}, [])
-
-	const addTodo: AddTodoHandler = useCallback((task) => {
-		setTodos([...todos, { id: uuid(), task, completed: false }]);
-	}, [])
-
-	const editTodo: EditTodoHandler = useCallback((todoId, task) => {
-		console.log('editTodoCalled');
-		// filter out removed todo
-		/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
-		   /*  console.log(updatedTodos); */
-		/*  updatedTodos.task = newTodoText; */
-		// call setTodos with new todosArray
-		const updatedTodos = todos.map((todo: { id: number; }) => (todo.id === todoId
-			? { ...todo, task } : todo));
-		console.log('this is the new todos changed from edit', updatedTodos);
-		setTodos(updatedTodos);
-		/* console.log('These are the updated todos', todos); */
-	}, [])
-
-	const toggleTodo: ToggleTodoHandler = useCallback((todoId) => {
-		const updatedTodos = todos.map((todo: { id: number; completed: boolean; }) => (todo.id === todoId ? {
-			...todo,
-			completed: !todo.completed,
-		} : todo));
-		setTodos(updatedTodos);
-	}, [])
-
-
-	return {
-		// Return our todos.
-		todos,
-		removeTodo,
-		addTodo,
-		editTodo,
-		toggleTodo
-	};
-};
 
 ```
 
