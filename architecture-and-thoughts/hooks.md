@@ -6,31 +6,29 @@
 
 > This custom hook enables me to reset a state for a form-field and also gives the abillity to update the form field with an event such as e.target.value.
 
-```bash
-import { useState } from 'react';
+```javascript
+import { ChangeEvent, useState } from 'react';
 
-function useInputState(initialVal = 'testdata') {
+export const useInputState = (initialVal: any) => {
 	// call useState, "reserve a piece of state";
 
 	const [state, setState] = useState(initialVal);
 
-	const update = (e: React.SyntheticEvent) => {
+	const update = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		setState(e.target.value);
 	};
 
 	/*  const change = () => {
 	  setState('testxxx');
 	};
-   */
+	*/
 
 	const reset = () => {
 		setState('');
 	};
 
-	return [state, update, reset];
-}
-
-export default useInputState;
+	return [state, reset, update];
+};
 
 ```
 
@@ -89,83 +87,102 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 
 ```
 
-## useSyncTodosToLocalStorage
-
-> This hook was created to be able to easily store our todos in localstorage, so that when the user logs in or out the data is persisted and we can cut down on graphQL calls.
-
 **See performance considerations for this implementation**
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 
 #### 
 
-### Alternative naming: useLocalStorageState
 
-{% hint style="danger" %}
-
-
-> This Hook could have been typed more generically as DATA, instead of type todo, but because of time constraints this was what I opted for,  
->   
-> An alternative solution would be to use generics and go in this direction:
-{% endhint %}
-
-```javascript
-"The hook does stores a value
-not specifically only todos"
-
-function useLocalStorageState<Data>(key: string, defaultValue: Data): Data {}
-
-then you can do:
-
-const initialTodos = useLocalStorageState<Todo[]>(....);
-```
-
-
-
-```javascript
-import { useState, useEffect } from 'react';
-import { Todo } from './useTodoState';
-
-// if there is nothing in localStorage under the key we will use the defaultVal.
-function UseSyncTodosToLocalStorage(key: string, defaultVal: Todo) {
-
-	/*
-  Make a piece of state but initialize it to some piece of local storage and
-   by the way whenever it changes make sure you update local storage as well and then
-   return that piece of state and a function to set
-
-  that piece of state. */
-
-	const [state, setState] = useState(() => {
-		let val;
-		try {
-			// See if there is something in localStorage with val...
-			val = JSON.parse(
-				window.localStorage.getItem(key) || String(defaultVal),
-			);
-		} catch (e) {
-			/// if there is nothing in localStorage set val to defaultVal
-			val = defaultVal;
-		}
-		return val;
-	});
-
-	useEffect(() => {
-		window.localStorage.setItem(key, JSON.stringify(state));
-	}, [state]);
-	return [state, setState];
-}
-/*
-```
 
 ## UseTodoState
 
-> This hook enables me to handle the crudoperations for my todos, here we also use the UseSyncTodosToLocalStorage hook to sync our todos to localStorage.
+> This hook enables me to handle the "Crud operations" for my todos the example below is before the logic for calling the API is implemented, this logic is explained in the Express API Architecture section
+
+{% page-ref page="../api-documentation/apollo-+-graphql.md" %}
+
+
 
 **We have declared our types here, for easy export and usage within other components**
 
 ```javascript
+import { useCallback, useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 
+export type AddTodoHandler = (value: string) => void;
+export type RemoveTodoHandler = (id: string) => void;
+export type EditTodoHandler = (id: string, value: string) => void;
+export type ToggleTodoHandler = (id: string) => void;
+export type Todo = {
+	id: string;
+	task: string;
+	completed: boolean;
+};
+
+const lsKey = 'todos';
+
+const tryRetrievingFromLocalStorage = (initial: Todo[]): Todo[] => {
+	try {
+		const stored = localStorage.getItem(lsKey);
+		return stored ? JSON.parse(stored) : initial;
+	} catch {
+		return initial;
+	}
+};
+
+const trySyncToLocalStorage = (todos: Todo[]) => {
+	try {
+		localStorage.setItem(lsKey, JSON.stringify(todos));
+	} catch {
+		// ignore
+	}
+};
+
+export const useTodos = (initialTodos: Todo[]) => {
+	const [todos, setTodos] = useState<Todo[]>(
+		tryRetrievingFromLocalStorage(initialTodos),
+	);
+
+	useEffect(() => {
+		trySyncToLocalStorage(todos);
+	}, [todos]);
+
+	const removeTodo: RemoveTodoHandler = useCallback(id => {
+		setTodos(oldTodos => oldTodos.filter(todo => todo.id !== id));
+	}, []);
+
+	const addTodo: AddTodoHandler = useCallback(task => {
+		setTodos(oldTodos => oldTodos.concat({ completed: false, id: uuid(), task }));
+	}, []);
+
+	const editTodo: EditTodoHandler = useCallback((id, task) => {
+		setTodos(oldTodos => oldTodos.map(todo => {
+			if (todo.id === id) {
+				return { ...todo, task };
+			}
+
+			return todo;
+		}));
+	}, []);
+
+	const toggleTodo: ToggleTodoHandler = useCallback(id => {
+		setTodos(current => current.map(todo => {
+			if (todo.id === id) {
+				return { ...todo, completed: !todo.completed };
+			}
+
+			return todo;
+		}));
+	}, []);
+
+	return {
+		addTodo,
+		editTodo,
+		removeTodo,
+		todos,
+		toggleTodo,
+	};
+};
 
 ```
 
