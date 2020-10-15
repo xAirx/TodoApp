@@ -1,97 +1,77 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
+import { useCallback, useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 
-import { useState } from 'react';
-import uuid from 'uuid/v4';
-import useLocalStorageState from './useLocalStorageState';
+export type AddTodoHandler = (value: string) => void;
+export type RemoveTodoHandler = (id: string) => void;
+export type EditTodoHandler = (id: string, value: string) => void;
+export type ToggleTodoHandler = (id: string) => void;
+export type Todo = {
+	id: string;
+	task: string;
+	completed: boolean;
+};
 
-export default (initialTodos) => {
-	// UselocalStorage state will initialize the state and make the state for us.
-	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
-	// Localstorage functionality here.
-	const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
+const lsKey = 'todos';
 
-	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
+const tryRetrievingFromLocalStorage = (initial: Todo[]): Todo[] => {
+	try {
+		const stored = localStorage.getItem(lsKey);
+		return stored ? JSON.parse(stored) : initial;
+	} catch {
+		return initial;
+	}
+};
+
+const trySyncToLocalStorage = (todos: Todo[]) => {
+	try {
+		localStorage.setItem(lsKey, JSON.stringify(todos));
+	} catch {
+		// ignore
+	}
+};
+
+export const useTodos = (initialTodos: Todo[]) => {
+	const [todos, setTodos] = useState<Todo[]>(
+		tryRetrievingFromLocalStorage(initialTodos),
+	);
+
+	useEffect(() => {
+		trySyncToLocalStorage(todos);
+	}, [todos]);
+
+	const removeTodo: RemoveTodoHandler = useCallback(id => {
+		setTodos(oldTodos => oldTodos.filter(todo => todo.id !== id));
+	}, []);
+
+	const addTodo: AddTodoHandler = useCallback(task => {
+		setTodos(oldTodos => oldTodos.concat({ completed: false, id: uuid(), task }));
+	}, []);
+
+	const editTodo: EditTodoHandler = useCallback((id, task) => {
+		setTodos(oldTodos => oldTodos.map(todo => {
+			if (todo.id === id) {
+				return { ...todo, task };
+			}
+
+			return todo;
+		}));
+	}, []);
+
+	const toggleTodo: ToggleTodoHandler = useCallback(id => {
+		setTodos(current => current.map(todo => {
+			if (todo.id === id) {
+				return { ...todo, completed: !todo.completed };
+			}
+
+			return todo;
+		}));
+	}, []);
 
 	return {
+		addTodo,
+		editTodo,
+		removeTodo,
 		todos,
-
-		addTodo: (newTodoText) => {
-			setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-		},
-		removeTodo: (todoId) => {
-			console.log('removetodocalled');
-			// filter out removed todo
-			const updatedTodos = todos.filter((todo) => todo.id !== todoId);
-			console.log(updatedTodos);
-			// call setTodos with new todosArray
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-		editTodo: (todoId, newTodoText) => {
-			console.log('editTodoCalled');
-			// filter out removed todo
-			/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
-			   /*  console.log(updatedTodos); */
-			/*  updatedTodos.task = newTodoText; */
-			// call setTodos with new todosArray
-			const updatedTodos = todos.map((todo) => (todo.id === todoId
-				? { ...todo, task: newTodoText } : todo));
-			console.log('this is the new todos changed from edit', updatedTodos);
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-
-		toggleTodo: (todoId) => {
-			const updatedTodos = todos.map((todo) => (todo.id === todoId ? {
-				...todo,
-				completed: !todo.completed,
-			} : todo));
-			setTodos(updatedTodos);
-		},
-
+		toggleTodo,
 	};
 };
-
-/* const addTodo = (newTodoText) => {
-  setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-}; */
-
-/// /////
-/// /////
-
-/* const removeTodo = (todoId) => {
-  console.log('removetodocalled');
-   filter out removed todo
-  const updatedTodos = todos.filter((todo) => todo.id !== todoId);
-  console.log(updatedTodos);
-   call setTodos with new todosArray
-  setTodos(updatedTodos);
-  console.log('These are the updated todos', todos);
-};
- */
-/// /////
-/// /////
-
-/* const editTodo = (todoId, newTodoText) => {
-   console.log('editTodoCalled');
-   filter out removed todo
-   const updatedTodos = todos.filter((todo) => todo.id === todoId);
-   console.log(updatedTodos);
-   updatedTodos.task = newTodoText;
-   call setTodos with new todosArray
-  const updatedTodos = todos.map((todo) => (todo.id === todoId ? { ...todo, task: newTodoText } : todo));
-  console.log('this is the new todos changed from edit', updatedTodos);
-  setTodos(updatedTodos);
-  console.log('These are the updated todos', todos);
-};
- */
-
-/* const toggleTodo = (todoId) => {
-	const updatedTodos = todos.map((todo) => (todo.id === todoId ? {
-	  ...todo,
-	  completed: !todo.completed,
-	} : todo));
-	setTodos(updatedTodos);
-  };
- */

@@ -3,8 +3,8 @@
 import React from 'react';
 /* import PropTypes from 'prop-types';
  */
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { StylesProvider, CssBaseline, MuiThemeProvider } from '@material-ui/core';
+import { createGlobalStyle } from 'styled-components';
+import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 
 export const GlobalStyle = createGlobalStyle`
 	*,
@@ -15,12 +15,8 @@ export const GlobalStyle = createGlobalStyle`
 
 	body {
 		align-items: center;
-		font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-		/*  background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text}; */
-		/* display: flex;
-    flex-direction: column;
-    justify-content: center; */
+		font-family: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto,
+			Helvetica, Arial, sans-serif;
 		height: 100vh;
 		margin: 0;
 		padding: 0;
@@ -28,20 +24,19 @@ export const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-function ThemeWrapper({ children, theme }) {
+interface Ithemewrapper {
+	children: any
+	theme: Object
+}
+export const ThemeWrapper: React.FC<Ithemewrapper> = ({ children, theme }) => {
 	console.log('THIS IS THEME INSIDE THEMEWRAPPER', theme);
 	return (
 		<>
-			<ThemeProvider theme={theme}>
-				<StylesProvider injectFirst>
-					<MuiThemeProvider theme={theme}>
-						<GlobalStyle />
-						<CssBaseline />
-						{children}
-					</MuiThemeProvider>
-				</StylesProvider>
-			</ThemeProvider>
+			<MuiThemeProvider theme={theme}>
+				<GlobalStyle />
+				<CssBaseline />
+				{children}
+			</MuiThemeProvider>
 		</>
 	);
-}
-export default ThemeWrapper;
+};

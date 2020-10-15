@@ -1,23 +1,22 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-function useUpdate(initialVal = 'testdata') {
-  // call useState, "reserve a piece of state";
+export const useInputState = (initialVal: any) => {
+	// call useState, "reserve a piece of state";
 
-  const [state, setState] = useState(initialVal);
+	const [state, setState] = useState(initialVal);
 
-  const update = (e) => {
-    setState(e.target.value);
-  };
+	const update = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		setState(e.target.value);
+	};
 
-  /*  const change = () => {
-    setState('testxxx');
-  };
- */
-  const reset = () => {
-    setState('');
-  };
+	/*  const change = () => {
+	  setState('testxxx');
+	};
+	*/
 
-  return [state, update, reset];
-}
+	const reset = () => {
+		setState('');
+	};
 
-export default useUpdate;
+	return [state, reset, update];
+};

@@ -4,13 +4,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import MUIApp from './MUIthemeExample/MUIApp';
+import { MUIapp } from './MUIthemeExample/MUIApp';
 
 
 ReactDOM.render(
 	<React.StrictMode>
 		{/*     <VanillaThemingApp /> */}
-		<MUIApp />
+		<MUIapp />
 		{/* <StyledThemingApp/> */}
 	</React.StrictMode>,
 	document.getElementById('root'),

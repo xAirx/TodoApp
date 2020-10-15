@@ -23,7 +23,7 @@
 		},
 		"ecmaVersion": 11,
 		"sourceType": "module",
-		"project": "./tsconfig.json"
+		"project": "./GraphQLTodoApp/tsconfig.json"
 	},
 	"rules": {
 		"react-hooks/rules-of-hooks": "error",
@@ -48,7 +48,7 @@
 			}
 		],
 		"react/jsx-indent": [
-			2,
+			0,
 			"tab"
 		],
 		"react/jsx-indent-props": [
@@ -81,7 +81,7 @@
 			"avoid-escape"
 		],
 		"no-use-before-define": [
-			2,
+			0,
 			{
 				"functions": false
 			}
@@ -93,7 +93,7 @@
 		"prefer-const": 1,
 		"react/prefer-es6-class": 0,
 		"react/prop-types": [
-			1
+			0
 		],
 		"react/no-array-index-key": [
 			1
