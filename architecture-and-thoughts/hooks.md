@@ -91,11 +91,28 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 
 ```
 
-## \(NOT DONE\) useLocalStorageState
+## useLocalStorageState
 
 > This hook does \*\*\*\*\*
 
-This hook was created to be able to easily store our todos in localstorage, so that when the user logs in or out the data is persisted and we can cut down on graphQL calls.
+This hook was created to be able to easily store our Todos in localstorage, so that when the user logs in or out the data is persisted and we can cut down on graphQL calls.
+
+
+
+> The Hook could have been typed more generically as DATA, instead of type Todo, but because of time constraints this was what I opted for,  
+>   
+> An alternative solution would be to use generics and go in this direction:
+
+```javascript
+"The hook does stores a value
+not specifically only todos"
+
+function useLocalStorageState<Data>(key: string, defaultValue: Data): Data {}
+
+then you can do:
+
+const initialTodos = useLocalStorageState<Todo[]>(....);
+```
 
 **See performance considerations for this implementation**
 
@@ -146,77 +163,27 @@ Write more here:
 We have declared our types here, for easy export and usage within other components.
 
 ```javascript
-import uuid from 'uuid/v4';
-import useLocalStorageState from './useLocalStorageState';
-import { useCallback } from 'react';
-
-export type AddTodoHandler = (value: string) => void;
-export type RemoveTodoHandler = (id: number) => void;
-export type EditTodoHandler = (id: number, value: string) => void;
-export type ToggleTodoHandler = (id: number) => void;
-export type Todo = {
-	id: number;
-	task: string;
-	completed: boolean
-}
-
-export const useTodos = (initialTodos: Todo[]) => {
-	// UselocalStorage state will initialize the state and make the state for us.
-	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
-	// Localstorage functionality here.
-	const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
-
-	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
-
-	const removeTodo: RemoveTodoHandler = useCallback((todoId) => {
-		console.log('removetodocalled');
-		// filter out removed todo
-		const updatedTodos = todos.filter((todo: { id: number; }) => todo.id !== todoId);
-		console.log(updatedTodos);
-		// call setTodos with new todosArray
-		setTodos(updatedTodos);
-		/* console.log('These are the updated todos', todos); */
-	}, [])
-
-	const addTodo: AddTodoHandler = useCallback((task) => {
-		setTodos([...todos, { id: uuid(), task, completed: false }]);
-	}, [])
-
-	const editTodo: EditTodoHandler = useCallback((todoId, task) => {
-		console.log('editTodoCalled');
-		// filter out removed todo
-		/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
-		   /*  console.log(updatedTodos); */
-		/*  updatedTodos.task = newTodoText; */
-		// call setTodos with new todosArray
-		const updatedTodos = todos.map((todo: { id: number; }) => (todo.id === todoId
-			? { ...todo, task } : todo));
-		console.log('this is the new todos changed from edit', updatedTodos);
-		setTodos(updatedTodos);
-		/* console.log('These are the updated todos', todos); */
-	}, [])
-
-	const toggleTodo: ToggleTodoHandler = useCallback((todoId) => {
-		const updatedTodos = todos.map((todo: { id: number; completed: boolean; }) => (todo.id === todoId ? {
-			...todo,
-			completed: !todo.completed,
-		} : todo));
-		setTodos(updatedTodos);
-	}, [])
-
-
-	return {
-		// Return our todos.
-		todos,
-		removeTodo,
-		addTodo,
-		editTodo,
-		toggleTodo
-	};
-};
-
 
 ```
+
+### Usage in project
+
+This hook is used as a "starting point for our application, we can distribute our todo "crud" operations throughout our project.
+
+We start by passing it into **TodoForm &**  **TodoList -&gt; SingleTodo-&gt;TodoEditForm**  \(component\) which then in return passes it down to the child components that needs the functionality.
+
+We have it **destructured** in our app component from the hook itself, passing the Todos themselves, \(state managed inside the hook gives us the newly updates Todos every time\) is critical.
+
+```javascript
+	const {
+		todos, addTodo, removeTodo, toggleTodo, editTodo,
+	} = useTodos(initialTodos);
+
+```
+
+## Would Context API be needed to avoid propdrilling in this scenario?
+
+
 
 ## Usage of useCallback
 
