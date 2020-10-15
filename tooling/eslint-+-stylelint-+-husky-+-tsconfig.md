@@ -2,28 +2,40 @@
 
 ## Setup and Overview
 
-### Husky Pre-hooks
+Prefixing, postcss, minifying.
 
-```bash
-"husky": {
+### Eslint and Stylelint Scripts
+
+```css
+"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.css -o css/style.prefix.css",
+		"compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
+		"build:css": "npm-run-all compile:sass prefix:css compress:css",
+		"lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+		"lintfix": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+		"stylelintfix": "npx stylelint '**/*.scss' --fix",
+		"stats": "react-scripts build \"--stats\" && webpack-bundle-analyzer build/bundle-stats.json"
+	},
+```
+
+### Husky Pre-Hooks
+
+```css
+husky": {
 		"hooks": {
-			"pre-commit": "npm-run-all --parallel lintfix stylelintfix",
+			"pre-commit": "npm-run-all --parallel lintfix stylelintfix build:css",
 			"pre-push": "yarn run lint"
 		}
 	},
 ```
 
-### Eslint and Stylelint Scripts
-
-```bash
-"lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-		"lintfix": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-		"stylelintfix": "npx stylelint '**/*.scss' --fix",
-```
-
 ### .eslintrc
 
-```bash
+```css
 {
 	"env": {
 		"browser": true,
@@ -197,7 +209,7 @@
 
 ### tsconfig.json
 
-```bash
+```css
 {
 	"compilerOptions": {
 		"jsx": "react",
@@ -258,16 +270,6 @@
 		/* Experimental Options */
 		// "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
 		// "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
-	},
-	// I will only compile whatever is inside the source folder:
-	"include": [
-		"src"
-	],
-	"files.exclude": {
-		"**/.git": true,
-		"**/.DS_Store": true,
-		"jspm_packages": true,
-		"node_modules": true
 	}
 }
 ```

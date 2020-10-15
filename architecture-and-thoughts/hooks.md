@@ -226,7 +226,7 @@ see the below chapters.
 
 see the following chapter here:
 
-{% page-ref page="../performance-considerations/optimization.md" %}
+{% page-ref page="optimization.md" %}
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 
