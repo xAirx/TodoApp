@@ -1,2 +1,2 @@
-# GraphQLTodoApp
+# Fullstack TodoApp
 
