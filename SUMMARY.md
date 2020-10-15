@@ -19,7 +19,7 @@
 
 * [Material UI](architecture-and-thoughts/material-ui.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
-* [TODO: Custom Hooks](architecture-and-thoughts/hooks.md)
+* [Custom Hooks](architecture-and-thoughts/hooks.md)
 * [TODO: Introduction to Optimization](architecture-and-thoughts/optimization.md)
 * [TODO: React Router](architecture-and-thoughts/react-router.md)
 * [TODO: Apollo + GraphQL](architecture-and-thoughts/apollo-+-graphql.md)
