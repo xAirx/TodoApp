@@ -20,29 +20,30 @@
 * [Material UI](architecture-and-thoughts/material-ui.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
 * [Custom Hooks](architecture-and-thoughts/hooks.md)
-* [TODO: Introduction to Optimization](architecture-and-thoughts/optimization.md)
-* [TODO: React Router](architecture-and-thoughts/react-router.md)
-* [TODO: Apollo + GraphQL](architecture-and-thoughts/apollo-+-graphql.md)
-
-## Performance Considerations
-
-* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
-* [Webpack-bundle-analyzer](performance-considerations/webpack-bundle-analyzer.md)
-* [TODO: React Profiler](performance-considerations/todo-react-profiler.md)
-* [TODO: Google Pagespeed + GTMetrix + Lighthouse](performance-considerations/google-pagespeed-+-gtmetrix-+-lighthouse.md)
-
-## API Documentation
-
-* [TODO: Endpoints](api-documentation/endpoints.md)
-* [TODO: Authentication](api-documentation/authentication.md)
+* [TODO: Clientside validation](architecture-and-thoughts/todo-clientside-validation.md)
 
 ## Security <a id="security-1"></a>
 
----
+* [Followup: My  Security Bible](security-1/todo-security-1.md)
 
-* [TODO: Security](todo-security.md)
+## Performance Considerations
+
+* [TODO: My Optimization Bible](performance-considerations/optimization.md)
+* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
+* [TODO LAST: React Profiler](performance-considerations/todo-react-profiler.md)
 
 ## UnitTesting
 
 * [TODO: Overview of Unittests](unittesting/overview-of-unittests.md)
+
+## React Router
+
+* [TODO: React Router](react-router/react-router.md)
+
+## API Documentation
+
+* [TODO: Express API Architecture](api-documentation/apollo-+-graphql.md)
+* [TODO: Endpoints](api-documentation/endpoints.md)
+* [TODO: Authentication & Security](api-documentation/authentication.md)
+* [TODO Performance](api-documentation/todo-performance.md)
 

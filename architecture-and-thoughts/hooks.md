@@ -99,9 +99,7 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 
 #### 
 
-
-
-#### Alternative naming: useLocalStorageState
+### Alternative naming: useLocalStorageState
 
 {% hint style="danger" %}
 
@@ -265,7 +263,7 @@ A classic todoapp would not need context API, and would be sort of over engineer
 
 see the following chapters here:
 
-{% page-ref page="optimization.md" %}
+{% page-ref page="../performance-considerations/optimization.md" %}
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 

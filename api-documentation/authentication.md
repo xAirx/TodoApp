@@ -1,12 +1,14 @@
-# TODO: Authentication
+# TODO: Authentication & Security
 
 ## Can I become who I want to be?
 
 That's a tough question but thankfully, our team is on it. Please bear with us while we're investigating.
 
-## Have you had a chance to answer the previous question?
+## Security thougth process 
 
-Yes, after a few months we finally found the answer. Sadly, Mike is on vacations right now so I'm afraid we are not able to provide the answer at this point.
+Ensure the usage of JWT to store the user session data on the server-side or the client-side based on your application dependency and requirement
+
+Use properly validated cookies to store API tokens.
 
 
 

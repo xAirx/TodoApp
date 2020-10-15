@@ -72,7 +72,7 @@ export const EditTodoForm: React.FC<EditTodo> = ({ id, editTodo, task, toggleEdi
 
 #### See the section on Pure **C**omponents and Optimization here:
 
-{% page-ref page="optimization.md" %}
+{% page-ref page="../performance-considerations/optimization.md" %}
 
 
 
