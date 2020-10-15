@@ -1,41 +1,39 @@
-/* eslint-disable react/prop-types */
+// eslint-disable-next-line no-use-before-define
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import Todo from './Todos';
 
-function TodoList({
+import { SingleTodo } from './SingleTodo';
+import {
+	RemoveTodoHandler, EditTodoHandler, ToggleTodoHandler, Todo,
+} from './Hooks/useTodoState';
+
+interface ITodoList {
+	editTodo: EditTodoHandler,
+	removeTodo: RemoveTodoHandler,
+	toggleTodo: ToggleTodoHandler,
+	todos: Todo[]
+}
+
+const useStyles = makeStyles(theme => ({
+	muipaper: {
+		border: 0,
+		borderRadius: 3,
+		boxShadow: '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0)',
+		padding: theme.spacing(2),
+		textAlign: 'center',
+	},
+}));
+
+export const TodoList: React.FC<ITodoList> = ({
 	todos, removeTodo, toggleTodo, editTodo,
-}) {
+}) => {
 	// here we are overwriting everything in setTodos, we are going to pass in the existing todos
 	// and then we will concatenate a new object.
 
-	const useStyles = makeStyles((theme) => ({
-		muipaper: {
-			/* root: { */
-			/*       background: theme.palette.background.paper, */
-			border: 0,
-			borderRadius: 3,
-
-			boxShadow: '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0)',
-			/* boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)', */
-			/* color: 'white', */
-			/* height: 48, */
-			/*  padding: '0 30px', */
-			/*       height: , */
-			padding: theme.spacing(2),
-			textAlign: 'center',
-
-		},
-	}));
-
 	const classes = useStyles();
-	/// // works but eslint hates it ? /////
-	/*  const {...todos} = props.todos; */
-	/// Correct way ///
-	/*   const { todos, removeTodo } = props; */
 
 	return (
 
@@ -44,7 +42,7 @@ function TodoList({
 				<List>
 					{todos.map((todo, i) => (
 						<>
-							<Todo
+							<SingleTodo
 								id={todo.id}
 								task={todo.task}
 								completed={todo.completed}
@@ -60,6 +58,4 @@ function TodoList({
 		</>
 	);
 	/* return null; */
-}
-
-export default TodoList;
+};

@@ -7,7 +7,7 @@
     'comment-no-empty': true,
     'unit-case': 'lower',
     'unit-no-unknown': true,
-    'string-quotes': double,
+    'string-quotes': single,
     'indentation': 'tab',
 	'max-nesting-depth': 4,
   }

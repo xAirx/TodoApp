@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-function useToggle(initialVal = false) {
-  // call useState, "reserve a piece of state";
+// declare explicit return type.
+export const useToggle = (initialVal = false): [boolean, () => void] => {
+	// call useState, "reserve a piece of state";
 
-  const [state, setState] = useState(initialVal);
-  const toggle = () => {
-    setState(!state);
-  };
+	const [state, setState] = useState(initialVal);
+	const toggle = () => {
+		setState(!state);
+	};
 
-  return [state, toggle];
-}
-export default useToggle;
+	return [state, toggle];
+};
