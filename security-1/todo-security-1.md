@@ -1,4 +1,4 @@
-# Followup: My  Security Bible
+# Todo Followup: My  Security Bible
 
 ## **React provides its own security measures.**
 
@@ -40,7 +40,7 @@ can be leveraged in order to secure the application via its auto-escaping functi
 
 **See the below chapter for the implementation of clientside validation**
 
-{% page-ref page="../architecture-and-thoughts/todo-clientside-validation.md" %}
+{% page-ref page="todo-clientside-validation.md" %}
 
 ## Basic mitigation against CSRF
 
@@ -96,23 +96,33 @@ Lack of authentication or business logic flaw leads to React API vulnerability.
 
 Some of the commonly used React authentication approaches are:
 
-### **JWT's & Passport.js.** 
+### **JWT's & Firebase.**
 
 The implementation and following technologies are used in this project.
 
 You can also use JWT with React router redirect component to easily implement secured routing of data
 
+> #### An alternative would be to use Passport.js, but since im opting for a BaaS solution i am using firebase here.
+
+
+
 ### **Encrypting \(Salting and Hashing - Bcrypt\)**
 
 Making sure data  is not stored as plaintext in the backend.
+
+
 
 ### Avoiding DDOS 
 
 Captcha implementation
 
+
+
 ### Client side validation 
 
 Here i will use the React Validation Framework which supports the error prop included in material-UI
+
+
 
 ### Server-Side Validation
 
@@ -124,7 +134,7 @@ Server-side validation implemented into the express API itself.
 
 {% page-ref page="../api-documentation/authentication.md" %}
 
-{% page-ref page="../architecture-and-thoughts/todo-clientside-validation.md" %}
+{% page-ref page="todo-clientside-validation.md" %}
 
 
 

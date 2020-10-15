@@ -20,21 +20,17 @@
 * [Material UI](architecture-and-thoughts/material-ui.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
 * [Custom Hooks](architecture-and-thoughts/hooks.md)
-* [TODO: Clientside validation](architecture-and-thoughts/todo-clientside-validation.md)
 
 ## Security <a id="security-1"></a>
 
-* [Followup: My  Security Bible](security-1/todo-security-1.md)
+* [Todo Followup: My  Security Bible](security-1/todo-security-1.md)
+* [TODO: Clientside validation](security-1/todo-clientside-validation.md)
 
 ## Performance Considerations
 
 * [TODO: My Optimization Bible](performance-considerations/optimization.md)
 * [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
 * [TODO LAST: React Profiler](performance-considerations/todo-react-profiler.md)
-
-## UnitTesting
-
-* [TODO: Overview of Unittests](unittesting/overview-of-unittests.md)
 
 ## React Router
 
@@ -43,7 +39,12 @@
 ## API Documentation
 
 * [TODO: Express API Architecture](api-documentation/apollo-+-graphql.md)
+* [TODO Firebase & Considerations](api-documentation/todo-firebase-and-considerations.md)
 * [TODO: Endpoints](api-documentation/endpoints.md)
 * [TODO: Authentication & Security](api-documentation/authentication.md)
 * [TODO Performance](api-documentation/todo-performance.md)
+
+## UnitTesting
+
+* [TODO: Overview of Unittests](unittesting/overview-of-unittests.md)
 
