@@ -62,7 +62,7 @@ export const useDarkmode = (themeObject: any) => {
 		console.log('THIS IS THEME.TYPE', themeObject); */
 		const updatedTheme = {
 			...themeObject,
-			type: themeObject === darkTheme ? lightTheme : darkTheme,
+			type: themeObject === darkTheme ? themeObject = lightTheme : themeObject = darkTheme,
 		};
 		console.log('this is the updated theme', theme);
 		setTheme(updatedTheme);

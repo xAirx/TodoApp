@@ -27,21 +27,27 @@ export const HomeComponent: React.FC = () => {
 	/// //////////////////////////////////////////////////////////////
 
 	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-	const themeObject = React.useMemo(
+	/* const themeObject = React.useMemo(
 		() => (prefersDarkMode ? darkTheme : lightTheme),
 		// only run if prefersDarkMode has changed
 		[prefersDarkMode],
-	);
-	/* const themeObject = prefersDarkMode ? darkTheme : lightTheme; */
+	); */
+	const themeObject = prefersDarkMode ? darkTheme : lightTheme;
 	console.log(themeObject);
+
+	// check if prefersdarkmode is in localStorage if it is, do not run it again.
+
+	// pull the localstorage themeobject in else not.
+
 	const [theme, toggleDarkMode] = useDarkmode(themeObject);
-	/* 	console.log('This is theme from app', theme);
-		const themeConfig = createMuiTheme(theme);
-	 */
-	const themeConfig = React.useMemo(
+	console.log('This is theme from app', theme);
+	const themeConfig = createMuiTheme(theme);
+
+	/* const themeConfig = React.useMemo(
 		// Only run if theme has changed.
 		() => createMuiTheme(theme), [theme],
-	);
+	); */
+
 	const useStyles = makeStyles(() => ({
 		root: {
 			flexGrow: 1,
