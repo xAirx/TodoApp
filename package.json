@@ -26,7 +26,6 @@
 		"@typescript-eslint/eslint-plugin": "^4.4.1",
 		"@typescript-eslint/parser": "^4.4.1",
 		"axios": "^0.19.2",
-		"eslint": "^7.11.0",
 		"eslint-config-airbnb-typescript": "^11.0.0",
 		"eslint-plugin-react": "^7.21.4",
 		"eslint-plugin-react-hooks": "^4.0.8",
