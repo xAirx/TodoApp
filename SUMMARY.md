@@ -19,8 +19,8 @@
 
 * [TODO: DesignPrinciples](architecture-and-thoughts/optimization.md)
 * [TODO: Composition Patterns](architecture-and-thoughts/todo-composition-patterns.md)
-* [Material UI](architecture-and-thoughts/material-ui.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
+* [Material UI](architecture-and-thoughts/material-ui.md)
 * [Custom Hooks](architecture-and-thoughts/hooks.md)
 
 ## Application Considerations <a id="performance-considerations"></a>
