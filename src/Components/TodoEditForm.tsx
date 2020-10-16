@@ -3,8 +3,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { useInputState } from './Hooks/useInputState';
-import { EditTodoHandler } from './Hooks/useTodoState';
+import { useInputState } from '../Hooks/useInputState';
+import { EditTodoHandler } from '../Hooks/useTodoState';
 
 interface IEditTodo {
 	id: string,
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 export const EditTodoForm: React.FC<IEditTodo> = ({
 	id, editTodo, task, toggleEditForm,
 }) => {
-	const [value, update, reset] = useInputState(task);
+	const { value, reset, update } = useInputState(task);
 	/* const [isError, setError] = useState(false); */
 
 	/*   const CheckError = () => {
@@ -76,7 +76,7 @@ export const EditTodoForm: React.FC<IEditTodo> = ({
 					className={classes.textfield}
 					margin="normal"
 					value={value}
-					onChange={() => update}
+					onChange={update /* foo => console.log(foo) */}
 				/>
 				<Button className={classes.button} type="submit">Submit</Button>
 			</form>

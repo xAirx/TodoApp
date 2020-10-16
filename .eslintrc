@@ -23,7 +23,7 @@
 		},
 		"ecmaVersion": 11,
 		"sourceType": "module",
-		"project": "./GraphQLTodoApp/tsconfig.json"
+		"project": "./tsconfig.json"
 	},
 	"rules": {
 		"react-hooks/rules-of-hooks": "error",

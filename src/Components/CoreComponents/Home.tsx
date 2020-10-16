@@ -1,8 +1,8 @@
 import React from 'react';
-import '../css/style.css';
 import {
-	FormControlLabel, createMuiTheme, Switch,
-	IconButton,
+	createMuiTheme,
+	FormControlLabel,
+	IconButton, Switch,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -13,36 +13,35 @@ import { makeStyles } from '@material-ui/core/styles';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import {
 	ThemeWrapper, useDarkmode, darkTheme, lightTheme,
 } from './index';
 import { TodoList } from '../TodoList';
 import TodoForm from '../TodoForm';
-import { useTodos } from '../Hooks/useTodoState';
+import { useTodos } from '../../Hooks/useTodoState';
 
-export const MUIapp: React.FC = () => {
+export const HomeComponent: React.FC = () => {
+	/// //////////////////////////////////////////////////////////////
+	/// ////////////////////Material UI Theming ///////////////////////////////
+	/// //////////////////////////////////////////////////////////////
+
 	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-	/* const themeObject = React.useMemo(
+	const themeObject = React.useMemo(
 		() => (prefersDarkMode ? darkTheme : lightTheme),
 		// only run if prefersDarkMode has changed
 		[prefersDarkMode],
-	); */
-
-	const themeObject = prefersDarkMode ? darkTheme : lightTheme;
-
+	);
+	/* const themeObject = prefersDarkMode ? darkTheme : lightTheme; */
 	console.log(themeObject);
-
 	const [theme, toggleDarkMode] = useDarkmode(themeObject);
-
-	console.log('This is theme from app', theme);
-	const themeConfig = createMuiTheme(theme);
-
-	/* const themeConfig = React.useMemo(
+	/* 	console.log('This is theme from app', theme);
+		const themeConfig = createMuiTheme(theme);
+	 */
+	const themeConfig = React.useMemo(
 		// Only run if theme has changed.
 		() => createMuiTheme(theme), [theme],
-	); */
-
+	);
 	const useStyles = makeStyles(() => ({
 		root: {
 			flexGrow: 1,
@@ -72,28 +71,10 @@ export const MUIapp: React.FC = () => {
 			textAlign: 'center',
 		},
 	}));
-
 	const classes = useStyles();
-
-	/// /////  TODO:
-	/// /////
-	/* basically on initial load
-		check for localStorage
-		  if there is a value
-		  retrieve it
-		validate it
-		put it into state
-		  if no value, put null into state
-		then in useEffect
-		 check what you have in state
-		 if something is there, no api request required
-		   if nothing is there, do the request
-		 in a separate useEffect, sync the changed state to localStorage
-		 and to backend if you want
- */
-
 	const initialTodos = [{ id: '1', task: 'Get started writing your own todos here!', completed: false }];
-	/// ////////////////////////////////////
+	/// ////////////////////////////////////////////////////////////////////////
+	/// ///////////////////////////////////////////////////////////////////////
 
 	const {
 		todos, addTodo, removeTodo, toggleTodo, editTodo,
@@ -123,13 +104,15 @@ export const MUIapp: React.FC = () => {
 							</Typography>
 
 							<FormControlLabel
-								label="formcontrol"
+								label={themeConfig.palette.type === 'dark' ? 'Too Dark?' : 'Too Bright?'}
 								checked={themeConfig.palette.type === 'dark'}
 								control={<Switch onClick={toggleDarkMode} />}
 							/>
+
 						</IconButton>
 					</Toolbar>
 				</AppBar>
+
 				<Paper
 					className={classes.muipapermain}
 					variant="outlined"

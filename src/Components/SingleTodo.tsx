@@ -7,8 +7,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { EditTodoForm } from './TodoEditForm';
-import { useToggle } from './Hooks/useToggleState';
-import { RemoveTodoHandler, EditTodoHandler, ToggleTodoHandler } from './Hooks/useTodoState';
+import { useToggle } from '../Hooks/useToggleState';
+import { RemoveTodoHandler, EditTodoHandler, ToggleTodoHandler } from '../Hooks/useTodoState';
 
 interface ITodo {
 	removeTodo: RemoveTodoHandler,
@@ -25,13 +25,6 @@ export const SingleTodo: React.FC<ITodo> = (
 		id, task, completed, toggleTodo, removeTodo, editTodo,
 	},
 ) => {
-	/*   const [isToggled, toggleEdit] = useState(false);
-
-	const editToggle = () => {
-	  const toggled = !isToggled;
-	  toggleEdit(toggled);
-	};
-   */
 	const [isEditing, toggle] = useToggle(false);
 
 	/* console.log(id); */
