@@ -14,7 +14,6 @@ Prefixing, postcss, minifying.
 		"eject": "react-scripts eject",
 		"lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
 		"lintfix": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-		"stylelintfix": "npx stylelint '**/*.scss' --fix",
 		"stats": "react-scripts build \"--stats\" && webpack-bundle-analyzer build/bundle-stats.json"
 	},
 ```
@@ -24,7 +23,7 @@ Prefixing, postcss, minifying.
 ```css
 husky": {
 		"hooks": {
-			"pre-commit": "npm-run-all --parallel lintfix stylelintfix build:css",
+			"pre-commit": "npm-run-all --parallel lintfix",
 			"pre-push": "yarn run lint"
 		}
 	},
@@ -58,7 +57,7 @@ husky": {
 		},
 		"ecmaVersion": 11,
 		"sourceType": "module",
-		"project": "./GraphQLTodoApp/tsconfig.json"
+		"project": "./tsconfig.json"
 	},
 	"rules": {
 		"react-hooks/rules-of-hooks": "error",
