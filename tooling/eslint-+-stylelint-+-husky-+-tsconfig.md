@@ -1,4 +1,4 @@
-# Eslint + StyleLint + Husky + TSConfig
+# Eslint & Husky & TSConfig
 
 ## Setup and Overview
 

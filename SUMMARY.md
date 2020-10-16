@@ -8,7 +8,7 @@
 
 ## Tooling
 
-* [Eslint + StyleLint + Husky + TSConfig](tooling/eslint-+-stylelint-+-husky-+-tsconfig.md)
+* [Eslint & Husky & TSConfig](tooling/eslint-+-stylelint-+-husky-+-tsconfig.md)
 
 ## CI/CD setup
 
