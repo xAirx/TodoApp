@@ -25,8 +25,7 @@
 
 ## Application Considerations <a id="performance-considerations"></a>
 
-* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
-* [TODO: Implemented Composition Patterns](performance-considerations/todo-implemented-composition-patterns.md)
+* [TODO: Implemented optimizations and Composition patterns](performance-considerations/todo-implemented-optimizations.md)
 * [TODO: React Profiler](performance-considerations/todo-react-profiler.md)
 
 ## UnitTesting

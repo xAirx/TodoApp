@@ -1,25 +1,71 @@
-# TODO: Implemented optimizations
+# TODO: Implemented optimizations and Composition patterns
 
-```text
-//////// Will be refactored to GRAPHQL USE EFFECT GRABBING DATA.
-/* basically on initial load
-    check for localStorage
-      if there is a value
-      retrieve it
-    validate it
-    put it into state
-      if no value, put null into state
-    then in useEffect
-     check what you have in state
-     if something is there, no api request required
-       if nothing is there, do the request
-     in a separate useEffect, sync the changed state to localStorage
-     and to backend if you want
+## Themeconfig
+
+Thought process
+
+Optimizations
+
+Composition patterns used
+
+Alternative solutions
+
+## UseTodoState hook
+
+Thought process
+
+Optimizations
+
+Composition patterns used
+
+### Alternative solutions \(using an API to grab data\)
+
+```javascript
+const conservativeAddTodo: AddTodoHandler = useCallback(async (task) => {
+    // there are multiple approaches possible.
+    // this is the conservative one: create a todo, send it to your endpoint
+    // then, _when its finished_, reflect the new state in the UI by setting
+    // state
+    const newTodo = { completed: false, id: uuid(), task };
+
+    try {
+      await axios.post(endpoint, newTodo);
+
+      setTodos((oldTodos) => oldTodos.concat(newTodo));
+    } catch {
+      // do whatever you want here
+    }
+
+    // this is the alternative approach, youll find content about it if you search
+    // for "optimistic ui"
+  }, []);
+
+  const optimisticAddTodo: AddTodoHandler = useCallback((task) => {
+    // this is the alternative approach, youll find content about it if you search
+    // for "optimistic ui"
+
+    const newTodo = { completed: false, id: uuid(), task };
+
+    setTodos((oldTodos) => oldTodos.concat(newTodo));
+
+    // fire and forget approach. the ui was already updated above! we don't care
+    // whether the request fails or not. we expect it not to, but its not relevant
+    // for the direct continuation of the user flow. feels better, no waiting time!
+    axios.post(endpoint, newTodo).catch((error) => {
+      // do whatever you want here
+    });
+  }, []);
 ```
 
-## UseCallback
+## UseDarkMode hook
+
+Thought process
+
+Optimizations
+
+Composition patterns used
+
+Alternative solutions
 
 
-
-## UseMemo
 
