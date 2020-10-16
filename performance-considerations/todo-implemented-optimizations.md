@@ -1,4 +1,4 @@
-# TODO: Implemented optimizations and Composition patterns
+# TODO: Implemented optimizations
 
 ## Themeconfig
 
@@ -60,6 +60,16 @@ const conservativeAddTodo: AddTodoHandler = useCallback(async (task) => {
 ## UseDarkMode hook
 
 Thought process
+
+
+
+#### Initial structure:
+
+find old structure in a git commit
+
+
+
+#### Improved Structure
 
 Optimizations
 

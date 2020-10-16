@@ -1,4 +1,4 @@
-# Material UI
+# TODO: Material UI
 
 ## Examples of usage within the project:
 
@@ -124,29 +124,7 @@ I wanted to add a preferred theme functionality, along with more control over sp
 #### `Example` Dark Theme.
 
 ```javascript
-const darkTheme = {
 
-	palette: {
-		primary: {
-			dark: '#FFFFFF',
-
-			light: '#FFFFFF',
-
-			main: '#FFFFFF',
-		},
-		secondary: {
-			dark: '#FFFFFF',
-
-			light: '#FFFFFF',
-
-			main: '#FFFFFF',
-		},
-		type: 'dark',
-		background: {
-			paper: 'linear-gradient(130deg, #0c2623 80%, #96bb7c 10%)',
-		},
-	},
-};
 ```
 
 ####  Custom Hook - useDarkMode function.
@@ -164,55 +142,16 @@ To read about the performance optimizations implemented  in detail read below:
 
 #### Usage in the app file
 
-here we use the useDarkMode hook, and control the light and dark theme via "toggleDarkMode".
-
-Also we create the themeConfig, which will globally create the MUI theme with the theme that is now set \(either light or dark\)
+\*\*\*\*\*\* Write
 
 ```javascript
-	
- export const MUIapp: React.FC = () => {
-
-	const [theme, toggleDarkMode] = useDarkmode(themeObject);
-
-	const themeConfig = React.useMemo(
-		() => {
-			return createMuiTheme(theme);
-		}, [theme]
-	);
 
 ```
 
 #### Toggle functionality
 
 ```javascript
-<IconButton
-			aria-label="light and dark mode toggle"
-			edge="end"
-			justify="center"
-			color="inherit" 
->
 
-<Typography
-			className={classes.title}
-			style={{
-						marginRight: '20px',
-						marginTop: '6px'
-				}}
-				noWrap
->
-
-{themeConfig.palette.type === 'dark'
-? <Brightness4Icon variant="outlined" />
-	: <Brightness7Icon />}
-
-</Typography>
-
-<FormControlLabel
-		   checked={themeConfig.palette.type === 'dark'}
-       control={<Switch onClick={toggleDarkMode} />}
-/>
-
-</IconButton>
 ```
 
 ## Extra

@@ -18,15 +18,13 @@
 ## Architecture & Thoughts
 
 * [TODO: DesignPrinciples](architecture-and-thoughts/optimization.md)
-* [TODO: Composition Patterns](architecture-and-thoughts/todo-composition-patterns.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
-* [Material UI](architecture-and-thoughts/material-ui.md)
-* [Custom Hooks](architecture-and-thoughts/hooks.md)
+* [TODO: Material UI](architecture-and-thoughts/material-ui.md)
+* [TODO: Custom Hooks](architecture-and-thoughts/hooks.md)
 
 ## Application Considerations <a id="performance-considerations"></a>
 
-* [TODO: Implemented optimizations and Composition patterns](performance-considerations/todo-implemented-optimizations.md)
-* [TODO: React Profiler](performance-considerations/todo-react-profiler.md)
+* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
 
 ## UnitTesting
 
