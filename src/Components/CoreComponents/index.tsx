@@ -1,6 +1,8 @@
 import { ThemeWrapper, GlobalStyle } from './ThemeWrapper';
-import { useDarkmode, lightTheme, darkTheme } from './myTheme';
+import {
+	useTheme, useColorMode,
+} from './myTheme';
 
 export {
-	ThemeWrapper, useDarkmode, GlobalStyle, lightTheme, darkTheme,
+	ThemeWrapper, useColorMode, useTheme, GlobalStyle,
 };

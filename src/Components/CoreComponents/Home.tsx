@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-	createMuiTheme,
 	FormControlLabel,
 	IconButton, Switch,
 } from '@material-ui/core';
@@ -12,41 +11,20 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import {
-	ThemeWrapper, useDarkmode, darkTheme, lightTheme,
+	ThemeWrapper, useColorMode, useTheme,
 } from './index';
 import { TodoList } from '../TodoList';
 import TodoForm from '../TodoForm';
 import { useTodos } from '../../Hooks/useTodoState';
 
 export const HomeComponent: React.FC = () => {
-	/// //////////////////////////////////////////////////////////////
-	/// ////////////////////Material UI Theming ///////////////////////////////
-	/// //////////////////////////////////////////////////////////////
+	const theme = useTheme();
 
-	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-	/* const themeObject = React.useMemo(
-		() => (prefersDarkMode ? darkTheme : lightTheme),
-		// only run if prefersDarkMode has changed
-		[prefersDarkMode],
-	); */
-	const themeObject = prefersDarkMode ? darkTheme : lightTheme;
-	console.log(themeObject);
+	const { toggleColorMode } = useColorMode();
 
-	// check if prefersdarkmode is in localStorage if it is, do not run it again.
-
-	// pull the localstorage themeobject in else not.
-
-	const [theme, toggleDarkMode] = useDarkmode(themeObject);
-	console.log('This is theme from app', theme);
-	const themeConfig = createMuiTheme(theme);
-
-	/* const themeConfig = React.useMemo(
-		// Only run if theme has changed.
-		() => createMuiTheme(theme), [theme],
-	); */
+	console.log('This is our set theme', theme);
 
 	const useStyles = makeStyles(() => ({
 		root: {
@@ -54,11 +32,11 @@ export const HomeComponent: React.FC = () => {
 		},
 
 		menuButton: {
-			marginRight: themeConfig.spacing(2),
+			marginRight: theme.spacing(2),
 		},
 
 		toolbar: {
-			background: themeConfig.palette.background.paper,
+			background: theme.palette.background.paper,
 			boxShadow: '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0)',
 
 		},
@@ -69,25 +47,27 @@ export const HomeComponent: React.FC = () => {
 		},
 
 		muipapermain: {
-			background: themeConfig.palette.background.paper,
+			background: theme.palette.background.paper,
 			border: 0,
 			borderRadius: 3,
 			height: '100vh',
-			padding: themeConfig.spacing(2),
+			padding: theme.spacing(2),
 			textAlign: 'center',
 		},
 	}));
 	const classes = useStyles();
-	const initialTodos = [{ id: '1', task: 'Get started writing your own todos here!', completed: false }];
+
 	/// ////////////////////////////////////////////////////////////////////////
 	/// ///////////////////////////////////////////////////////////////////////
+
+	const initialTodos = [{ id: '1', task: 'Get started writing your own todos here!', completed: false }];
 
 	const {
 		todos, addTodo, removeTodo, toggleTodo, editTodo,
 	} = useTodos(initialTodos);
 
 	return (
-		<ThemeWrapper theme={themeConfig}>
+		<ThemeWrapper theme={theme}>
 			<div className={classes.root}>
 				<AppBar position="static" color="transparent">
 					<Toolbar className={classes.toolbar}>
@@ -104,15 +84,15 @@ export const HomeComponent: React.FC = () => {
 								}}
 								noWrap
 							>
-								{themeConfig.palette.type === 'dark'
+								{theme.palette.type === 'dark'
 									? <Brightness4Icon />
 									: <Brightness7Icon />}
 							</Typography>
 
 							<FormControlLabel
-								label={themeConfig.palette.type === 'dark' ? 'Too Dark?' : 'Too Bright?'}
-								checked={themeConfig.palette.type === 'dark'}
-								control={<Switch onClick={toggleDarkMode} />}
+								label={theme.palette.type === 'dark' ? 'Too Dark?' : 'Too Bright?'}
+								checked={theme.palette.type === 'dark'}
+								control={<Switch onClick={toggleColorMode} />}
 							/>
 
 						</IconButton>

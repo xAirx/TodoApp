@@ -28,9 +28,9 @@ interface Ithemewrapper {
 	children: any
 	theme: Object
 }
-export const ThemeWrapper: React.FC<Ithemewrapper> = ({ children, theme }) => {
-	console.log('THIS IS THEME INSIDE THEMEWRAPPER', theme);
-	return (
+export const ThemeWrapper: React.FC<Ithemewrapper> = ({ children, theme }) =>
+	/* console.log('THIS IS THEME INSIDE THEMEWRAPPER', theme); */
+	(
 		<>
 			<MuiThemeProvider theme={theme}>
 				<GlobalStyle />
@@ -39,4 +39,3 @@ export const ThemeWrapper: React.FC<Ithemewrapper> = ({ children, theme }) => {
 			</MuiThemeProvider>
 		</>
 	);
-};
