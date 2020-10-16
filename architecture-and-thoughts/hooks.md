@@ -7,14 +7,14 @@
 > This custom hook enables me to reset a state for a form-field and also gives the abillity to update the form field with an event such as e.target.value.
 
 ```javascript
-import { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 
-export const useInputState = (initialVal: any) => {
+export const useInputState = (initialVal: string) => {
 	// call useState, "reserve a piece of state";
 
-	const [state, setState] = useState(initialVal);
+	const [value, setState] = useState(initialVal);
 
-	const update = (e: ChangeEvent<HTMLTextAreaElement>) => {
+	const update = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 		setState(e.target.value);
 	};
 
@@ -27,7 +27,7 @@ export const useInputState = (initialVal: any) => {
 		setState('');
 	};
 
-	return [state, reset, update];
+	return { value, reset, update };
 };
 
 ```
@@ -73,7 +73,7 @@ function Todoform({ addTodo }) {
 ```javascript
 import { useState } from 'react';
 
-//declare explicit return type.
+// declare explicit return type.
 export const useToggle = (initialVal = false): [boolean, () => void] => {
 	// call useState, "reserve a piece of state";
 
@@ -83,7 +83,7 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 	};
 
 	return [state, toggle];
-}
+};
 
 ```
 
