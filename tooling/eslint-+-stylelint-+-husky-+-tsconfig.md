@@ -2,9 +2,9 @@
 
 ## Setup and Overview
 
-Prefixing, postcss, minifying.
 
-### Eslint and Stylelint Scripts
+
+### Package Scripts 
 
 ```css
 "scripts": {

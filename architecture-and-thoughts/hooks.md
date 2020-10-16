@@ -1,4 +1,4 @@
-# TODO LAST Custom Hooks
+# Custom Hooks
 
 ## Custom Hooks
 
@@ -97,9 +97,7 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 
 ## UseTodoState
 
-> This hook enables me to handle the "Crud operations" for my todos the example below is before the logic for calling the API is implemented, this logic is explained in the Express API Architecture section
-
-
+> This hook enables me to handle the "Crud operations" for my todos
 
 **We have declared our types here, for easy export and usage within other components**
 
@@ -203,13 +201,13 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 Context API, using the useContext hook would certainly enable me to have a global provider for the functionality needed in each component, due to time constraints this is not implemented.
 
-A classic todoapp would not need context API, and would be sort of over engineering here.
+A classic Todoapp would not need context API, and would be sort of over engineering here.
 
 ## Usage of useCallback
 
 see the following chapters here:
 
-{% page-ref page="../performance-considerations/optimization.md" %}
-
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
+
+{% page-ref page="optimization.md" %}
 

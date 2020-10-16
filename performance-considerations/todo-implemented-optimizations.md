@@ -1,4 +1,4 @@
-# TODO LAST: Implemented optimizations
+# TODO: Implemented optimizations
 
 ```text
 //////// Will be refactored to GRAPHQL USE EFFECT GRABBING DATA.

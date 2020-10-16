@@ -1,4 +1,4 @@
-# TODO: Introduction to Optimization
+# TODO: DesignPrinciples
 
 ## Pure components & Functional Programming
 
@@ -53,10 +53,4 @@ It is the same as Component except that Pure Components take care of `shouldComp
 3. `this.forceUpdate()` is called
 
 In the case of Pure Components, the React components do not re-render blindly without considering the updated values of React “props” and “state”. If updated values are the same as previous values, render is not triggered.
-
-## UseMemo
-
-## Lazy & Suspense
-
-## useReducer
 
