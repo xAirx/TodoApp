@@ -99,8 +99,6 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 
 > This hook enables me to handle the "Crud operations" for my todos the example below is before the logic for calling the API is implemented, this logic is explained in the Express API Architecture section
 
-{% page-ref page="../api-documentation/apollo-+-graphql.md" %}
-
 
 
 **We have declared our types here, for easy export and usage within other components**
