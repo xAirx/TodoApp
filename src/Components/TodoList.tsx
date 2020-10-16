@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SingleTodo } from './SingleTodo';
 import {
 	RemoveTodoHandler, EditTodoHandler, ToggleTodoHandler, Todo,
-} from './Hooks/useTodoState';
+} from '../Hooks/useTodoState';
 
 interface ITodoList {
 	editTodo: EditTodoHandler,

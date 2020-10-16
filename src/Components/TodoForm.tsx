@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { useInputState } from './Hooks/useInputState';
-import { AddTodoHandler } from './Hooks/useTodoState';
+import { useInputState } from '../Hooks/useInputState';
+import { AddTodoHandler } from '../Hooks/useTodoState';
 
 interface ITodoForm {
 	addTodo: AddTodoHandler
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Todoform: React.FC<ITodoForm> = ({ addTodo }) => {
-	const [value, reset, update] = useInputState('');
+	const { value, reset, update } = useInputState('');
 
 	const classes = useStyles();
 
@@ -65,7 +65,7 @@ export const Todoform: React.FC<ITodoForm> = ({ addTodo }) => {
 					margin="normal"
 					required
 					value={value}
-					onChange={() => update}
+					onChange={update}
 				/>
 
 				<Button className={classes.button} type="submit">Submit</Button>

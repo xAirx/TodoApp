@@ -1,4 +1,4 @@
-# TODO: My Optimization Bible
+# TODO: DesignPrinciples
 
 ## Pure components & Functional Programming
 

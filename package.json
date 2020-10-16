@@ -26,7 +26,6 @@
 		"@typescript-eslint/eslint-plugin": "^4.4.1",
 		"@typescript-eslint/parser": "^4.4.1",
 		"axios": "^0.19.2",
-		"eslint": "^7.11.0",
 		"eslint-config-airbnb-typescript": "^11.0.0",
 		"eslint-plugin-react": "^7.21.4",
 		"eslint-plugin-react-hooks": "^4.0.8",
@@ -42,8 +41,6 @@
 		"react-scripts": "3.4.1",
 		"styled-components": "^5.2.0",
 		"styled-theming": "^2.2.0",
-		"stylelint": "^13.7.2",
-		"stylelint-config-sass-guidelines": "^7.1.0",
 		"typescript": "^3.9.7",
 		"uuid": "^8.3.1",
 		"uuidv4": "^6.2.2"
@@ -54,17 +51,13 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.css -o css/style.prefix.css",
-		"compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
-		"build:css": "npm-run-all compile:sass prefix:css compress:css",
 		"lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
 		"lintfix": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-		"stylelintfix": "npx stylelint '**/*.scss' --fix",
 		"stats": "react-scripts build \"--stats\" && webpack-bundle-analyzer build/bundle-stats.json"
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm-run-all --parallel lintfix stylelintfix build:css",
+			"pre-commit": "npm-run-all --parallel lintfix",
 			"pre-push": "yarn run lint"
 		}
 	},
