@@ -1,15 +1,32 @@
-# TODO: DesignPrinciples
+# DesignPrinciples
 
 ## Pure components & Functional Programming
 
-> Pure Components do not depend or modify the state of variables outside their scope. These are the building blocks of Functional Programming.
+**Increased Readability**
 
-The simplest way to deliver reusable code is through a pure function.
+First, Functional Programming is often more readable because of its declarative nature.
 
-A pure function is a function where the return value is only determined by its input values, without observable side effects. Some common things to avoid:
+In other words, the code is focused on describing the outcome of the computations, not the computations themselves.
 
-* Do not mutate the input, e.g., _Array.prototype.push\(\)_.
-* Do not use \(changeable\) variables outside of the function’s scope.
+
+
+> [Kyle Simpson](https://github.com/getify/Functional-Light-JS/blob/master/manuscript/ch1.md/#chapter-1-why-functional-programming) phrases it like this:
+>
+> Declarative code is code that's more focused on describing the "what" outcome.
+>
+> Imperative code \(the opposite\) is focused on precisely instructing the computer "how" to do something.
+>
+> Because we spend the vast majority of our time reading code \(around 80% of the time I guess\) and not writing it, readability is the first thing we should enhance in order to increase our efficiency when programming.
+
+#### 
+
+#### Pure Components do not depend or modify the state of variables outside their scope. 
+
+#### These are the building blocks of Functional Programming.
+
+#### The simplest way to deliver reusable code is through a pure function \(Components, Custom Hooks\), we know what is expected to go in and what comes out \( TypeScript is a winner here \)
+
+A pure function is a function where the return value is only determined by its input values, without observable side effects. 
 
 
 
@@ -24,33 +41,60 @@ If the application updates certain data that is observable outside the called fu
 * Triggering any external process
 * Calling any other functions with side-effects
 * Making Asynchronous Data Calls
+* 
+### Immutabillity
 
-We need to avoid these side effects inside Pure Components.
+> Unchanging over time or unable to be changed. When data is immutable, its state cannot change after it’s created. If you want to change an immutable object, you can’t. Instead, you create a new object with the new value.
 
-## Pure components in React
+* Do not mutate the input, e.g., _Array.prototype.push\(\)_.
+* Do not use \(changeable\) variables outside of the function’s scope.
 
-**Features of React Pure Components**
+Any data that cannot be changed is immutable.
 
-* Prevents re-rendering of Component if props or state is the same
-* Takes care of “shouldComponentUpdate” implicitly
-* State and Props are Shallow Compared
-* Pure Components are more performant in certain cases
+An immutable value or object cannot be changed.
 
-Similar to Pure Functions in JavaScript, a React component is considered a Pure Component if it renders the same output for the same state and props value.
+When there is an update, a new value is created in memory, leaving the old one untouched.
 
- React provides the `PureComponent` base class for these class components.
+We can use immutable data structures check for a complex state change.
 
- Class components that extend the `React.PureComponent` class are treated as pure components.
+For example, if the state in your application is immutable, you can actually save all state objects in a single store with a state-management library like [Redux](https://redux.js.org/), enabling you to easily implement undo and redo functionality.
 
-It is the same as Component except that Pure Components take care of `shouldComponentUpdate` by itself, it does the _shallow comparison_ on the state and props data. If the previous state and props data is the same as the next props or state, the component is not Re-rendered.
+Don’t forget that we cannot change immutable data once it’s created.
 
 
 
-**React Components re-renders in the following scenarios:**
+### Benefits Of Immutable Data Structures
 
-1. “setState” is called in Component
-2. “props” values are updated
-3. `this.forceUpdate()` is called
+* They have no side effects.
+* Immutable data objects are easy to create, test, and use.
+* They help us to write logic that can be used to quickly check for up
+* dates in state, without having to check the data over and over again.
 
-In the case of Pure Components, the React components do not re-render blindly without considering the updated values of React “props” and “state”. If updated values are the same as previous values, render is not triggered.
+
+
+**Reasons why immutability is important is how Reacts built in optimization works too.**
+
+**Batching multiple state updates into a single update to prevent multiple re-renders.**
+
+> When using the useState\(\) hook, more on hooks later, React will also bail out of a re-render caused by a state change if the new state value is equal, using Object.is\(\) for equality check, to the previous state value.
+>
+> This is not the case when using its class component equivalent setState\(\) as every call to it will cause a re-render, unless its new state value comes from a passed function that returned null.
+
+
+
+**We need to avoid these side effects inside Pure Components.**
+
+> **This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.**
+>
+> **See the chapter on unit-testing for testing scenarios**
+
+\*\*\*\*
+
+**Conclusion**
+
+when working with the Classbased variant, we can use Extends PureComponent, working with the function based approach we use useMemo, this achieves the same effect.
+
+As for the shallow comparison issue that can arise with both, the above guidelines are important to avoid it.
+
+{% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 

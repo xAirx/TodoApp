@@ -1,10 +1,10 @@
-# TODO: Custom Hooks
+# Custom Hooks
 
 ## Custom Hooks
 
 ### **useInputState**
 
-> This custom hook enables me to reset a state for a form-field and also gives the abillity to update the form field with an event such as e.target.value.
+> This custom hook enables me to reset a state for a form-field and also gives the ability to update the form field with an event such as e.target.value.
 
 ```javascript
 import React, { useState } from 'react';
@@ -90,10 +90,6 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 **See performance considerations for this implementation**
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
-
-#### 
-
-
 
 ## UseTodoState
 
@@ -184,7 +180,7 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 ### Usage in project
 
-This hook is used as a "starting point for our application, we can distribute our todo "crud" operations throughout our project.
+This hook is used as a "starting point for our application, we can distribute our Todo "crud" operations throughout our project.
 
 We start by passing it into **TodoForm &**  **TodoList -&gt; SingleTodo-&gt;TodoEditForm**  \(component\) which then in return passes it down to the child components that needs the functionality.
 

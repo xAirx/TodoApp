@@ -17,10 +17,10 @@
 
 ## Architecture & Thoughts
 
-* [TODO: DesignPrinciples](architecture-and-thoughts/optimization.md)
+* [DesignPrinciples](architecture-and-thoughts/optimization.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
-* [TODO: Material UI](architecture-and-thoughts/material-ui.md)
-* [TODO: Custom Hooks](architecture-and-thoughts/hooks.md)
+* [Material UI](architecture-and-thoughts/material-ui.md)
+* [Custom Hooks](architecture-and-thoughts/hooks.md)
 
 ## Application Considerations <a id="performance-considerations"></a>
 

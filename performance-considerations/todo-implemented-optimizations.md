@@ -1,5 +1,11 @@
 # TODO: Implemented optimizations
 
+> React enables web applications to update their user interfaces \(UIs\) quickly, but that does not mean your medium or large React application will perform efficiently.
+
+> Its performance will depend on how you use React when building it, and on your understanding of how React operates and the process through which components live through the various phases of their life-cycle.
+
+> React offers a lot of performance improvements to a web app, and you can achieve these improvements through various techniques, features, and tools.
+
 ## Themeconfig
 
 Thought process
@@ -11,6 +17,14 @@ Composition patterns used
 Alternative solutions
 
 ## UseTodoState hook
+
+### useCallback\(\) Hook
+
+> The useCallback\(\) hook returns a [memoized](https://en.wikipedia.org/wiki/Memoization) callback.
+
+### useMemo\(\) Hook
+
+> `useMemo` will only recompute the memoized value when one of the dependencies has changed. This optimization helps to avoid expensive calculations on every render.
 
 Thought process
 
@@ -59,7 +73,17 @@ const conservativeAddTodo: AddTodoHandler = useCallback(async (task) => {
 
 ## UseDarkMode hook
 
-Thought process
+## Thought process
+
+> #### Structure of your components <a id="structure-of-your-components"></a>
+>
+> An even better way of improving re-renders is by restructuring your code a little bit.
+>
+> Be careful where you place your logic. If you put everything in the root component of your application, all the `React.memo` functions in the world won't help you to fix your performance problems.
+>
+> If you place it closer to where the data is used, chances are you don't even need `React.memo`.
+
+**code that handles the state into a seperate component**:
 
 
 

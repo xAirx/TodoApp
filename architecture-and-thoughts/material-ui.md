@@ -1,10 +1,10 @@
-# TODO: Material UI
+# Material UI
 
 ## Examples of usage within the project:
 
 [Using `useEffect()`](https://reactjs.org/docs/hooks-effect.html) from the [Hooks API for lifecycle methods](https://reactjs.org/docs/hooks-faq.html#do-hooks-cover-all-use-cases-for-classes).   
   
-This allows you to still use `makeStyles()` with Lifecycle Methods [without adding the complication of making Higher-Order Components](https://reactjs.org/docs/hooks-faq.html#do-hooks-replace-render-props-and-higher-order-components). 
+This allows you to still use `makeStyles()` without classbased - lifecycle Methods [without adding the complication of making Higher-Order Components](https://reactjs.org/docs/hooks-faq.html#do-hooks-replace-render-props-and-higher-order-components). 
 
 Which is much simpler.
 
@@ -125,13 +125,108 @@ I wanted to add a preferred theme functionality, along with more control over sp
 
 ```javascript
 
+const darkTheme: ThemeOptions = {
+	palette: {
+		primary: {
+			dark: '#FFFFFF',
+
+			light: '#FFFFFF',
+
+			main: '#FFFFFF',
+		},
+		secondary: {
+			dark: '#FFFFFF',
+
+			light: '#FFFFFF',
+
+			main: '#FFFFFF',
+		},
+		type: 'dark',
+		background: {
+			paper: 'linear-gradient(130deg, #0c2623 80%, #96bb7c 10%)',
+		},
+	},
+};
+
 ```
 
-####  Custom Hook - useDarkMode function.
+####  Custom Hook - useColorMode function.
+
+this function enables me to set the initial preferred  "thememode" from the user, this is done using Material UI's useMediaQueryHook.
+
+Here we have a localStorage functionality, along with a toggle scenario.
+
+```javascript
+const trySyncToLocalStorage = (theme: Theme) => {
+	try {
+		localStorage.setItem(lskey, theme);
+	} catch {
+		// ignore
+	}
+};
+
+const tryRetrievingFromLocalStorage = (theme: Theme): Theme => {
+	try {
+		const stored = localStorage.getItem(lskey);
+
+		return stored ? JSON.parse(stored) : theme;
+	} catch {
+		return theme;
+	}
+};
+```
 
 ```javascript
 
+export const useColorMode = (): UseColorModeReturn => {
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+	
+	const initialRenderRef = useRef(true);
 
+	const [colorMode, setColorMode] = useState<ColorMode>(
+		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
+	);
+
+	useEffect(() => {
+		
+		if (initialRenderRef.current) {
+			initialRenderRef.current = false;
+		} else {
+			
+			setColorMode(prefersDarkMode ? 'dark' : 'light');
+		}
+	}, [prefersDarkMode]);
+
+	useEffect(() => {
+
+		trySyncToLocalStorage(colorMode);
+	}, [colorMode]);
+
+	const toggleColorMode = useCallback(() => {
+		
+		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
+	}, []);
+
+	
+	return useMemo(() => ({ colorMode, toggleColorMode }), [
+		colorMode,
+		toggleColorMode,
+	]);
+};
+```
+
+```javascript
+export const useTheme = () => {
+	const { colorMode } = useColorMode();
+
+	return useMemo(
+	
+		// based on the currently selected color mode, return a theme
+
+		() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme),
+		[colorMode],
+	);
+};
 ```
 
 To read about the performance optimizations implemented  in detail read below:
@@ -142,16 +237,33 @@ To read about the performance optimizations implemented  in detail read below:
 
 #### Usage in the app file
 
-\*\*\*\*\*\* Write
+We import the needed functions and add them to constants which we use in our app \(home component\)
 
 ```javascript
-
+import {
+	ThemeWrapper, useColorMode, useTheme,
+} from './index';
+	
+	const theme = useTheme();
+	
+	// destructuring toggleColorMode
+	//useColorMode returns an object
+		//const colorModeObj = useColorMode();
+		//const toggleColorMode = colorModeObj.toggleColorMode;
+		
+	const { toggleColorMode } = useColorMode();
 ```
 
 #### Toggle functionality
 
-```javascript
+The toggle functionality is achieved calling the toggleColorMode function, which is inside our custom hook.
 
+```javascript
+<FormControlLabel
+  label={theme.palette.type === 'dark' ? 'Too Dark?' : 'Too Bright?'}
+  checked={theme.palette.type === 'dark'}
+  control={<Switch onClick={toggleColorMode} />}
+/>
 ```
 
 ## Extra
