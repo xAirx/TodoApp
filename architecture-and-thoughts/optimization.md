@@ -72,16 +72,6 @@ Don’t forget that we cannot change immutable data once it’s created.
 
 
 
-**Reasons why immutability is important is how Reacts built in optimization works too.**
-
-**Batching multiple state updates into a single update to prevent multiple re-renders.**
-
-> When using the useState\(\) hook, more on hooks later, React will also bail out of a re-render caused by a state change if the new state value is equal, using Object.is\(\) for equality check, to the previous state value.
->
-> This is not the case when using its class component equivalent setState\(\) as every call to it will cause a re-render, unless its new state value comes from a passed function that returned null.
-
-
-
 **We need to avoid these side effects inside Pure Components.**
 
 > **This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.**
@@ -89,12 +79,6 @@ Don’t forget that we cannot change immutable data once it’s created.
 > **See the chapter on unit-testing for testing scenarios**
 
 \*\*\*\*
-
-**Conclusion**
-
-when working with the Classbased variant, we can use Extends PureComponent, working with the function based approach we use useMemo, this achieves the same effect.
-
-As for the shallow comparison issue that can arise with both, the above guidelines are important to avoid it.
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 

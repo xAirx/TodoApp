@@ -6,6 +6,18 @@
 
 > React offers a lot of performance improvements to a web app, and you can achieve these improvements through various techniques, features, and tools.
 
+## Why do we need optimizations?
+
+rendering & problems with it.
+
+rendering process + parent -&gt; child  recursive render.
+
+controlling when a component should update
+
+useMemo and useCallback
+
+
+
 ## Themeconfig
 
 Thought process
@@ -90,6 +102,16 @@ const conservativeAddTodo: AddTodoHandler = useCallback(async (task) => {
 #### Initial structure:
 
 find old structure in a git commit
+
+{% tabs %}
+{% tab title="Initial structure" %}
+
+{% endtab %}
+
+{% tab title="Optimized structure" %}
+
+{% endtab %}
+{% endtabs %}
 
 
 
