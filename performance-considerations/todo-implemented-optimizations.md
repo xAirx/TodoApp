@@ -86,7 +86,7 @@ This happens while the component is rendering, it’s important to keep that in 
 
 SideEffects should be provided to UseEffect since useEffect is the hook that runs side-effects independently of rendering. after each completed render or fire them when certain values have changed  \(dependency array\)
 
-##  **Implementations in the project:**
+##  **TODO REWRITE Implementations in the project:**
 
 {% tabs %}
 {% tab title="useMemo" %}
@@ -375,7 +375,7 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 
 
-## useColorMode hook
+## TODO REWRITE useColorMode hook
 
 > #### Structure of your components <a id="structure-of-your-components"></a>
 >
@@ -389,7 +389,138 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 {% tabs %}
 {% tab title="Initial structure" %}
-> Functionality is scattered across App Component and the useDarkModeHook
+> Functionality is scattered across App Component and the useDarkModeHook within myTheme.tsx
+>
+> Here state is controlled both within myTheme.tsx and our App component A good opportunity to encapsulate everything into myTheme.tsx
+
+```javascript
+  const [theme, toggleDarkMode] = useDarkmode();
+  console.log('THIS IS THEME INSIDE APP', theme);
+
+  const themeConfig = createMuiTheme(theme);
+```
+
+```javascript
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import {
+  blue, pink, purple, grey,
+} from '@material-ui/core/colors';
+import useLocalStorageState from '../Hooks/useLocalStorageState';
+
+/*
+function myTheme(themeName = 'light') {
+ */
+
+/* const themeObject = {
+  palette: {
+    primary: {
+      light: blue[800],
+      main: blue[500],
+      dark: blue[500],
+    },
+    secondary: {
+      light: pink[800],
+      main: pink[500],
+      dark: pink[500],
+    },
+  }
+}; */
+
+const lightTheme = {
+
+  palette: {
+    primary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    secondary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    type: 'light',
+    background: {
+      paper: 'linear-gradient(130deg, #96bb7c 80%, #184d47 10%)',
+
+    },
+  },
+};
+
+const darkTheme = {
+
+  palette: {
+    primary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    secondary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    type: 'dark',
+    background: {
+      paper: 'linear-gradient(130deg, #0c2623 80%, #96bb7c 10%)',
+    },
+  },
+};
+
+const MatchMedia = window.matchMedia
+            && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  // console.log('MatchMEDIA: THE PREFFERED MODE IS DARK', MatchMedia);
+
+let initialTheme = '';
+const preferredTheme = MatchMedia === true ? initialTheme = darkTheme : initialTheme = lightTheme;
+console.log('this is the preferredTheme', preferredTheme);
+
+let themeObject = preferredTheme;
+console.log('this is the ThemeObject', themeObject);
+
+/* {
+  PaletteType === 'light' ? (
+    themeObject = lightTheme
+  ) : (
+    themeObject = darkTheme
+  );
+}
+ */
+/* console.log(themeObject); */
+/* themeConfig = responsiveFontSizes(themeConfig); */
+
+const useDarkmode = () => {
+  const [theme, setTheme] = useState(themeObject);
+
+  console.log('THIS IS INSIDE USEDARKMODE');
+  const toggleDarkMode = () => {
+    console.log('You called  ToggleDarkMode');
+    console.log('THIS IS THEME.TYPE', themeObject);
+    const updatedTheme = {
+      ...themeObject,
+      type: themeObject === darkTheme ? themeObject = lightTheme : themeObject = darkTheme,
+    };
+    setTheme(updatedTheme);
+    console.log('THIS IS THEME', theme);
+  };
+  return [theme, toggleDarkMode];
+};
+
+/*    return theme;
+    }
+    */
+export { themeObject, useDarkmode };
+/*
+```
 {% endtab %}
 
 {% tab title="Performance" %}
@@ -397,13 +528,11 @@ Changing theme and inital load + localStorage
 {% endtab %}
 
 {% tab title="Optimized structure" %}
-> Everything is extracted into a single component a custom hook.
+> Everything is extracted into a myTheme.tsx creating a single component a custom hook to handle state aswell. this also makes it easier to test.
 
 > Here naming is also improved.
 >
 > Along with optimizations handling sideeffects, and useCallback in combination with useMemo for render control.
->
-> \*\*\*\*\*\*\*\*\*
 
 ```javascript
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -538,18 +667,6 @@ export const useTheme = () => {
 Changing theme and inital load + localStorage
 {% endtab %}
 {% endtabs %}
-
-
-
-
-
-**Optimized  Structure**
-
-Optimizations
-
-
-
-
 
 
 
