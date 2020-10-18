@@ -48,6 +48,14 @@ If the application updates certain data that is observable outside the called fu
 
 * Do not mutate the input, e.g., _Array.prototype.push\(\)_.
 * Do not use \(changeable\) variables outside of the function’s scope.
+* Any data that cannot be changed is immutable.
+* An immutable value or object cannot be changed.
+* When there is an update, a new value is created in memory, leaving the old one untouched.
+* We can use immutable data structures check for a complex state change.
+* For example, if the state in your application is immutable, you can actually save all state objects in a
+* Single store with a state-management library like [Redux](https://redux.js.org/), 
+* Enabling you to easily implement undo and redo functionality forexample
+* Don’t forget that we cannot change immutable data once it’s created.
 
 Any data that cannot be changed is immutable.
 
@@ -75,6 +83,8 @@ Don’t forget that we cannot change immutable data once it’s created.
 **We need to avoid these side effects inside Pure Components.**
 
 > **This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.**
+>
+> **This is also why useEffect is such a great hook.**
 >
 > **See the chapter on unit-testing for testing scenarios**
 

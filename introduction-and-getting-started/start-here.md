@@ -4,26 +4,19 @@ description: This project is created as part of an assignment for the company Ni
 
 # Start here
 
-## Setup & Installation
+## Project introduction
 
-To start the project up do the following:
+**With this project im seeking to**   
+  
+Rewrite one of my existing projects into TypeScript and introducing typesafety.
 
-```
-$ give me super-powers
-```
+Introducing the concepts of custom hooks
 
-{% hint style="info" %}
-You need to have the backend running: 
-{% endhint %}
+Introducting the concepts of designprinciples coupled with functional programming
 
-This is done like this: 
+Introducing the concept of performance considerations based on the knowledge of how React "reacts" and renders.
 
-{% code title="hello.sh" %}
-```bash
-# Ain't no code for that yet, sorry
-echo 'You got to trust me on this, I saved the world'
-```
-{% endcode %}
+
 
 
 

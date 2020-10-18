@@ -199,8 +199,6 @@ Context API, using the useContext hook would certainly enable me to have a globa
 
 A classic Todoapp would not need context API, and would be sort of over engineering here.
 
-## Usage of useCallback
-
 see the following chapters here:
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}

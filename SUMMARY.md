@@ -24,7 +24,7 @@
 
 ## Application Considerations <a id="performance-considerations"></a>
 
-* [TODO: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
+* [TODO REWRITE: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
 
 ## UnitTesting
 
