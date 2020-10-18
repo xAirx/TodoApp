@@ -64,6 +64,10 @@ There a couple ways that triggers react to rerender but
 {% endtab %}
 {% endtabs %}
 
+
+
+
+
 ## TODO REWRITE Controlling when a component should update
 
 MyTheme.TSX which includes the useColorMode Hook, and useTodoState which includes the useTodos hook.
@@ -160,6 +164,12 @@ const toggleColorMode = useCallback(() => {
 ```
 {% endtab %}
 {% endtabs %}
+
+### 
+
+### 
+
+### Below is an overview of the refactoring process and thought process along with performance metrics
 
 ## TODO: UseTodoState hook
 
@@ -328,9 +338,6 @@ export const useTodos = (initialTodos: Todo[]) => {
 {% tab title="Optimistic" %}
 ```javascript
   const optimisticAddTodo: AddTodoHandler = useCallback((task) => {
-    // this is the alternative approach, youll find content about it 
-    //if you search
-    // for "optimistic ui"
 
     const newTodo = { completed: false, id: uuid(), task };
 
@@ -382,6 +389,10 @@ export const useTodos = (initialTodos: Todo[]) => {
 > An even better way of improving re-renders is by restructuring your code a little bit.
 >
 > Be careful where you place your logic. If you put everything in the root component of your application, all the `React.memo` functions in the world won't help you to fix your performance problems.
+>
+> ### Its important to keep state close to the source, this also makes it easier to test.
+
+{% page-ref page="../unittesting/overview-of-unittests.md" %}
 
 
 
