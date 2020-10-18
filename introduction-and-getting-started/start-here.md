@@ -6,7 +6,7 @@ description: This project is created as part of an assignment for the company Ni
 
 ## Project introduction
 
-**With this project im seeking to**   
+**With this project i'm seeking to**   
   
 Rewrite one of my existing projects into TypeScript and introducing typesafety.
 
@@ -15,6 +15,10 @@ Introducing the concepts of custom hooks
 Introducting the concepts of designprinciples coupled with functional programming
 
 Introducing the concept of performance considerations based on the knowledge of how React "reacts" and renders.
+
+I want to measure and see the performance increase.
+
+I want to unit-test my components and have them run before my CI/CD deploys to heroku.
 
 
 
