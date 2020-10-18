@@ -15,8 +15,6 @@ React rendering & problems with it.
 Since React renders "Reactively" based on state, passing props and more , its important to be able to control renders throughout larger projects for performance reasons.
 
 Parent components will trigger child component re-renders, and diffing on previous  props and next props can trigger  renders which we forexample want to happen when specific props changes or,  passed props to a function.
-
-**For size's sake I will focus on the two components in my project**
 {% endtab %}
 
 {% tab title="Longer Read" %}
@@ -63,8 +61,6 @@ This is why we need optimizations
 There a couple ways that triggers react to rerender but 
 {% endtab %}
 {% endtabs %}
-
-
 
 
 
@@ -236,7 +232,11 @@ export default (initialTodos) => {
 {% endtab %}
 
 {% tab title="Performance" %}
-Todo crud functionality
+Testing by adding a todo and deleting a todo
+
+![Before Refactor \(old project\)](../.gitbook/assets/screenshot-2020-10-18-at-23.12.34.png)
+
+## Performance explanation:
 {% endtab %}
 
 {% tab title="New Structure" %}
@@ -326,9 +326,13 @@ export const useTodos = (initialTodos: Todo[]) => {
 {% endtab %}
 
 {% tab title="Performance increase" %}
+![After refactor](../.gitbook/assets/screenshot-2020-10-18-at-23.12.24.png)
 
+## Performance explanation
 {% endtab %}
 {% endtabs %}
+
+
 
 
 
@@ -536,6 +540,10 @@ export { themeObject, useDarkmode };
 
 {% tab title="Performance" %}
 Changing theme and inital load + localStorage
+
+![Before Refactoring](../.gitbook/assets/screenshot-2020-10-18-at-23.17.56.png)
+
+## After refactoring
 {% endtab %}
 
 {% tab title="Optimized structure" %}
