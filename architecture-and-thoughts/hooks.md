@@ -201,29 +201,53 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 > Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
 
+
+
 The useEffects are added to handle our sideeffects, component rendering and side-effect invocation have to be independent.
 
-### 
+
 
 > ### First useEffect  \(Avoiding re-renders when prefersDarkmode Changes.
 >
 > Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
+
+> > if we are on the first render we use the initial value provided by useMediaQuery, if we are not we check if prefersDarkMode is set to true, thus choosing dark  or light mode.
 >
 > We set the state with the prefersDarkMode boolean so that we have a colorMode state that our useTheme hook can use for setting the theme, along with our tryRetrievingFromLocalStorage being able to grab whats in localStorage or return the current Theme\(the state just mentioned\)
+>
+>
 >
 > ### Second useEffect  \(Only syncing localStorage upon new Theme set\)
 >
 > will make sure to only run whenever our localStorage changes. localStorage would change if the theme changes, the theme is created with the useTheme hook. It listens for any changes to colorMode and only runs then.
 
+
+
+
+
 > ### ToggleColorMode \(Determine theme based on current theme\)
 >
 > ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic. 
 >
-> An empty dependency array provided to the toggle means that it only runs once!
+> An empty dependency array provided to the toggle means that it only runs once! 
+>
+>
+>
+> #### Using the useCallback
+>
+> This is all wrapped in a useCallback, which memoizes functions, this means that: because of how JS compares equality by reference, 
+>
+> > Javascript compares equality by reference, the function you create the first time a component renders will be different than the one created in subsequent renders.
+> >
+> > If you try passing a function as props or state, this means that it will be treated as a prop change every single time. By wrapping it in useCallback, React will know that it's the same function. This not re-rendering unneccessarily.
 
-> if we are on the first render we use the initial value provided by useMediaQuery, if we are not we check if prefersDarkMode is set to true, thus choosing dark  or light mode.    
->   
-> Doing it this way we
+> #### Using useMemo on the return value:  
+>
+> If we execute // `useColorMode` multiple times across rerenders, it would not be the same array as before, although its contents not necessarily changed
+
+> // this leads to breaking any optimization depending on the return value of useColorMode \(IMMUTETABILLITY again!\)
+
+>
 
 ```javascript
 

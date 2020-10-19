@@ -1,6 +1,6 @@
-# TODO REWRITE: Implemented optimizations
+# Implemented optimizations
 
-##  **TODO REWRITE Implementations in the project:**
+##  **Quick overview of  Implementations in the project:**
 
 {% tabs %}
 {% tab title="useMemo" %}
@@ -102,17 +102,17 @@ const toggleColorMode = useCallback(() => {
 {% endtab %}
 {% endtabs %}
 
-### 
 
-### Below is an overview of the refactoring process and thought process along with performance metrics
 
-## TODO: UseTodoState hook
+## Detailed overview & overview of the refactoring process and thought process
+
+## UseTodoState hook
 
 {% tabs %}
 {% tab title="Old Structure" %}
 > Anyomous functions are a no go, memory is wasted, as each time this component is rerendered, new memory is used instead of allocating a single piece of memory one. with named functions. 
 >
-> Each operation here will also trigger a re-render, a great useCase for checking wether or not the props have really changed or not.
+> Each operation here will also trigger a re-render, a great useCase for avoiding unneeded re-renders if the props passed has not changed.
 
 ```javascript
 
@@ -172,6 +172,18 @@ export default (initialTodos) => {
 
 {% tab title="New Structure" %}
 > All functionality is in a single hook useTodoState.tsx
+
+### UseTodoStateHook
+
+> UseCallbacks are implemented and LocalStorage syncing and retriveing added to avoid unneeded operations. 
+>
+> our UseTodos hook will take the initial todos passed from APP, it will try retrieve the Todos from LocalStorage, if they do not exist from localStorage, the inital Todos are returned,and set into state.
+>
+> our UseEffect will run if the Todos are changed, and only if the todos are changed the syncing to localStorage happens.
+>
+> Our crud operations are wrapped im useCallback, with an empty array, this means that we instruct useCallback to run only once, and since useCallback returns a memoized version of the callback, that only changes if one ofo the dependencies are changed.
+>
+> We can achieve reference equality \(MEMORY\), so that we prevent unneeded renders.
 
 ```javascript
 import { useCallback, useState, useEffect } from 'react';
@@ -257,10 +269,6 @@ export const useTodos = (initialTodos: Todo[]) => {
 {% endtab %}
 {% endtabs %}
 
-
-
-
-
 ### Alternative solutions \(using an API to grab data\)
 
 {% tabs %}
@@ -309,7 +317,7 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 
 
-## TODO REWRITE useColorMode hook
+## useColorMode hook
 
 > #### Structure of your components <a id="structure-of-your-components"></a>
 >
@@ -329,7 +337,9 @@ export const useTodos = (initialTodos: Todo[]) => {
 {% tab title="Initial structure" %}
 > Functionality is scattered across App Component and the useDarkModeHook within myTheme.tsx
 >
-> Here state is controlled both within myTheme.tsx and our App component A good opportunity to encapsulate everything into myTheme.tsx
+> Here state is controlled both within myTheme.tsx and our App component A good opportunity to encapsulate everything into myTheme.tsx and handle state close to the source.
+>
+> As well as adding performance optimizations across components is not ideal.
 
 ```javascript
   const [theme, toggleDarkMode] = useDarkmode();
@@ -462,11 +472,53 @@ export { themeObject, useDarkmode };
 {% endtab %}
 
 {% tab title="Optimized structure" %}
-> Everything is extracted into a myTheme.tsx creating a single component a custom hook to handle state aswell. this also makes it easier to test.
+### Detailed explanation: 
 
-> Here naming is also improved.
+* Everything is extracted into a myTheme.tsx creating a single component a custom hook to handle state aswell. this also makes it easier to test.
+* Here naming is also improved
+* Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo + useRef.
+
+> Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
 >
-> Along with optimizations handling sideeffects, and useCallback in combination with useMemo for render control.
+> The useEffects are added to handle our side effects, component rendering and side-effect invocation have to be independent.
+
+
+
+### **F**irst useEffect  \(Avoiding re-renders when prefersDarkmode Changes.
+
+> Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
+>
+> We set the state with the prefersDarkMode boolean so that we have a colorMode state that our useTheme hook can use for setting the theme, along with our tryRetrievingFromLocalStorage being able to grab whats in localStorage or return the current Theme\(the state just mentioned\)
+
+
+
+### Second useEffect  \(Only syncing localStorage upon new Theme set\)
+
+> will make sure to only run whenever our localStorage changes. localStorage would change if the theme changes, the theme is created with the useTheme hook. It listens for any changes to colorMode and only runs then.
+
+
+
+### ToggleColorMode \(Determine theme based on current theme\)
+
+> ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic. 
+>
+> ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is compared to being dark, if its true then set light or dark. basic toggle logic. An empty dependency array provided to the toggle means that it only runs once!
+
+**Using the useCallback**
+
+> Using the useCallback This is all wrapped in a useCallback, which memoizes functions, this means that: because of how JS compares equality by reference, Javascript compares equality by reference, the function you create the first time a component renders will be different than the one created in subsequent renders.
+>
+> If you try passing a function as props or state, this means that it will be treated as a prop change every single time. By wrapping it in useCallback,
+>
+> React will know that it's the same function. This not re-rendering unneccessarily.
+
+**The Memoized Return**
+
+> In the end we return a memoized array. \[\] === \[\] is _false_. so if we execute `useColorMode` multiple times across rerenders, it would not be the same array as before, although its contents not necessarily changed. this leads to breaking any optimization depending on the return value of `useColorMode such as useTheme` so we're avoiding this here hurray for  \(IMMUTETABILLITY again!\)
+
+### UseTheme
+
+
 
 ```javascript
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -598,5 +650,17 @@ export const useTheme = () => {
 {% endtab %}
 {% endtabs %}
 
+## Downside and Final thoughts of the approach
 
+Theres one logical downside here which is an inherent hook problem \[
+
+useTheme uses useColorMode 
+
+The component uses useColorMode so the function will be executed 2x 
+
+Ultimately its fine  in  we you wont notice it but  we have  to be aware of this...
+
+### Alternative approach
+
+ The alternative would be to expose toggleColorMode from useTheme too but then useTheme would be doing more than it has to in reality.
 
