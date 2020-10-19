@@ -73,6 +73,33 @@ const toggleColorMode = useCallback(() => {
 }, []);
 ```
 {% endtab %}
+
+{% tab title="useRef" %}
+```javascript
+
+	// prefersDarkMode is true localStorage says false so state is initially false then
+	// useEffect comes in and sets it to true although we have a different value stored
+	// we wouldnt want that localStorage presence indicates that you have a prior visit with a changed theme */
+
+	const initialRenderRef = useRef(true);
+
+	const [colorMode, setColorMode] = useState<ColorMode>(
+		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
+	);
+
+	useEffect(() => {
+		// on the initial render, we want to skip this effect. for this we need
+		// a non-reactive value which doesn't change when we change it. classic
+		// use case for `useRef`
+		if (initialRenderRef.current) {
+			initialRenderRef.current = false;
+		} else {
+			// changing system color mode will overwrite chosen, if mismatching
+			setColorMode(prefersDarkMode ? 'dark' : 'light');
+		}
+	}, [prefersDarkMode]);
+```
+{% endtab %}
 {% endtabs %}
 
 ### 

@@ -21,7 +21,7 @@
 * [TypeScript](architecture-and-thoughts/typescript.md)
 * [Material UI](architecture-and-thoughts/material-ui.md)
 * [Custom Hooks](architecture-and-thoughts/hooks.md)
-* [TODO: Optimization](architecture-and-thoughts/todo-optimization.md)
+* [TODO: Hooks & Optimization](architecture-and-thoughts/todo-optimization.md)
 
 ## Application Considerations <a id="performance-considerations"></a>
 

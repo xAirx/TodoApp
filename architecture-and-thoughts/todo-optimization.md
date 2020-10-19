@@ -1,4 +1,8 @@
-# TODO: Optimization
+---
+description: Hooks im using in my project.
+---
+
+# TODO: Hooks & Optimization
 
 > React enables web applications to update their user interfaces \(UIs\) quickly, but that does not mean your medium or large React application will perform efficiently.
 
@@ -70,19 +74,43 @@ MyTheme.TSX which includes the useColorMode Hook, and useTodoState which include
 
 Apparent issues a re-render will happen regardless if props have changed or not, when it comes to child components.
 
-### useMemo and useCallback
+## TODO REWRITE useMemo and useCallback
 
 useCallback\(\) and useMemo\(\) are React hooks that return memoized functions and values, respectively.
 
 > An optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
 
-These two hooks are the same, useCallback\(\) is simply a shorthand for using useMemo\(\) when it returns a function.
+## useEffect\(sideEffect management\)
 
-They both take a callback function as their first argument and an array of dependencies as their second.
 
-When these dependencies change, the passed callback function will run, thus returning an updated value.
 
-This happens while the component is rendering, it’s important to keep that in mind so that no side effects occur inside of these hooks since that will cause more re-renders and decrease performance.
 
-SideEffects should be provided to UseEffect since useEffect is the hook that runs side-effects independently of rendering. after each completed render or fire them when certain values have changed  \(dependency array\)
+
+## useRef 
+
+The useRef hook allows you to create a persistent ref to a DOM node, or really to any value.
+
+React will persist this value between re-renders \(between calls to your component function\).
+
+We need this because we can’t just store things in local variables – they’d go out of scope as soon as the component function returns \(React components are really just functions, remember\).
+
+Calling useRef creates an empty ref object by default, or you can initialize it to some other value by passing an argument.
+
+
+
+## TODO  REWRITE UseMemo\(Memoize values\)
+
+Unlike useEffect, `React.useMemo` does not trigger every time you change one of its dependencies.
+
+A memoized function will first check to see if the dependencies have changed since the last render. If so, it executes the function and returns the result. If false, it simply returns the cached result from the last execution.
+
+This is good for expensive operations like transforming API data or doing major calculations that you don't want to be re-doing unnecessarily
+
+## TODO REWRITE UseCallback \(Memoize functions\)
+
+This is a special case for memoizing functions. Since javascript compares equality by reference, the function you create the first time a component renders will be different than the one created in subsequent renders.
+
+If you try passing a function as props or state, this means that it will be treated as a prop change every single time. By wrapping it in useCallback, React will know that it's the same function. You can still add a dependency array to trigger a recalculation if the dependencies change.
+
+A strong use-case here to avoid child component re-renders
 
