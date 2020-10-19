@@ -482,8 +482,6 @@ export { themeObject, useDarkmode };
 >
 > The useEffects are added to handle our side effects, component rendering and side-effect invocation have to be independent.
 
-
-
 ### **F**irst useEffect  \(Avoiding re-renders when prefersDarkmode Changes.
 
 > Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
@@ -517,6 +515,8 @@ export { themeObject, useDarkmode };
 > In the end we return a memoized array. \[\] === \[\] is _false_. so if we execute `useColorMode` multiple times across rerenders, it would not be the same array as before, although its contents not necessarily changed. this leads to breaking any optimization depending on the return value of `useColorMode such as useTheme` so we're avoiding this here hurray for  \(IMMUTETABILLITY again!\)
 
 ### UseTheme
+
+
 
 
 
