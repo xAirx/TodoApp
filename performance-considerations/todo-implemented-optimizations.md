@@ -73,33 +73,6 @@ const toggleColorMode = useCallback(() => {
 }, []);
 ```
 {% endtab %}
-
-{% tab title="useRef" %}
-```javascript
-
-	// prefersDarkMode is true localStorage says false so state is initially false then
-	// useEffect comes in and sets it to true although we have a different value stored
-	// we wouldnt want that localStorage presence indicates that you have a prior visit with a changed theme */
-
-	const initialRenderRef = useRef(true);
-
-	const [colorMode, setColorMode] = useState<ColorMode>(
-		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
-	);
-
-	useEffect(() => {
-		// on the initial render, we want to skip this effect. for this we need
-		// a non-reactive value which doesn't change when we change it. classic
-		// use case for `useRef`
-		if (initialRenderRef.current) {
-			initialRenderRef.current = false;
-		} else {
-			// changing system color mode will overwrite chosen, if mismatching
-			setColorMode(prefersDarkMode ? 'dark' : 'light');
-		}
-	}, [prefersDarkMode]);
-```
-{% endtab %}
 {% endtabs %}
 
 ## Detailed overview & overview of the refactoring process and thought process
@@ -472,7 +445,7 @@ Everything is extracted into a myTheme.tsx creating a single component a custom 
 
 Here naming is also improved
 
-Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo + useRef.
+Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo 
 
 
 
@@ -484,20 +457,6 @@ Along with optimizations handling sideEffects, and render optimization using use
 
 
 
-### **F**irst useEffect  \(Avoiding re-renders when prefersDarkmode Changes\).
-
-> Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
->
-> We set the state with the prefersDarkMode boolean so that we have a colorMode state that our useTheme hook can use for setting the theme, along with our tryRetrievingFromLocalStorage being able to grab whats in localStorage or return the current Theme\(the state just mentioned\)
-
-
-
-### Second useEffect  \(Only syncing localStorage upon new Theme set\)
-
-> will make sure to only run whenever our localStorage changes. localStorage would change if the theme changes, the theme is created with the useTheme hook. It listens for any changes to colorMode and only runs then.
-
-
-
 ### ToggleColorMode \(Determine theme based on current theme\)
 
 > ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic. 
@@ -505,6 +464,10 @@ Along with optimizations handling sideEffects, and render optimization using use
 > ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is compared to being dark, if its true then set light or dark. basic toggle logic. An empty dependency array provided to the toggle means that it only runs once!
 >
 > oh wow
+
+#### Using UseEffect  
+
+here i use UseEffect for running sideeffects, I am  running the trySyncToLocalStorage. this will  only run if colorMode changes \(the state\).
 
 **Using the useCallback**
 
@@ -575,85 +538,55 @@ type UseColorModeReturn = {
 };
 
 const trySyncToLocalStorage = (theme: Theme) => {
-	try {
-		localStorage.setItem(lskey, theme);
-	} catch {
-		// ignore
-	}
+  try {
+    localStorage.setItem(lskey, theme);
+  } catch {
+    // ignore
+  }
 };
 
 const tryRetrievingFromLocalStorage = (theme: Theme): Theme => {
-	try {
-		const stored = localStorage.getItem(lskey);
+  try {
+    const stored = localStorage.getItem(lskey);
 
-		return stored ? JSON.parse(stored) : theme;
-	} catch {
-		return theme;
-	}
+    return stored ? (stored as Theme) : theme;
+  } catch {
+    return theme;
+  }
 };
 
-// useColorMode Function, with the UseColorModeReturn type.
 export const useColorMode = (): UseColorModeReturn => {
-	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-	//prefersDarkMode is true localStorage says false so state is initially false then 
-	//useEffect comes in and sets it to true although we have a different value stored
-	//we wouldnt want that localStorage presence indicates that you have a prior visit with a changed theme */
-	
-	const initialRenderRef = useRef(true);
+  const [colorMode, setColorMode] = useState<ColorMode>(
+    tryRetrievingFromLocalStorage(prefersDarkMode ? "dark" : "light")
+  );
 
-	const [colorMode, setColorMode] = useState<ColorMode>(
-		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
-	);
+  useEffect(() => {
+    trySyncToLocalStorage(colorMode);
+  }, [colorMode]);
 
-	useEffect(() => {
-		// on the initial render, we want to skip this effect. for this we need
-		// a non-reactive value which doesn't change when we change it. classic
-		// use case for `useRef`
-		if (initialRenderRef.current) {
-			initialRenderRef.current = false;
-		} else {
-			// changing system color mode will overwrite chosen, if mismatching
-			setColorMode(prefersDarkMode ? 'dark' : 'light');
-		}
-	}, [prefersDarkMode]);
+  const toggleColorMode = useCallback(() => {
+    setColorMode((mode) => (mode === "dark" ? "light" : "dark"));
+  }, []);
 
-	useEffect(() => {
-		// whenever state changes, sync it
-		trySyncToLocalStorage(colorMode);
-	}, [colorMode]);
-
-	const toggleColorMode = useCallback(() => {
-		// callback version again. determine the other theme based on the current
-		// theme
-		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
-	}, []);
-
-	// return a memoized array. [] === [] is _false_. so if you execute
-	// `useColorMode` multiple times across rerenders, it would not be the same
-	// array as before, although its contents not necessarily changed.
-	// this leads to breaking any optimization depending on the return value of
-	// `useColorMode`, so we're avoiding this here
-	return useMemo(() => ({ colorMode, toggleColorMode }), [
-		colorMode,
-		toggleColorMode,
-	]);
+  return useMemo(() => ({ colorMode, toggleColorMode }), [
+    colorMode,
+    toggleColorMode
+  ]);
 };
 
 
-export const useTheme = () => {
-	const { colorMode } = useColorMode();
-
-	return useMemo(
-		// based on the currently selected color mode, return a theme
-
-		() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme),
-		[colorMode],
-	);
-};
 ```
 {% endtab %}
 {% endtabs %}
+
+```javascript
+export const useTheme = (colorMode: ColorMode) =>
+  useMemo(() => createMuiTheme(colorMode === "dark" ? darkTheme : lightTheme), [
+    colorMode
+  ]);
+```
 
 ## Downside and Final thoughts of the approach
 
