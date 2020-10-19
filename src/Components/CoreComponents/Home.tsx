@@ -104,7 +104,7 @@ export const HomeComponent: React.FC = () => {
 					elevation={3}
 				>
 					<Grid container justify="center" style={{ marginTop: '1rem' }}>
-						<Grid item xs={11} md={8} lg={4}>
+						<Grid item xs={12} sm={10} md={10} lg={6}>
 							<TodoList
 								todos={todos}
 								removeTodo={removeTodo}
