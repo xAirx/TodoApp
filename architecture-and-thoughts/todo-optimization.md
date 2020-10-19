@@ -68,19 +68,19 @@ There a couple ways that triggers react to rerender but
 
 
 
-## TODO REWRITE Controlling when a component should update
+## TODO REWRITE: Controlling when a component should update
 
 MyTheme.TSX which includes the useColorMode Hook, and useTodoState which includes the useTodos hook.
 
 Apparent issues a re-render will happen regardless if props have changed or not, when it comes to child components.
 
-## TODO REWRITE useMemo and useCallback
+## TODO REWRITE: useMemo and useCallback
 
 useCallback\(\) and useMemo\(\) are React hooks that return memoized functions and values, respectively.
 
 > An optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
 
-## useEffect\(sideEffect management\)
+## TODO REWRITE: useEffect\(sideEffect management\)
 
 useEffect\(callback, dependencies\) is the hook that manages the side-effects in functional components.
 
@@ -92,7 +92,7 @@ By default, effects run after every completed render, but you can choose to fire
 
 dependencies is a list of dependencies of your side-effect: being props or state values.
 
-## useRef 
+## TODO REWRITE: useRef 
 
 The useRef hook allows you to create a persistent ref to a DOM node, or really to any value.
 
@@ -104,7 +104,7 @@ Calling useRef creates an empty ref object by default, or you can initialize it 
 
 
 
-## TODO  REWRITE UseMemo\(Memoize values\)
+## TODO  REWRITE: UseMemo\(Memoize values\)
 
 Unlike useEffect, `React.useMemo` does not trigger every time you change one of its dependencies.
 
@@ -112,7 +112,7 @@ A memoized function will first check to see if the dependencies have changed sin
 
 This is good for expensive operations like transforming API data or doing major calculations that you don't want to be re-doing unnecessarily
 
-## TODO REWRITE UseCallback \(Memoize functions\)
+## TODO REWRITE: UseCallback \(Memoize functions\)
 
 This is a special case for memoizing functions. Since javascript compares equality by reference, the function you create the first time a component renders will be different than the one created in subsequent renders.
 
