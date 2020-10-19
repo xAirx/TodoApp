@@ -75,8 +75,6 @@ const toggleColorMode = useCallback(() => {
 {% endtab %}
 {% endtabs %}
 
-
-
 ### 
 
 ### Below is an overview of the refactoring process and thought process along with performance metrics
@@ -281,8 +279,6 @@ export const useTodos = (initialTodos: Todo[]) => {
 ```
 {% endtab %}
 {% endtabs %}
-
-
 
 
 
