@@ -107,67 +107,6 @@ const toggleColorMode = useCallback(() => {
 ## UseTodoState hook
 
 {% tabs %}
-{% tab title="Old Structure" %}
-> Anyomous functions are a no go, memory is wasted, as each time this component is rerendered, new memory is used instead of allocating a single piece of memory one. with named functions. 
->
-> Each operation here will also trigger a re-render, a great useCase for avoiding unneeded re-renders if the props passed has not changed.
-
-```javascript
-
-import { useState } from 'react';
-import uuid from 'uuid/v4';
-import useLocalStorageState from './useLocalStorageState';
-
-export default (initialTodos) => {
-	// UselocalStorage state will initialize the state and make the state for us.
-	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
-	// Localstorage functionality here.
-	const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
-
-	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
-
-	return {
-		todos,
-
-		addTodo: (newTodoText) => {
-			setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-		},
-		removeTodo: (todoId) => {
-			console.log('removetodocalled');
-			// filter out removed todo
-			const updatedTodos = todos.filter((todo) => todo.id !== todoId);
-			console.log(updatedTodos);
-			// call setTodos with new todosArray
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-		editTodo: (todoId, newTodoText) => {
-			console.log('editTodoCalled');
-			// filter out removed todo
-			/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
-			   /*  console.log(updatedTodos); */
-			/*  updatedTodos.task = newTodoText; */
-			// call setTodos with new todosArray
-			const updatedTodos = todos.map((todo) => (todo.id === todoId
-				? { ...todo, task: newTodoText } : todo));
-			console.log('this is the new todos changed from edit', updatedTodos);
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-
-		toggleTodo: (todoId) => {
-			const updatedTodos = todos.map((todo) => (todo.id === todoId ? {
-				...todo,
-				completed: !todo.completed,
-			} : todo));
-			setTodos(updatedTodos);
-		},
-
-	};
-};
-```
-{% endtab %}
-
 {% tab title="New Structure" %}
 > All functionality is in a single hook useTodoState.tsx
 
@@ -265,6 +204,67 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 ```
 {% endtab %}
+
+{% tab title="Old Structure" %}
+> Anyomous functions are a no go, memory is wasted, as each time this component is rerendered, new memory is used instead of allocating a single piece of memory one. with named functions. 
+>
+> Each operation here will also trigger a re-render, a great useCase for avoiding unneeded re-renders if the props passed has not changed.
+
+```javascript
+
+import { useState } from 'react';
+import uuid from 'uuid/v4';
+import useLocalStorageState from './useLocalStorageState';
+
+export default (initialTodos) => {
+	// UselocalStorage state will initialize the state and make the state for us.
+	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
+	// Localstorage functionality here.
+	const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
+
+	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
+
+	return {
+		todos,
+
+		addTodo: (newTodoText) => {
+			setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
+		},
+		removeTodo: (todoId) => {
+			console.log('removetodocalled');
+			// filter out removed todo
+			const updatedTodos = todos.filter((todo) => todo.id !== todoId);
+			console.log(updatedTodos);
+			// call setTodos with new todosArray
+			setTodos(updatedTodos);
+			/* console.log('These are the updated todos', todos); */
+		},
+		editTodo: (todoId, newTodoText) => {
+			console.log('editTodoCalled');
+			// filter out removed todo
+			/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
+			   /*  console.log(updatedTodos); */
+			/*  updatedTodos.task = newTodoText; */
+			// call setTodos with new todosArray
+			const updatedTodos = todos.map((todo) => (todo.id === todoId
+				? { ...todo, task: newTodoText } : todo));
+			console.log('this is the new todos changed from edit', updatedTodos);
+			setTodos(updatedTodos);
+			/* console.log('These are the updated todos', todos); */
+		},
+
+		toggleTodo: (todoId) => {
+			const updatedTodos = todos.map((todo) => (todo.id === todoId ? {
+				...todo,
+				completed: !todo.completed,
+			} : todo));
+			setTodos(updatedTodos);
+		},
+
+	};
+};
+```
+{% endtab %}
 {% endtabs %}
 
 ### Alternative solutions \(using an API to grab data\)
@@ -281,7 +281,8 @@ export const useTodos = (initialTodos: Todo[]) => {
     // fire and forget approach. the ui was already updated above! we don't care
     // whether the request fails or not. we expect it not to, but its not relevant
     // for the direct continuation of the user flow. feels better, 
-    no waiting time!
+    //no waiting time!
+    
     axios.post(endpoint, newTodo).catch((error) => {
       // do whatever you want here
     });
@@ -330,143 +331,6 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 
 {% tabs %}
-{% tab title="Initial structure" %}
-> Functionality is scattered across App Component and the useDarkModeHook within myTheme.tsx
->
-> Here state is controlled both within myTheme.tsx and our App component A good opportunity to encapsulate everything into myTheme.tsx and handle state close to the source.
->
-> As well as adding performance optimizations across components is not ideal.
-
-```javascript
-  const [theme, toggleDarkMode] = useDarkmode();
-  console.log('THIS IS THEME INSIDE APP', theme);
-
-  const themeConfig = createMuiTheme(theme);
-```
-
-```javascript
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
-import {
-  blue, pink, purple, grey,
-} from '@material-ui/core/colors';
-import useLocalStorageState from '../Hooks/useLocalStorageState';
-
-/*
-function myTheme(themeName = 'light') {
- */
-
-/* const themeObject = {
-  palette: {
-    primary: {
-      light: blue[800],
-      main: blue[500],
-      dark: blue[500],
-    },
-    secondary: {
-      light: pink[800],
-      main: pink[500],
-      dark: pink[500],
-    },
-  }
-}; */
-
-const lightTheme = {
-
-  palette: {
-    primary: {
-      dark: '#FFFFFF',
-
-      light: '#FFFFFF',
-
-      main: '#FFFFFF',
-    },
-    secondary: {
-      dark: '#FFFFFF',
-
-      light: '#FFFFFF',
-
-      main: '#FFFFFF',
-    },
-    type: 'light',
-    background: {
-      paper: 'linear-gradient(130deg, #96bb7c 80%, #184d47 10%)',
-
-    },
-  },
-};
-
-const darkTheme = {
-
-  palette: {
-    primary: {
-      dark: '#FFFFFF',
-
-      light: '#FFFFFF',
-
-      main: '#FFFFFF',
-    },
-    secondary: {
-      dark: '#FFFFFF',
-
-      light: '#FFFFFF',
-
-      main: '#FFFFFF',
-    },
-    type: 'dark',
-    background: {
-      paper: 'linear-gradient(130deg, #0c2623 80%, #96bb7c 10%)',
-    },
-  },
-};
-
-const MatchMedia = window.matchMedia
-            && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  // console.log('MatchMEDIA: THE PREFFERED MODE IS DARK', MatchMedia);
-
-let initialTheme = '';
-const preferredTheme = MatchMedia === true ? initialTheme = darkTheme : initialTheme = lightTheme;
-console.log('this is the preferredTheme', preferredTheme);
-
-let themeObject = preferredTheme;
-console.log('this is the ThemeObject', themeObject);
-
-/* {
-  PaletteType === 'light' ? (
-    themeObject = lightTheme
-  ) : (
-    themeObject = darkTheme
-  );
-}
- */
-/* console.log(themeObject); */
-/* themeConfig = responsiveFontSizes(themeConfig); */
-
-const useDarkmode = () => {
-  const [theme, setTheme] = useState(themeObject);
-
-  console.log('THIS IS INSIDE USEDARKMODE');
-  const toggleDarkMode = () => {
-    console.log('You called  ToggleDarkMode');
-    console.log('THIS IS THEME.TYPE', themeObject);
-    const updatedTheme = {
-      ...themeObject,
-      type: themeObject === darkTheme ? themeObject = lightTheme : themeObject = darkTheme,
-    };
-    setTheme(updatedTheme);
-    console.log('THIS IS THEME', theme);
-  };
-  return [theme, toggleDarkMode];
-};
-
-/*    return theme;
-    }
-    */
-export { themeObject, useDarkmode };
-/*
-```
-{% endtab %}
-
 {% tab title="Optimized structure" %}
 ### Detailed explanation: 
 
@@ -647,6 +511,143 @@ export const useTheme = (colorMode: ColorMode) => useMemo(() => createMuiTheme(c
 	colorMode,
 ]);
 
+```
+{% endtab %}
+
+{% tab title="Initial structure" %}
+> Functionality is scattered across App Component and the useDarkModeHook within myTheme.tsx
+>
+> Here state is controlled both within myTheme.tsx and our App component A good opportunity to encapsulate everything into myTheme.tsx and handle state close to the source.
+>
+> As well as adding performance optimizations across components is not ideal.
+
+```javascript
+  const [theme, toggleDarkMode] = useDarkmode();
+  console.log('THIS IS THEME INSIDE APP', theme);
+
+  const themeConfig = createMuiTheme(theme);
+```
+
+```javascript
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import {
+  blue, pink, purple, grey,
+} from '@material-ui/core/colors';
+import useLocalStorageState from '../Hooks/useLocalStorageState';
+
+/*
+function myTheme(themeName = 'light') {
+ */
+
+/* const themeObject = {
+  palette: {
+    primary: {
+      light: blue[800],
+      main: blue[500],
+      dark: blue[500],
+    },
+    secondary: {
+      light: pink[800],
+      main: pink[500],
+      dark: pink[500],
+    },
+  }
+}; */
+
+const lightTheme = {
+
+  palette: {
+    primary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    secondary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    type: 'light',
+    background: {
+      paper: 'linear-gradient(130deg, #96bb7c 80%, #184d47 10%)',
+
+    },
+  },
+};
+
+const darkTheme = {
+
+  palette: {
+    primary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    secondary: {
+      dark: '#FFFFFF',
+
+      light: '#FFFFFF',
+
+      main: '#FFFFFF',
+    },
+    type: 'dark',
+    background: {
+      paper: 'linear-gradient(130deg, #0c2623 80%, #96bb7c 10%)',
+    },
+  },
+};
+
+const MatchMedia = window.matchMedia
+            && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  // console.log('MatchMEDIA: THE PREFFERED MODE IS DARK', MatchMedia);
+
+let initialTheme = '';
+const preferredTheme = MatchMedia === true ? initialTheme = darkTheme : initialTheme = lightTheme;
+console.log('this is the preferredTheme', preferredTheme);
+
+let themeObject = preferredTheme;
+console.log('this is the ThemeObject', themeObject);
+
+/* {
+  PaletteType === 'light' ? (
+    themeObject = lightTheme
+  ) : (
+    themeObject = darkTheme
+  );
+}
+ */
+/* console.log(themeObject); */
+/* themeConfig = responsiveFontSizes(themeConfig); */
+
+const useDarkmode = () => {
+  const [theme, setTheme] = useState(themeObject);
+
+  console.log('THIS IS INSIDE USEDARKMODE');
+  const toggleDarkMode = () => {
+    console.log('You called  ToggleDarkMode');
+    console.log('THIS IS THEME.TYPE', themeObject);
+    const updatedTheme = {
+      ...themeObject,
+      type: themeObject === darkTheme ? themeObject = lightTheme : themeObject = darkTheme,
+    };
+    setTheme(updatedTheme);
+    console.log('THIS IS THEME', theme);
+  };
+  return [theme, toggleDarkMode];
+};
+
+/*    return theme;
+    }
+    */
+export { themeObject, useDarkmode };
+/*
 ```
 {% endtab %}
 {% endtabs %}
