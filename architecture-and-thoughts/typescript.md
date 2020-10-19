@@ -8,7 +8,7 @@ TypeScript also helps us to create JavaScript code cleaner
 
 TypeScript is able to point out errors in compilation during development.
 
- It also supports JavaScript libraries and API documentation. In TypeScript, the same code can be run on any browser, device or operating system.
+It also supports JavaScript libraries and API documentation. In TypeScript, the same code can be run on any browser, device or operating system.
 
 JavaScript code is TypeScript code. It can be converted into TypeScript just changing the extension of the file from “.js” to “.ts”.
 
@@ -20,9 +20,9 @@ TS files are plain old Typescript files and do not support adding JSX Elements.
 
 Typically you would seperate concerns by placing only code relating to presentation in the TSX files.
 
-
-
 ## Why I use TypeScript
+
+
 
 ####  Faster Development
 
@@ -60,11 +60,7 @@ export const EditTodoForm: React.FC<EditTodo> = ({ id, editTodo, task, toggleEdi
 
 ## OOP principles & Functional Design patterns
 
-
-
 > **TypeScript introduces the abillity to implement OOP principles into the world of JS, since i am very into functional programming these principles are not applied here on this project itself.**
->
-> \*\*\*\*
 
 ![](../.gitbook/assets/image%20%285%29.png)
 
@@ -72,7 +68,7 @@ export const EditTodoForm: React.FC<EditTodo> = ({ id, editTodo, task, toggleEdi
 
 #### See the section on Pure **C**omponents and Optimization here:
 
-{% page-ref page="../performance-considerations/optimization.md" %}
+{% page-ref page="optimization.md" %}
 
 
 

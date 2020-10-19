@@ -64,6 +64,6 @@ jobs:
           printenv
       - name: Push to Heroku
 
-        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/fullstacktodoapp--$ENVIRONMENT.git origin/$BRANCH:master
+        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/todoapp--$ENVIRONMENT.git origin/$BRANCH:master
 ```
 

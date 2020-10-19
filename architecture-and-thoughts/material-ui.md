@@ -4,7 +4,7 @@
 
 [Using `useEffect()`](https://reactjs.org/docs/hooks-effect.html) from the [Hooks API for lifecycle methods](https://reactjs.org/docs/hooks-faq.html#do-hooks-cover-all-use-cases-for-classes).   
   
-This allows you to still use `makeStyles()` with Lifecycle Methods [without adding the complication of making Higher-Order Components](https://reactjs.org/docs/hooks-faq.html#do-hooks-replace-render-props-and-higher-order-components). 
+This allows you to still use `makeStyles()` without class based - lifecycle Methods [without adding the complication of making Higher-Order Components](https://reactjs.org/docs/hooks-faq.html#do-hooks-replace-render-props-and-higher-order-components). 
 
 Which is much simpler.
 
@@ -115,36 +115,31 @@ I decided to write a custom dark and light mode that still works wonderfully wit
 
 I wanted more control over the specific themes and not only changing the palette values as seen below:
 
-
-
 > ### Dark mode
 >
 > Material-UI comes with two palette types, light \(the default\) and dark. You can make the theme dark by setting `type: 'dark'`. While it's only a single property value change, internally it modifies several palette values. - [https://material-ui.com/customization/palette](https://material-ui.com/customization/palette/)
 
-
-
 I wanted to add a preferred theme functionality, along with more control over specific styling on the background of the light and dark theme.
 
-
-
-#### `Example` Dark Theme.
+#### `Example` Theme.
 
 ```javascript
-const darkTheme = {
-
+const lightTheme: ThemeOptions = {
 	palette: {
 		primary: {
-			dark: '#FFFFFF',
-
-			light: '#FFFFFF',
-
 			main: '#FFFFFF',
 		},
-		secondary: {
-			dark: '#FFFFFF',
+		type: 'light',
+		background: {
+			paper: 'linear-gradient(130deg, #96bb7c 80%, #184d47 10%)',
 
-			light: '#FFFFFF',
+		},
+	},
+};
 
+const darkTheme: ThemeOptions = {
+	palette: {
+		primary: {
 			main: '#FFFFFF',
 		},
 		type: 'dark',
@@ -153,99 +148,45 @@ const darkTheme = {
 		},
 	},
 };
+
+
 ```
 
-#### Setting preferred user theme using useMediaQuery and useMemo
+**To continue to read about the performance optimizations and implemented custom hooks in detail read below:**
+
+{% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
+
+
+
+## Usage in the app file
+
+We import the needed functions and add them to constants which we use in our app \(home component\)
 
 ```javascript
-const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-const themeObject = React.useMemo(
-	() => {
-		return prefersDarkMode ? darkTheme : lightTheme
-	},
-	[prefersDarkMode]
-);
-
-
-export default function MUIapp() {
-
-const [theme, toggleDarkMode] = useDarkmode(themeObject);
-```
-
-####  Custom Hook - useDarkMode function.
-
-```javascript
-
-export const useDarkmode = (prefersDarkMode: any) => {
-	const [theme, setTheme] = useState(prefersDarkMode);
-
+import {
+	ThemeWrapper, useColorMode, useTheme,
+} from './index';
 	
-	const toggleDarkMode = () => {
-		
-		const updatedTheme = {
-			type: prefersDarkMode
-			
-		};
-		setTheme(updatedTheme);
-		
-	};
-	return [theme, toggleDarkMode];
-};
-
-```
-
-#### Usage in the app file
-
-here we use the useDarkMode hook, and control the light and dark theme via "toggleDarkMode".
-
-Also we create the themeConfig, which will globally create the MUI theme with the theme that is now set \(either light or dark\)
-
-```javascript
+	const theme = useTheme();
 	
- export const MUIapp: React.FC = () => {
-
-	const [theme, toggleDarkMode] = useDarkmode(themeObject);
-
-	const themeConfig = React.useMemo(
-		() => {
-			return createMuiTheme(theme);
-		}, [theme]
-	);
-
+	// destructuring toggleColorMode
+	//useColorMode returns an object
+		//const colorModeObj = useColorMode();
+		//const toggleColorMode = colorModeObj.toggleColorMode;
+		
+	const { toggleColorMode } = useColorMode();
 ```
 
 #### Toggle functionality
 
+The toggle functionality is achieved calling the toggleColorMode function, which is inside our custom hook.
+
 ```javascript
-<IconButton
-			aria-label="light and dark mode toggle"
-			edge="end"
-			justify="center"
-			color="inherit" 
->
-
-<Typography
-			className={classes.title}
-			style={{
-						marginRight: '20px',
-						marginTop: '6px'
-				}}
-				noWrap
->
-
-{themeConfig.palette.type === 'dark'
-? <Brightness4Icon variant="outlined" />
-	: <Brightness7Icon />}
-
-</Typography>
-
 <FormControlLabel
-		   checked={themeConfig.palette.type === 'dark'}
-       control={<Switch onClick={toggleDarkMode} />}
+  label={theme.palette.type === 'dark' ? 'Too Dark?' : 'Too Bright?'}
+  checked={theme.palette.type === 'dark'}
+  control={<Switch onClick={toggleColorMode} />}
 />
-
-</IconButton>
 ```
 
 ## Extra

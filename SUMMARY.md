@@ -4,7 +4,7 @@
 
 ## Introduction & Getting started
 
-* [Start here](introduction-and-getting-started/start-here.md)
+* [TODO: Start here](introduction-and-getting-started/start-here.md)
 
 ## Tooling
 
@@ -17,15 +17,15 @@
 
 ## Architecture & Thoughts
 
-* [Material UI](architecture-and-thoughts/material-ui.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
-* [TODO LAST Custom Hooks](architecture-and-thoughts/hooks.md)
+* [DesignPrinciples](architecture-and-thoughts/optimization.md)
+* [Material UI](architecture-and-thoughts/material-ui.md)
+* [TODO: Hooks & Optimization](architecture-and-thoughts/todo-optimization.md)
+* [Custom Hooks](architecture-and-thoughts/hooks.md)
 
-## Performance Considerations
+## Application Considerations <a id="performance-considerations"></a>
 
-* [TODO: DesignPrinciples](performance-considerations/optimization.md)
-* [TODO LAST: Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
-* [TODO LAST: React Profiler](performance-considerations/todo-react-profiler.md)
+* [Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
 
 ## UnitTesting
 

@@ -1,20 +1,20 @@
-# TODO LAST Custom Hooks
+# Custom Hooks
 
 ## Custom Hooks
 
 ### **useInputState**
 
-> This custom hook enables me to reset a state for a form-field and also gives the abillity to update the form field with an event such as e.target.value.
+> This custom hook enables me to reset a state for a form-field and also gives the ability to update the form field with an event such as e.target.value.
 
 ```javascript
-import { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 
-export const useInputState = (initialVal: any) => {
+export const useInputState = (initialVal: string) => {
 	// call useState, "reserve a piece of state";
 
-	const [state, setState] = useState(initialVal);
+	const [value, setState] = useState(initialVal);
 
-	const update = (e: ChangeEvent<HTMLTextAreaElement>) => {
+	const update = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 		setState(e.target.value);
 	};
 
@@ -27,12 +27,12 @@ export const useInputState = (initialVal: any) => {
 		setState('');
 	};
 
-	return [state, reset, update];
+	return { value, reset, update };
 };
 
 ```
 
-### Example Usage with form:
+#### Example Usage with form:
 
 ```bash
 function Todoform({ addTodo }) {
@@ -73,7 +73,7 @@ function Todoform({ addTodo }) {
 ```javascript
 import { useState } from 'react';
 
-//declare explicit return type.
+// declare explicit return type.
 export const useToggle = (initialVal = false): [boolean, () => void] => {
 	// call useState, "reserve a piece of state";
 
@@ -83,7 +83,7 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 	};
 
 	return [state, toggle];
-}
+};
 
 ```
 
@@ -91,15 +91,9 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 
-#### 
-
-
-
 ## UseTodoState
 
-> This hook enables me to handle the "Crud operations" for my todos the example below is before the logic for calling the API is implemented, this logic is explained in the Express API Architecture section
-
-
+> This hook enables me to handle the "Crud operations" for my todos
 
 **We have declared our types here, for easy export and usage within other components**
 
@@ -186,7 +180,7 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 ### Usage in project
 
-This hook is used as a "starting point for our application, we can distribute our todo "crud" operations throughout our project.
+This hook is used as a "starting point for our application, we can distribute our Todo "crud" operations throughout our project.
 
 We start by passing it into **TodoForm &**  **TodoList -&gt; SingleTodo-&gt;TodoEditForm**  \(component\) which then in return passes it down to the child components that needs the functionality.
 
@@ -199,17 +193,110 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 ```
 
+
+
+
+
+## UseColorMode & UseTheme
+
+> This hook enables me  to work with the material UI useMediaQuery alongsside, localStorage syncing  and retrieving,  the idea is  to optimize the  process as much as possible, the end result is  returning the preferred theme from the user initially
+
+```javascript
+
+// setting lskey
+const lskey = 'mode';
+
+type Theme = 'dark' | 'light';
+type ColorMode = 'dark' | 'light';
+
+type UseColorModeReturn = {
+	colorMode: ColorMode;
+	toggleColorMode: () => void;
+};
+
+const trySyncToLocalStorage = (theme: Theme) => {
+	try {
+		localStorage.setItem(lskey, theme);
+	} catch {
+		// ignore
+	}
+};
+
+const tryRetrievingFromLocalStorage = (theme: Theme): Theme => {
+	try {
+		const stored = localStorage.getItem(lskey);
+
+		return stored ? JSON.parse(stored) : theme;
+	} catch {
+		return theme;
+	}
+};
+
+
+export const useColorMode = (): UseColorModeReturn => {
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+	const initialRenderRef = useRef(true);
+
+	const [colorMode, setColorMode] = useState<ColorMode>(
+		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
+	);
+
+//First useEffect.
+	useEffect(() => {
+		
+		if (initialRenderRef.current) {
+			initialRenderRef.current = false;
+		} else {
+	
+			setColorMode(prefersDarkMode ? 'dark' : 'light');
+		}
+	}, [prefersDarkMode]);
+	
+
+	useEffect(() => {
+	
+		trySyncToLocalStorage(colorMode);
+	}, [colorMode]);
+
+	
+	const toggleColorMode = useCallback(() => {
+		
+		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
+	
+	}, []);
+
+	
+	return useMemo(() => ({ colorMode, toggleColorMode }), [
+		colorMode,
+		toggleColorMode,
+	]);
+};
+
+```
+
+```javascript
+
+export const useTheme = () => {
+	const { colorMode } = useColorMode();
+
+	return useMemo(
+
+		() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme),
+		[colorMode],
+	);
+};
+```
+
 ## Would Context API be needed to avoid "prop-drilling" in this scenario?
 
 Context API, using the useContext hook would certainly enable me to have a global provider for the functionality needed in each component, due to time constraints this is not implemented.
 
-A classic todoapp would not need context API, and would be sort of over engineering here.
-
-## Usage of useCallback
+A classic Todoapp would not need context API, and would be sort of over engineering here.
 
 see the following chapters here:
 
-{% page-ref page="../performance-considerations/optimization.md" %}
-
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
+
+{% page-ref page="optimization.md" %}
 
