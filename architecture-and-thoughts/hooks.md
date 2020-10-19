@@ -193,6 +193,10 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 ```
 
+
+
+
+
 ## UseColorMode & UseTheme
 
 > This hook enables me  to work with the material UI useMediaQuery alongsside, localStorage syncing  and retrieving,  the idea is  to optimize the  process as much as possible, the end result is  returning the preferred theme from the user initially

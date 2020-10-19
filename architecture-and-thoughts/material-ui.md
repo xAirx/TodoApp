@@ -152,92 +152,13 @@ const darkTheme: ThemeOptions = {
 
 ```
 
-####  Custom Hook - useColorMode function.
-
-this function enables me to set the initial preferred  "thememode" from the user, this is done using Material UI's useMediaQueryHook.
-
-Here we have a localStorage functionality, along with a toggle scenario.
-
-```javascript
-const trySyncToLocalStorage = (theme: Theme) => {
-	try {
-		localStorage.setItem(lskey, theme);
-	} catch {
-		// ignore
-	}
-};
-
-const tryRetrievingFromLocalStorage = (theme: Theme): Theme => {
-	try {
-		const stored = localStorage.getItem(lskey);
-
-		return stored ? JSON.parse(stored) : theme;
-	} catch {
-		return theme;
-	}
-};
-```
-
-```javascript
-
-export const useColorMode = (): UseColorModeReturn => {
-	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-	
-	const initialRenderRef = useRef(true);
-
-	const [colorMode, setColorMode] = useState<ColorMode>(
-		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
-	);
-
-	useEffect(() => {
-		
-		if (initialRenderRef.current) {
-			initialRenderRef.current = false;
-		} else {
-			
-			setColorMode(prefersDarkMode ? 'dark' : 'light');
-		}
-	}, [prefersDarkMode]);
-
-	useEffect(() => {
-
-		trySyncToLocalStorage(colorMode);
-	}, [colorMode]);
-
-	const toggleColorMode = useCallback(() => {
-		
-		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
-	}, []);
-
-	
-	return useMemo(() => ({ colorMode, toggleColorMode }), [
-		colorMode,
-		toggleColorMode,
-	]);
-};
-```
-
-```javascript
-export const useTheme = () => {
-	const { colorMode } = useColorMode();
-
-	return useMemo(
-	
-		// based on the currently selected color mode, return a theme
-
-		() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme),
-		[colorMode],
-	);
-};
-```
-
-To read about the performance optimizations implemented  in detail read below:
+**To continue to read about the performance optimizations and implemented custom hooks in detail read below:**
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 
 
 
-#### Usage in the app file
+## Usage in the app file
 
 We import the needed functions and add them to constants which we use in our app \(home component\)
 
