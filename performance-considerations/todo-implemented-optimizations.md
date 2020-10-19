@@ -476,6 +476,8 @@ Here naming is also improved
 
 Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo + useRef.
 
+
+
 ### useState
 
 > Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
@@ -512,7 +514,7 @@ Along with optimizations handling sideEffects, and render optimization using use
 >
 > If you try passing a function as props or state, this means that it will be treated as a prop change every single time. By wrapping it in useCallback,
 >
-> React will know that it's the same function. This not re-rendering unneccessarily.
+> React will know that it's the same function. This not re-rendering unnecessarily.
 
 **The Memoized Return**
 
@@ -520,9 +522,9 @@ Along with optimizations handling sideEffects, and render optimization using use
 
 ### UseTheme
 
-Handles setting the theme, it grabs colorMode \(state\) from useColorMode\(\), \(this can be seen as a designflaw explained below.
+Handles setting the theme, it grabs colorMode \(state\) from useColorMode\(\), only if colormode changes, and then creates our MUItheme.
 
-A memoized array is again returned as above, and we create our theme this way with createMUITheme.
+
 
 ```javascript
 import useMediaQuery from '@material-ui/core/useMediaQuery';
