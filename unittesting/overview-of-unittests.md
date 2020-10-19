@@ -2,8 +2,6 @@
 
 ## **What is reuseable code?**
 
-
-
 **Reliability**
 
 To be reused, code needs to be reliable. You can ensure reliable code by ensuring availability, fault tolerance, and recoverability.
