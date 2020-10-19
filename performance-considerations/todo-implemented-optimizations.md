@@ -476,8 +476,6 @@ Here naming is also improved
 
 Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo + useRef.
 
-
-
 ### useState
 
 > Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
@@ -658,13 +656,9 @@ export const useTheme = () => {
 
 ## Downside and Final thoughts of the approach
 
-Theres one logical downside here which is an inherent hook problem \[
+Theres one logical downside here which is an inherent hook problem useTheme uses useColorMode. 
 
-useTheme uses useColorMode 
-
-The component uses useColorMode so the function will be executed 2x 
-
-Ultimately its fine  in  we you wont notice it but  we have  to be aware of this...
+The component uses useColorMode so the function will be executed two times.
 
 ### Alternative approach
 
