@@ -42,6 +42,17 @@ If the application updates certain data that is observable outside the called fu
 * Calling any other functions with side-effects
 * Making Asynchronous Data Calls
 
+```javascript
+function Greet({ name }) {
+  const message = `Hello, ${name}!`; // Calculates output'
+
+// Bad!
+  document.title = 'Greetings page'; // Side-effect!
+  return <div>{message}</div>;       // Calculates output
+}
+
+```
+
 
 
 ### Immutability
@@ -56,7 +67,7 @@ If the application updates certain data that is observable outside the called fu
 
 #### Advantages: 
 
-#### Firstly react favors immutability because of its nature, props are the main blocks of the application and these have to be stored in state, and compared from time to time. comparing across renders would be very hard if we were not working with immuteable data structures.
+#### Firstly react favors immutability because of its nature, props are the main blocks of the application and these have to be stored in state, and compared from time to time. comparing across renders would be very hard if we were not working with immutable data structures.
 
 * We can use immutable data structures check for a complex state change.
 * For example, if the state in your application is immutable, you can actually save all state objects in a

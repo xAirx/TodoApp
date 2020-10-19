@@ -4,7 +4,7 @@
 
 [Using `useEffect()`](https://reactjs.org/docs/hooks-effect.html) from the [Hooks API for lifecycle methods](https://reactjs.org/docs/hooks-faq.html#do-hooks-cover-all-use-cases-for-classes).   
   
-This allows you to still use `makeStyles()` without classbased - lifecycle Methods [without adding the complication of making Higher-Order Components](https://reactjs.org/docs/hooks-faq.html#do-hooks-replace-render-props-and-higher-order-components). 
+This allows you to still use `makeStyles()` without class based - lifecycle Methods [without adding the complication of making Higher-Order Components](https://reactjs.org/docs/hooks-faq.html#do-hooks-replace-render-props-and-higher-order-components). 
 
 Which is much simpler.
 

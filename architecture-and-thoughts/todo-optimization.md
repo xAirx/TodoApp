@@ -96,11 +96,11 @@ The function passed to useEffect will run after the render is committed to the s
 
 Whatever function we return from the useEffect will be treated as componentWillUnmount
 
-By default, effects run after every completed render, but you can choose to fire them [only when certain values have changed](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect).
+* Not provided: the side-effect runs after each rendering
+* An empty array \[\]: the side-effect runs once after the initial rendering
+* Passing a v laue we can choose to fire only  when certain values have changed.
 
-If we pass an empty array our useEffect will only run once throughout the life of our component \(our eslint will be complaining a lot though\)
 
-dependencies is a list of dependencies of your side-effect: being props or state values.
 
 ## TODO REWRITE: useRef 
 
@@ -111,8 +111,6 @@ React will persist this value between re-renders \(between calls to your compone
 We need this because we can’t just store things in local variables – they’d go out of scope as soon as the component function returns \(React components are really just functions, remember\).
 
 Calling useRef creates an empty ref object by default, or you can initialize it to some other value by passing an argument.
-
-
 
 ## TODO  REWRITE: UseMemo\(Memoize values\)
 

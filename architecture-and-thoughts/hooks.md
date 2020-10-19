@@ -195,6 +195,22 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 ## UseColorMode
 
+> This hook enables me  to work with the material UI useMediaQuery alongsside, localStorage syncing  and retrieving,  the idea is  to optimize the  process as much as possible, the end result is  returning the preferred theme from the user initially
+
+### Detailed explanation: 
+
+> Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
+
+The useEffects are added to handle our sideeffects, component rendering and side-effect invocation have to be independent.
+
+### First optimization \(Avoiding re-renders when prefersDarkmode Changes.
+
+> First useEffect: will handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
+
+> if we are on the first render we use the initial value provided by useMediaQuery, if we are not we check if prefersDarkMode is set to true, thus choosing dark  or light mode.    
+>   
+> Doing it this way we
+
 ```javascript
 
 // setting lskey
@@ -236,6 +252,7 @@ export const useColorMode = (): UseColorModeReturn => {
 		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
 	);
 
+//First useEffect.
 	useEffect(() => {
 		
 		if (initialRenderRef.current) {
@@ -245,12 +262,14 @@ export const useColorMode = (): UseColorModeReturn => {
 			setColorMode(prefersDarkMode ? 'dark' : 'light');
 		}
 	}, [prefersDarkMode]);
+	
 
 	useEffect(() => {
 	
 		trySyncToLocalStorage(colorMode);
 	}, [colorMode]);
 
+	
 	const toggleColorMode = useCallback(() => {
 		
 		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
