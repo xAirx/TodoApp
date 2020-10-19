@@ -1,5 +1,10 @@
 # Project introduction
 
+# The gitbook ( A LOT of work went into this, please take a look) 
+      https://app.gitbook.com/invite/mwdesign?invite=-MJWnVKST_7kWauAPOEO
+      
+# The Idea
+
       The idea is to simulate a task given to me  refactoring a smaller application
       With this project i'm seeking to 
 
