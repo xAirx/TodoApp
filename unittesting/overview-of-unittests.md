@@ -14,6 +14,8 @@ To be reused, code needs to be efficient. You can ensure efficiency by improving
 
 **Maintainability**
 
+Testable and code is easier to maintain.
+
 ## Installation
 
 To be reused, code needs to be maintainable. One way to ensure that code is maintainable is to ensure it is compliant.
