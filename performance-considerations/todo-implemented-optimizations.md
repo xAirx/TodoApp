@@ -175,15 +175,15 @@ export default (initialTodos) => {
 
 ### UseTodoStateHook
 
-> UseCallbacks are implemented and LocalStorage syncing and retriveing added to avoid unneeded operations. 
->
-> our UseTodos hook will take the initial todos passed from APP, it will try retrieve the Todos from LocalStorage, if they do not exist from localStorage, the inital Todos are returned,and set into state.
->
-> our UseEffect will run if the Todos are changed, and only if the todos are changed the syncing to localStorage happens.
->
-> Our crud operations are wrapped im useCallback, with an empty array, this means that we instruct useCallback to run only once, and since useCallback returns a memoized version of the callback, that only changes if one ofo the dependencies are changed.
->
-> We can achieve reference equality \(MEMORY\), so that we prevent unneeded renders.
+UseCallbacks are implemented and LocalStorage syncing and retriveing added to avoid unneeded operations. 
+
+Our UseTodos hook will take the initial todos passed from APP, it will try retrieve the Todos from LocalStorage, if they do not exist from localStorage, the inital Todos are returned,and set into state.
+
+our UseEffect will run if the Todos are changed, and only if the todos are changed the syncing to localStorage happens.
+
+Our crud operations are wrapped im useCallback, with an empty array, this means that we instruct useCallback to run only once, and since useCallback returns a memoized version of the callback, that only changes if one ofo the dependencies are changed.
+
+We can achieve reference equality \(MEMORY\), so that we prevent unneeded renders.
 
 ```javascript
 import { useCallback, useState, useEffect } from 'react';
@@ -331,8 +331,6 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 
 
-**Moving all code that handles the state into a Seperate component**:
-
 {% tabs %}
 {% tab title="Initial structure" %}
 > Functionality is scattered across App Component and the useDarkModeHook within myTheme.tsx
@@ -474,15 +472,23 @@ export { themeObject, useDarkmode };
 {% tab title="Optimized structure" %}
 ### Detailed explanation: 
 
-* Everything is extracted into a myTheme.tsx creating a single component a custom hook to handle state aswell. this also makes it easier to test.
-* Here naming is also improved
-* Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo + useRef.
+Everything is extracted into a myTheme.tsx creating a single component a custom hook to handle state aswell. this also makes it easier to test.
+
+Here naming is also improved
+
+Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo + useRef.
+
+
+
+### useState
 
 > Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
->
+
 > The useEffects are added to handle our side effects, component rendering and side-effect invocation have to be independent.
 
-### **F**irst useEffect  \(Avoiding re-renders when prefersDarkmode Changes.
+
+
+### **F**irst useEffect  \(Avoiding re-renders when prefersDarkmode Changes\).
 
 > Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
 >
@@ -514,11 +520,13 @@ export { themeObject, useDarkmode };
 
 > In the end we return a memoized array. \[\] === \[\] is _false_. so if we execute `useColorMode` multiple times across rerenders, it would not be the same array as before, although its contents not necessarily changed. this leads to breaking any optimization depending on the return value of `useColorMode such as useTheme` so we're avoiding this here hurray for  \(IMMUTETABILLITY again!\)
 
+
+
 ### UseTheme
 
+Handles setting the theme, it grabs colorMode \(state\) from useColorMode\(\), \(this can be seen as a designflaw explained below.
 
-
-
+A memoized array is again returned as above, and we create our theme this way with createMUITheme.
 
 ```javascript
 import useMediaQuery from '@material-ui/core/useMediaQuery';
