@@ -82,9 +82,15 @@ useCallback\(\) and useMemo\(\) are React hooks that return memoized functions a
 
 ## useEffect\(sideEffect management\)
 
+useEffect\(callback, dependencies\) is the hook that manages the side-effects in functional components.
 
+callback argument is the function invoked after changes are committed to the screen: here is where you put the side-effect logic.
 
+The function passed to useEffect will run after the render is committed to the screen.
 
+By default, effects run after every completed render, but you can choose to fire them [only when certain values have changed](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect).
+
+dependencies is a list of dependencies of your side-effect: being props or state values.
 
 ## useRef 
 
