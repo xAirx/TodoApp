@@ -93,7 +93,7 @@ export const useToggle = (initialVal = false): [boolean, () => void] => {
 
 ## UseTodoState
 
-> This hook enables me to handle the "Crud operations" for my todos
+> This hook enables me to handle the "Crud operations" for my Todos
 
 **We have declared our types here, for easy export and usage within other components**
 
@@ -193,10 +193,6 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 ```
 
-
-
-
-
 ## UseColorMode & UseTheme
 
 > This hook enables me  to work with the material UI useMediaQuery alongsside, localStorage syncing  and retrieving,  the idea is  to optimize the  process as much as possible, the end result is  returning the preferred theme from the user initially
@@ -292,7 +288,7 @@ export const useTheme = () => {
 
 Context API, using the useContext hook would certainly enable me to have a global provider for the functionality needed in each component, due to time constraints this is not implemented.
 
-A classic Todoapp would not need context API, and would be sort of over engineering here.
+A classic Todo app would not need context API, and would be sort of over engineering here.
 
 see the following chapters here:
 
