@@ -20,9 +20,8 @@ import TodoForm from '../TodoForm';
 import { useTodos } from '../../Hooks/useTodoState';
 
 export const HomeComponent: React.FC = () => {
-	const theme = useTheme();
-
-	const { toggleColorMode } = useColorMode();
+	const { toggleColorMode, colorMode } = useColorMode();
+	const theme = useTheme(colorMode);
 
 	const useStyles = makeStyles(() => ({
 		root: {

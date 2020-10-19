@@ -13,7 +13,7 @@ interface ITodoForm {
 const useStyles = makeStyles(theme => ({
 	textfield: {
 		textAlign: 'center',
-		width: '500px',
+		width: '100%',
 	},
 
 	formpaper: {

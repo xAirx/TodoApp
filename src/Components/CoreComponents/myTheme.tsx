@@ -1,18 +1,29 @@
 /* eslint-disable no-unused-vars */
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
-	useCallback, useEffect, useMemo, useState, useRef,
+	useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { createMuiTheme, ThemeOptions } from '@material-ui/core/styles';
 
 const lightTheme: ThemeOptions = {
 	palette: {
 		primary: {
-			main: '#FFFFFF',
+			dark: '##ffffff',
+
+			light: '##ffffff',
+
+			main: '##ffffff',
+		},
+		secondary: {
+			dark: '##ffffff',
+
+			light: '##ffffff',
+
+			main: '##ffffff',
 		},
 		type: 'light',
 		background: {
-			paper: 'linear-gradient(130deg, #96bb7c 80%, #184d47 10%)',
+			paper: 'linear-gradient(130deg, #590d82 80%, #0c056d 10%)',
 
 		},
 	},
@@ -21,11 +32,22 @@ const lightTheme: ThemeOptions = {
 const darkTheme: ThemeOptions = {
 	palette: {
 		primary: {
-			main: '#FFFFFF',
+			dark: '#ffffff',
+
+			light: '##ffffff',
+
+			main: '###ffffff',
+		},
+		secondary: {
+			dark: '##ffffff',
+
+			light: '##ffffff',
+
+			main: '##ffffff',
 		},
 		type: 'dark',
 		background: {
-			paper: 'linear-gradient(130deg, #0c2623 80%, #96bb7c 10%)',
+			paper: 'linear-gradient(130deg, #0c056d 80%,  #590d82  10%)',
 		},
 	},
 };
@@ -43,6 +65,7 @@ type ColorMode = 'dark' | 'light';
 
 // Setting colorMode to the type of ColorMode.
 // This key is used for comparisons.
+
 type UseColorModeReturn = {
 	colorMode: ColorMode;
 	toggleColorMode: () => void;
@@ -74,36 +97,10 @@ export const useColorMode = (): UseColorModeReturn => {
 	// useEffect comes in and sets it to true although we have a different value stored
 	// we wouldnt want that localStorage presence indicates that you have a prior visit with a changed theme */
 
-	const initialRenderRef = useRef(true);
-
 	const [colorMode, setColorMode] = useState<ColorMode>(
 		// Grabbing data from localStorage, is passed our prefersDarkmode, if nothing is found the current theme is the preferred theme.
 		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
 	);
-
-	// IF PREFERRED THEME CHANGES
-
-	// Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode,
-	/* 	this useEffect. will evaluate upon the initial render reference set with useRef.( we are referring to a
-			specific DOM element here, which is created at the first render.) This wont persist across renders,
-			so makes it easy to identify if we are  on the first render,
-			  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders. */
-	useEffect(() => {
-		// on the initial render, we want to skip this effect. for this we need
-		// a non-reactive value which doesn't change when we change it. classic
-		// use case for `useRef`
-		if (initialRenderRef.current) {
-			console.log('We are on the inital render');
-			initialRenderRef.current = false;
-		} else {
-			// changing system color mode will overwrite chosen, if mismatching
-			console.log('we are not on the initial render setting colormode with prefersdarkmode', prefersDarkMode);
-			/* We set the state with the prefersDarkMode boolean so that we have a colorMode state that our useTheme hook can use
-			for setting the theme, along with our tryRetrievingFromLocalStorage being able to grab whats
-			 in localStorage or return the current Theme(the state just mentioned) */
-			setColorMode(prefersDarkMode ? 'dark' : 'light');
-		}
-	}, [prefersDarkMode]);
 
 	// IF LOCALSTORAGE CHANGES:
 	/* 	will make sure to only run whenever our localStorage changes. localStorage would change if the theme changes,
@@ -147,7 +144,7 @@ export const useColorMode = (): UseColorModeReturn => {
 	return useMemo(() => (
 		// expose colorMode so we can use it in useTheme below
 		// expose togglecolormode so we can use it in app.
-		console.log('THIS IS COLORMODE RETURNED from useColorMode', colorMode),
+		/* 		console.log('THIS IS COLORMODE RETURNED from useColorMode', colorMode), */
 		{ colorMode, toggleColorMode }),
 		// depency array
 		[
@@ -156,10 +153,6 @@ export const useColorMode = (): UseColorModeReturn => {
 		]);
 };
 
-export const useTheme = () => {
-	const { colorMode } = useColorMode();
-	console.log('THIS IS COLORMODE FROM USETHEME', colorMode);
-
-	console.log('checking passed mode', colorMode === 'dark' ? 'dark' : 'light');
-	return createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme);
-};
+export const useTheme = (colorMode: ColorMode) => useMemo(() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme), [
+	colorMode,
+]);
