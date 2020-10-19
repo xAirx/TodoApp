@@ -44,7 +44,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: allenevans/set-env@v1.0.0
         with:
-          ENVIRONMENT: "production"
+          ENVIRONMENT: "master"
           BRANCH: "master"
 
       - name: Printproductionenv
