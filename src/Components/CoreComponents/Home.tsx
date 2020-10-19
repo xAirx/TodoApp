@@ -24,8 +24,6 @@ export const HomeComponent: React.FC = () => {
 
 	const { toggleColorMode } = useColorMode();
 
-	console.log('This is our set theme', theme);
-
 	const useStyles = makeStyles(() => ({
 		root: {
 			flexGrow: 1,
