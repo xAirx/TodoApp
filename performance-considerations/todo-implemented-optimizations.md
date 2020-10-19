@@ -325,8 +325,6 @@ export const useTodos = (initialTodos: Todo[]) => {
 >
 > ### Its important to keep state close to the source, this also makes it easier to test.
 
-{% page-ref page="../unittesting/overview-of-unittests.md" %}
-
 
 
 {% tabs %}
