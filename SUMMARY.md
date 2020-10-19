@@ -18,7 +18,7 @@
 ## Architecture & Thoughts
 
 * [TypeScript](architecture-and-thoughts/typescript.md)
-* [DesignPrinciples](architecture-and-thoughts/optimization.md)
+* [Designprinciples](architecture-and-thoughts/optimization.md)
 * [Material UI](architecture-and-thoughts/material-ui.md)
 * [Custom Hooks](architecture-and-thoughts/hooks.md)
 

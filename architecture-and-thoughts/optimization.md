@@ -1,4 +1,4 @@
-# DesignPrinciples
+# Designprinciples
 
 ## Pure components & Functional Programming
 
