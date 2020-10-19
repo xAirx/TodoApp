@@ -193,7 +193,7 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 ```
 
-## UseColorMode
+## UseColorMode & UseTheme
 
 > This hook enables me  to work with the material UI useMediaQuery alongsside, localStorage syncing  and retrieving,  the idea is  to optimize the  process as much as possible, the end result is  returning the preferred theme from the user initially
 
@@ -203,9 +203,23 @@ We have it **destructured** in our app component from the hook itself, passing t
 
 The useEffects are added to handle our sideeffects, component rendering and side-effect invocation have to be independent.
 
-### First optimization \(Avoiding re-renders when prefersDarkmode Changes.
+### 
 
-> First useEffect: will handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
+> ### First useEffect  \(Avoiding re-renders when prefersDarkmode Changes.
+>
+> Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode, this useEffect. will evaluate upon the initial render reference set with useRef.\( we are referring to a specific DOM element here, which is created at the first render.\) This wont persist across renders, so makes it easy to identify if we are  on the first render,  and sets it to false. thus not changing the colormode, this avoids uneccessary re-renders.
+>
+> We set the state with the prefersDarkMode boolean so that we have a colorMode state that our useTheme hook can use for setting the theme, along with our tryRetrievingFromLocalStorage being able to grab whats in localStorage or return the current Theme\(the state just mentioned\)
+>
+> ### Second useEffect  \(Only syncing localStorage upon new Theme set\)
+>
+> will make sure to only run whenever our localStorage changes. localStorage would change if the theme changes, the theme is created with the useTheme hook. It listens for any changes to colorMode and only runs then.
+
+> ### ToggleColorMode \(Determine theme based on current theme\)
+>
+> ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic. 
+>
+> An empty dependency array provided to the toggle means that it only runs once!
 
 > if we are on the first render we use the initial value provided by useMediaQuery, if we are not we check if prefersDarkMode is set to true, thus choosing dark  or light mode.    
 >   
@@ -282,6 +296,10 @@ export const useColorMode = (): UseColorModeReturn => {
 		toggleColorMode,
 	]);
 };
+
+```
+
+```javascript
 
 export const useTheme = () => {
 	const { colorMode } = useColorMode();
