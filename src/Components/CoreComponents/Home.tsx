@@ -45,6 +45,7 @@ export const HomeComponent: React.FC = () => {
 
 		muipapermain: {
 			background: theme.palette.background.paper,
+			color: theme.palette.text.primary,
 			border: 0,
 			borderRadius: 3,
 			height: '100vh',

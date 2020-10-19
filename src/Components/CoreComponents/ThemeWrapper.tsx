@@ -15,12 +15,19 @@ export const GlobalStyle = createGlobalStyle`
 
 	body {
 		align-items: center;
+		color:white;
 		font-family: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto,
 			Helvetica, Arial, sans-serif;
 		height: 100vh;
 		margin: 0;
 		padding: 0;
 		transition: all 0.25s linear;
+		-webkit-font-smoothing: antialiased;
+
+	}
+
+	* > * {
+		color:white !important;
 	}
 `;
 

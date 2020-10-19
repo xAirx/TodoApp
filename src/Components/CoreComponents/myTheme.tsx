@@ -7,23 +7,9 @@ import { createMuiTheme, ThemeOptions } from '@material-ui/core/styles';
 
 const lightTheme: ThemeOptions = {
 	palette: {
-		primary: {
-			dark: '##ffffff',
-
-			light: '##ffffff',
-
-			main: '##ffffff',
-		},
-		secondary: {
-			dark: '##ffffff',
-
-			light: '##ffffff',
-
-			main: '##ffffff',
-		},
 		type: 'light',
 		background: {
-			paper: 'linear-gradient(130deg, #590d82 80%, #0c056d 10%)',
+			paper: 'linear-gradient(130deg, #5D21D0 80%, #0c056d 10%)',
 
 		},
 	},
@@ -31,23 +17,9 @@ const lightTheme: ThemeOptions = {
 
 const darkTheme: ThemeOptions = {
 	palette: {
-		primary: {
-			dark: '#ffffff',
-
-			light: '##ffffff',
-
-			main: '###ffffff',
-		},
-		secondary: {
-			dark: '##ffffff',
-
-			light: '##ffffff',
-
-			main: '##ffffff',
-		},
 		type: 'dark',
 		background: {
-			paper: 'linear-gradient(130deg, #0c056d 80%,  #590d82  10%)',
+			paper: 'linear-gradient(130deg, #0c056d 80%, #5D21D0  10%)',
 		},
 	},
 };
