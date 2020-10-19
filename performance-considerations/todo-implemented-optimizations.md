@@ -102,8 +102,6 @@ const toggleColorMode = useCallback(() => {
 {% endtab %}
 {% endtabs %}
 
-
-
 ## Detailed overview & overview of the refactoring process and thought process
 
 ## UseTodoState hook

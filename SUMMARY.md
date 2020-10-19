@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Fullstack TodoApp](README.md)
+* [TodoApp](README.md)
 
 ## Introduction & Getting started
 
