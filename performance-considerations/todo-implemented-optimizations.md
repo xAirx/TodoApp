@@ -642,6 +642,7 @@ export const useColorMode = (): UseColorModeReturn => {
 	]);
 };
 
+
 export const useTheme = () => {
 	const { colorMode } = useColorMode();
 
