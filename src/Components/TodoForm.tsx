@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 		border: 0,
 		borderRadius: 3,
 		boxShadow: '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0)',
-		color: theme.palette.text.secondary,
+		color: theme.palette.primary.main,
 		margin: '1rem 0',
 		padding: '0 1rem',
 		/* boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)', */
