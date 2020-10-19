@@ -22,8 +22,6 @@ jobs:
         run: heroku container:login
       - name: Install Dependencies - yarn install
         run: yarn install
-      - name: Unit tests - yarn test
-        run: yarn test
 
       - name: Set Dev Environment
         if: github.ref == 'refs/heads/development'
