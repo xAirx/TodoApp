@@ -2,27 +2,21 @@
 
 ## Why are we using TypeScript?
 
-TypeScript is a typed superset of JavaScript that compiles to plain JavaScript any browser, any host, and any open-source.
-
-TypeScript also helps us to create JavaScript code cleaner
-
-TypeScript is able to point out errors in compilation during development.
-
- It also supports JavaScript libraries and API documentation. In TypeScript, the same code can be run on any browser, device or operating system.
-
-JavaScript code is TypeScript code. It can be converted into TypeScript just changing the extension of the file from “.js” to “.ts”.
+* TypeScript is a typed superset of JavaScript that compiles to plain JavaScript any browser, any host, and any open-source.
+* TypeScript also helps us to create JavaScript code cleaner
+* TypeScript is able to point out errors in compilation during development.
+*  It also supports JavaScript libraries and API documentation. In TypeScript, the same code can be run on any browser, device or operating system.
+* JavaScript code is TypeScript code. It can be converted into TypeScript just changing the extension of the file from “.js” to “.ts”.
 
 ## Usage of TSX
 
-TSX allows for embedding JSX elements inside the file, and is largely used by React.
-
-TS files are plain old Typescript files and do not support adding JSX Elements.
-
-Typically you would seperate concerns by placing only code relating to presentation in the TSX files.
-
-
+* TSX allows for embedding JSX elements inside the file, and is largely used by React.
+* TS files are plain old Typescript files and do not support adding JSX Elements.
+* Typically you would seperate concerns by placing only code relating to presentation in the TSX files.
 
 ## Why I use TypeScript
+
+
 
 ####  Faster Development
 

@@ -20,11 +20,11 @@ In other words, the code is focused on describing the outcome of the computation
 
 #### 
 
-#### Pure Components do not depend or modify the state of variables outside their scope. 
+### Pure Components do not depend or modify the state of variables outside their scope. 
 
-#### These are the building blocks of Functional Programming.
+These are the building blocks of Functional Programming.
 
-#### The simplest way to deliver reusable code is through a pure function \(Components, Custom Hooks\), we know what is expected to go in and what comes out \( TypeScript is a winner here \)
+The simplest way to deliver reusable code is through a pure function \(Components, Custom Hooks\), we know what is expected to go in and what comes out \( TypeScript is a winner here \)
 
 A pure function is a function where the return value is only determined by its input values, without observable side effects. 
 
@@ -41,8 +41,10 @@ If the application updates certain data that is observable outside the called fu
 * Triggering any external process
 * Calling any other functions with side-effects
 * Making Asynchronous Data Calls
-* 
-### Immutabillity
+
+
+
+### Immutability
 
 > Unchanging over time or unable to be changed. When data is immutable, its state cannot change after it’s created. If you want to change an immutable object, you can’t. Instead, you create a new object with the new value.
 
@@ -51,23 +53,16 @@ If the application updates certain data that is observable outside the called fu
 * Any data that cannot be changed is immutable.
 * An immutable value or object cannot be changed.
 * When there is an update, a new value is created in memory, leaving the old one untouched.
+
+#### Advantages: 
+
+#### Firstly react favors immutability because of its nature, props are the main blocks of the application and these have to be stored in state, and compared from time to time. comparing across renders would be very hard if we were not working with immuteable data structures.
+
 * We can use immutable data structures check for a complex state change.
 * For example, if the state in your application is immutable, you can actually save all state objects in a
 * Single store with a state-management library like [Redux](https://redux.js.org/), 
-* Enabling you to easily implement undo and redo functionality forexample
+* Enabling you to easily implement undo and redo functionality for example
 * Don’t forget that we cannot change immutable data once it’s created.
-
-Any data that cannot be changed is immutable.
-
-An immutable value or object cannot be changed.
-
-When there is an update, a new value is created in memory, leaving the old one untouched.
-
-We can use immutable data structures check for a complex state change.
-
-For example, if the state in your application is immutable, you can actually save all state objects in a single store with a state-management library like [Redux](https://redux.js.org/), enabling you to easily implement undo and redo functionality.
-
-Don’t forget that we cannot change immutable data once it’s created.
 
 
 
@@ -83,9 +78,9 @@ Don’t forget that we cannot change immutable data once it’s created.
 **We need to avoid these side effects inside Pure Components.**
 
 > **This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.**
->
-> **This is also why useEffect is such a great hook.**
->
+
+\*\*\*\*
+
 > **See the chapter on unit-testing for testing scenarios**
 
 \*\*\*\*

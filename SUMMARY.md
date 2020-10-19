@@ -4,7 +4,7 @@
 
 ## Introduction & Getting started
 
-* [Start here](introduction-and-getting-started/start-here.md)
+* [TODO: Start here](introduction-and-getting-started/start-here.md)
 
 ## Tooling
 
@@ -17,8 +17,8 @@
 
 ## Architecture & Thoughts
 
-* [DesignPrinciples](architecture-and-thoughts/optimization.md)
 * [TypeScript](architecture-and-thoughts/typescript.md)
+* [DesignPrinciples](architecture-and-thoughts/optimization.md)
 * [Material UI](architecture-and-thoughts/material-ui.md)
 * [Custom Hooks](architecture-and-thoughts/hooks.md)
 * [TODO: Hooks & Optimization](architecture-and-thoughts/todo-optimization.md)

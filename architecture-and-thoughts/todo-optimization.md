@@ -82,13 +82,23 @@ useCallback\(\) and useMemo\(\) are React hooks that return memoized functions a
 
 ## TODO REWRITE: useEffect\(sideEffect management\)
 
-useEffect\(callback, dependencies\) is the hook that manages the side-effects in functional components.
+Removes the need for componentDidMount , componentDidUpdate and componentWillUnmount because it handles the use case of all of these life cycle methods.
+
+#### useEffect will work like a componentDidMount
+
+#### useEffect\(callback, dependencies\) is the hook that manages the side-effects in functional components.
+
+Any kind of side effect is not allowed inside the render method \(or inside the function in case of a functional component\). So any kind of side effect should be used inside useEffect
 
 callback argument is the function invoked after changes are committed to the screen: here is where you put the side-effect logic.
 
 The function passed to useEffect will run after the render is committed to the screen.
 
+Whatever function we return from the useEffect will be treated as componentWillUnmount
+
 By default, effects run after every completed render, but you can choose to fire them [only when certain values have changed](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect).
+
+If we pass an empty array our useEffect will only run once throughout the life of our component \(our eslint will be complaining a lot though\)
 
 dependencies is a list of dependencies of your side-effect: being props or state values.
 

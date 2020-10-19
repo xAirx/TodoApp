@@ -121,24 +121,25 @@ I wanted more control over the specific themes and not only changing the palette
 
 I wanted to add a preferred theme functionality, along with more control over specific styling on the background of the light and dark theme.
 
-#### `Example` Dark Theme.
+#### `Example` Theme.
 
 ```javascript
+const lightTheme: ThemeOptions = {
+	palette: {
+		primary: {
+			main: '#FFFFFF',
+		},
+		type: 'light',
+		background: {
+			paper: 'linear-gradient(130deg, #96bb7c 80%, #184d47 10%)',
+
+		},
+	},
+};
 
 const darkTheme: ThemeOptions = {
 	palette: {
 		primary: {
-			dark: '#FFFFFF',
-
-			light: '#FFFFFF',
-
-			main: '#FFFFFF',
-		},
-		secondary: {
-			dark: '#FFFFFF',
-
-			light: '#FFFFFF',
-
 			main: '#FFFFFF',
 		},
 		type: 'dark',
@@ -147,6 +148,7 @@ const darkTheme: ThemeOptions = {
 		},
 	},
 };
+
 
 ```
 

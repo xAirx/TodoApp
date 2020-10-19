@@ -2,7 +2,7 @@
 description: This project is created as part of an assignment for the company Nine.
 ---
 
-# Start here
+# TODO: Start here
 
 ## Project introduction
 
@@ -11,20 +11,37 @@ description: This project is created as part of an assignment for the company Ni
 
 
 **With this project i'm seeking to**   
-  
-Rewrite one of my existing projects into TypeScript and introducing typesafety.
 
-Introducing the concepts of custom hooks
 
-Introducting the concepts of designprinciples coupled with functional programming
+* Rewrite one of my existing projects into TypeScript and introducing typesafety.
+* Introducing the concepts of custom hooks
+* Introducting the concepts of designprinciples coupled with functional programming
+* Introducing the concept of performance considerations based on the knowledge of how React "reacts" and renders.
+* I want to unit-test my components and have them run before my CI/CD deploys to heroku.
 
-Introducing the concept of performance considerations based on the knowledge of how React "reacts" and renders.
+**I want to provide a documentation so that another developer can take over my project easily**
 
-I want to measure and see the performance increase.
+## Live environments:
 
-I want to unit-test my components and have them run before my CI/CD deploys to heroku.
+### Development
 
-**I want to provide a documentation so that another developer can take over my project easily.**
+> [https://todoapp--dev.herokuapp.com/](https://todoapp--dev.herokuapp.com/)
+
+###  Production
+
+> [https://todoapp--master.herokuapp.com/](https://todoapp--master.herokuapp.com/)
+
+## TODO: Application outline:
+
+{% tabs %}
+{% tab title="Old Project" %}
+
+{% endtab %}
+
+{% tab title="New project" %}
+
+{% endtab %}
+{% endtabs %}
 
 
 

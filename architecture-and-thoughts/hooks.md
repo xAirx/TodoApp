@@ -32,7 +32,7 @@ export const useInputState = (initialVal: string) => {
 
 ```
 
-### Example Usage with form:
+#### Example Usage with form:
 
 ```bash
 function Todoform({ addTodo }) {
@@ -191,6 +191,88 @@ We have it **destructured** in our app component from the hook itself, passing t
 		todos, addTodo, removeTodo, toggleTodo, editTodo,
 	} = useTodos(initialTodos);
 
+```
+
+## UseColorMode
+
+```javascript
+
+// setting lskey
+const lskey = 'mode';
+
+type Theme = 'dark' | 'light';
+type ColorMode = 'dark' | 'light';
+
+type UseColorModeReturn = {
+	colorMode: ColorMode;
+	toggleColorMode: () => void;
+};
+
+const trySyncToLocalStorage = (theme: Theme) => {
+	try {
+		localStorage.setItem(lskey, theme);
+	} catch {
+		// ignore
+	}
+};
+
+const tryRetrievingFromLocalStorage = (theme: Theme): Theme => {
+	try {
+		const stored = localStorage.getItem(lskey);
+
+		return stored ? JSON.parse(stored) : theme;
+	} catch {
+		return theme;
+	}
+};
+
+
+export const useColorMode = (): UseColorModeReturn => {
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+	const initialRenderRef = useRef(true);
+
+	const [colorMode, setColorMode] = useState<ColorMode>(
+		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
+	);
+
+	useEffect(() => {
+		
+		if (initialRenderRef.current) {
+			initialRenderRef.current = false;
+		} else {
+	
+			setColorMode(prefersDarkMode ? 'dark' : 'light');
+		}
+	}, [prefersDarkMode]);
+
+	useEffect(() => {
+	
+		trySyncToLocalStorage(colorMode);
+	}, [colorMode]);
+
+	const toggleColorMode = useCallback(() => {
+		
+		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
+	
+	}, []);
+
+	
+	return useMemo(() => ({ colorMode, toggleColorMode }), [
+		colorMode,
+		toggleColorMode,
+	]);
+};
+
+export const useTheme = () => {
+	const { colorMode } = useColorMode();
+
+	return useMemo(
+
+		() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme),
+		[colorMode],
+	);
+};
 ```
 
 ## Would Context API be needed to avoid "prop-drilling" in this scenario?
