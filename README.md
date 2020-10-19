@@ -1,7 +1,13 @@
 # Project introduction
 
+## Project Documeentation
+
+	A lot of thoughts sweat and tears went into this documentation:
+	https://app.gitbook.com/@mwdesign/s/fullstack-todoapp/~/drafts/-MK1TIFr9FhQPQPO5wkX/architecture-and-thoughts/optimization
+
+## Project description
       The idea is to simulate a task given to me  refactoring a smaller application
-      With this project i'm seeking to 
+      With this project i'm seeking to
 
       Rewrite one of my existing projects into TypeScript and introducing typesafety.
 

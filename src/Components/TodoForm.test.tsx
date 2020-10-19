@@ -7,6 +7,6 @@ describe('<Component />', () => {
 	it('works', () => {
 		render(<TodoForm />);
 
-		expect(screen.getByText('Try it out and add a new todo!')).not.toBeNull();
+		expect(screen.getByText('Try it out and add a new todo')).not.toBeNull();
 	});
 });
