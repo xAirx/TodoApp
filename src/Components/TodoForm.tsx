@@ -60,7 +60,7 @@ export const TodoForm: React.FC<ITodoForm> = ({ addTodo }) => {
 				}}
 			>
 				<TextField
-					label="Try it out and add a new todo!"
+					label="Try it out and add a new todo"
 					className={classes.textfield}
 					margin="normal"
 					required
