@@ -56,7 +56,7 @@ export const SingleTodo: React.FC<ITodo> = (
 
 							<IconButton aria-label="Edit">
 								{/*               <EditIcon onClick={() => editToggle()} /> */}
-								<EditIcon onClick={() => toggle} />
+								<EditIcon onClick={toggle} />
 							</IconButton>
 						</ListItemSecondaryAction>
 					</>

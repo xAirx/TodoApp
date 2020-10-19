@@ -30,14 +30,26 @@ const trySyncToLocalStorage = (todos: Todo[]) => {
 	}
 };
 
+/* our UseTodos hook will take the initial todos passed from APP, it will try
+retrieve the Todos from LocalStorage, if they do not exist from localStorage, the inital Todos are returned,and set into state.
+ */
+
 export const useTodos = (initialTodos: Todo[]) => {
 	const [todos, setTodos] = useState<Todo[]>(
 		tryRetrievingFromLocalStorage(initialTodos),
 	);
 
+	/* our UseEffect will run if the Todos are changed, and only if the todos are changed the syncing to localStorage happens.
+	 */
 	useEffect(() => {
 		trySyncToLocalStorage(todos);
 	}, [todos]);
+
+	/*
+	Our crud operations are wrapped im useCallback, with an empty array, this means that we instruct
+	useCallback to run only once, and since useCallback returns a memoized version of the callback, that only changes if one ofo the dependencies are changed.
+	We can achieve reference equality (MEMORY), so that we prevent unneeded renders.
+	 */
 
 	const removeTodo: RemoveTodoHandler = useCallback(id => {
 		setTodos(oldTodos => oldTodos.filter(todo => todo.id !== id));
