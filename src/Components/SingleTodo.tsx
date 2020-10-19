@@ -40,7 +40,7 @@ export const SingleTodo: React.FC<ITodo> = (
 			) : (
 					<>
 						<Checkbox tabIndex={-1} checked={completed} onClick={() => toggleTodo(id)} />
-						<ListItemText style={{ textDecoration: completed ? "line-through'" : 'none' }}>
+						<ListItemText style={{ textDecoration: completed ? 'line-through' : 'none' }}>
 							{task}
 							{completed}
 							{/* {id} */}

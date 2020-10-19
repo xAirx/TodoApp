@@ -82,6 +82,7 @@ export const useColorMode = (): UseColorModeReturn => {
 	);
 
 	// IF PREFERRED THEME CHANGES
+
 	// Handle changes to the prefersDarkMode variable if the user suddenly changes their preffered mode,
 	/* 	this useEffect. will evaluate upon the initial render reference set with useRef.( we are referring to a
 			specific DOM element here, which is created at the first render.) This wont persist across renders,
@@ -92,10 +93,11 @@ export const useColorMode = (): UseColorModeReturn => {
 		// a non-reactive value which doesn't change when we change it. classic
 		// use case for `useRef`
 		if (initialRenderRef.current) {
+			console.log('We are on the inital render');
 			initialRenderRef.current = false;
 		} else {
 			// changing system color mode will overwrite chosen, if mismatching
-
+			console.log('we are not on the initial render setting colormode with prefersdarkmode', prefersDarkMode);
 			/* We set the state with the prefersDarkMode boolean so that we have a colorMode state that our useTheme hook can use
 			for setting the theme, along with our tryRetrievingFromLocalStorage being able to grab whats
 			 in localStorage or return the current Theme(the state just mentioned) */
@@ -109,6 +111,7 @@ export const useColorMode = (): UseColorModeReturn => {
 	useEffect(() => {
 		// whenever state changes, sync it
 		trySyncToLocalStorage(colorMode);
+		console.log('setting new colormode after updating state', colorMode);
 	}, [colorMode]);
 
 	// IF WE WANT TO TOGGLE THE COLORMODE (THEME)
@@ -127,11 +130,11 @@ export const useColorMode = (): UseColorModeReturn => {
 	const toggleColorMode = useCallback(() => {
 		// callback version again. determine the other theme based on the current
 		// theme
-
+		console.log('We are running togglecolormode');
 		// here its like saying prevProps => newProps:
 		// We can do this because of immuteabillity!
 		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
-		// empty dependency array means
+		// empty dependency array means memoize once  and return.
 	}, []);
 
 	// return a memoized array. [] === [] is _false_. so if you execute
@@ -140,25 +143,23 @@ export const useColorMode = (): UseColorModeReturn => {
 	// this leads to breaking any optimization depending on the return value of
 	// `useColorMode`, so we're avoiding this here
 	// (IMMUTETABILLITY again!) <----
-	return useMemo(() => ({ colorMode, toggleColorMode }), [
-		colorMode,
-		toggleColorMode,
-	]);
+
+	return useMemo(() => (
+		// expose colorMode so we can use it in useTheme below
+		// expose togglecolormode so we can use it in app.
+		console.log('THIS IS COLORMODE RETURNED from useColorMode', colorMode),
+		{ colorMode, toggleColorMode }),
+		// depency array
+		[
+			colorMode,
+			toggleColorMode,
+		]);
 };
 
 export const useTheme = () => {
 	const { colorMode } = useColorMode();
+	console.log('THIS IS COLORMODE FROM USETHEME', colorMode);
 
-	// return a memoized array. [] === [] is _false_. so if you execute
-	// `useTheme` multiple times across rerenders, it would not be the same
-	// array as before, although its contents not necessarily changed.
-	// this leads to breaking any optimization depending on the return value of
-	// `useTheme`, so we're avoiding this here
-
-	return useMemo(
-		// based on the currently selected color mode, return a theme
-
-		() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme),
-		[colorMode],
-	);
+	console.log('checking passed mode', colorMode === 'dark' ? 'dark' : 'light');
+	return createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme);
 };
