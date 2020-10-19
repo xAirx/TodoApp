@@ -16,7 +16,7 @@ import {
 	ThemeWrapper, useColorMode, useTheme,
 } from './index';
 import { TodoList } from '../TodoList';
-import TodoForm from '../TodoForm';
+import { TodoForm } from '../TodoForm';
 import { useTodos } from '../../Hooks/useTodoState';
 
 export const HomeComponent: React.FC = () => {
