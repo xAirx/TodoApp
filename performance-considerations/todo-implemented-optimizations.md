@@ -507,6 +507,8 @@ Along with optimizations handling sideEffects, and render optimization using use
 > ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic. 
 >
 > ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is compared to being dark, if its true then set light or dark. basic toggle logic. An empty dependency array provided to the toggle means that it only runs once!
+>
+> oh wow
 
 **Using the useCallback**
 
@@ -519,8 +521,6 @@ Along with optimizations handling sideEffects, and render optimization using use
 **The Memoized Return**
 
 > In the end we return a memoized array. \[\] === \[\] is _false_. so if we execute `useColorMode` multiple times across rerenders, it would not be the same array as before, although its contents not necessarily changed. this leads to breaking any optimization depending on the return value of `useColorMode such as useTheme` so we're avoiding this here hurray for  \(IMMUTETABILLITY again!\)
-
-
 
 ### UseTheme
 

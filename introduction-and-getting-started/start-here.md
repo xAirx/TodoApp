@@ -8,16 +8,17 @@ description: This project is created as part of an assignment for the company Ni
 
 ### The idea is to simulate a task given to me  refactoring a smaller application
 
+**With this project i'm seeking to** 
 
+Rewrite one of my existing projects into TypeScript and introducing typesafety.
 
-**With this project i'm seeking to**   
+Introducing the concepts of custom hooks
 
+Introducting the concepts of designprinciples coupled with functional programming
 
-* Rewrite one of my existing projects into TypeScript and introducing typesafety.
-* Introducing the concepts of custom hooks
-* Introducting the concepts of designprinciples coupled with functional programming
-* Introducing the concept of performance considerations based on the knowledge of how React "reacts" and renders.
-* I want to unit-test my components and have them run before my CI/CD deploys to heroku.
+Introducing the concept of performance considerations based on the knowledge of how React "reacts" and renders.
+
+I want to unit-test my components and have them run before my CI/CD deploys to heroku.
 
 **I want to provide a documentation so that another developer can take over my project easily**
 
@@ -33,15 +34,9 @@ description: This project is created as part of an assignment for the company Ni
 
 ## TODO: Application outline:
 
-{% tabs %}
-{% tab title="Old Project" %}
+### You can see the old project structure here: 
 
-{% endtab %}
+{% embed url="https://github.com/xAirx/HooksTodoListWithMUI\_CustomHooks" %}
 
-{% tab title="New project" %}
-
-{% endtab %}
-{% endtabs %}
-
-
+### New Project Structure
 
