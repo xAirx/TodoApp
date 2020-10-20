@@ -1,6 +1,6 @@
 # Designprinciples
 
-## Pure components & Functional Programming
+## Pure Functions & Functional Programming
 
 **Increased Readability**
 
@@ -20,7 +20,7 @@ In other words, the code is focused on describing the outcome of the computation
 
 #### 
 
-### Pure Components do not depend or modify the state of variables outside their scope. 
+### Pure Functions do not depend or modify the state of variables outside their scope. 
 
 These are the building blocks of Functional Programming.
 
@@ -86,7 +86,7 @@ function Greet({ name }) {
 
 
 
-**We need to avoid these side effects inside Pure Components.**
+**We need to avoid these side effects inside Pure Functions.**
 
 > **This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.**
 
