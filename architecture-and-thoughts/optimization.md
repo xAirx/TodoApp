@@ -58,13 +58,11 @@ You can use this functional purity by leveraging caching mechanisms for Memoizat
 >
 > Because we spend the vast majority of our time reading code \(around 80% of the time I guess\) and not writing it, readability is the first thing we should enhance in order to increase our efficiency when programming.
 
-#### 
-
 ### Pure Functions do not depend or modify the state of variables outside their scope. 
 
 These are the building blocks of Functional Programming.
 
-The simplest way to deliver reusable code is through a pure function \(Components, Custom Hooks\), we know what is expected to go in and what comes out \( TypeScript is a winner here \)
+The simplest way to deliver reusable code is through a pure function we know what is expected to go in and what comes out \( TypeScript is a winner here \)
 
 A pure function is a function where the return value is only determined by its input values, without observable side effects. 
 
