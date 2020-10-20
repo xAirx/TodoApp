@@ -80,6 +80,8 @@ If the application updates certain data that is observable outside the called fu
 * Calling any other functions with side-effects
 * Making Asynchronous Data Calls
 
+> **This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.**
+
 ```javascript
 function Greet({ name }) {
   const message = `Hello, ${name}!`; // Calculates output'
@@ -117,12 +119,6 @@ Firstly react favors immutability because of its nature, props are the main bloc
 * Immutable data objects are easy to create, test, and use.
 * They help us to write logic that can be used to quickly check for up
 * dates in state, without having to check the data over and over again.
-* 
-**We need to avoid these side effects inside Pure Functions.**
-
-> **This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.**
-
-\*\*\*\*
 
 > **See the chapter on unit-testing for testing scenarios**
 
