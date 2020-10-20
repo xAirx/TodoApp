@@ -4,6 +4,8 @@
 
 **Functional programming** \(often abbreviated FP\) is the process of building software by composing **pure functions**, avoiding **shared state,** **mutable data,** and **side-effects**. Functional programming is **declarative** rather than **imperative**, and application state flows through pure functions.
 
+## 
+
 ## Clean code is DRY
 
 DRY is an acronym that stands for “Don’t Repeat Yourself.” If you are doing the same thing in multiple places, consolidate the duplicate code. If you see patterns in your code, that is an indication it is prime for DRYing. 
@@ -18,15 +20,19 @@ Sometimes this means standing back from the screen until you can’t read the te
 
 Functions should be named for what they do, not how they do it. In other words, don’t expose details of the implementation in the name. Why? Because how you do it may change some day, and you shouldn’t need to refactor your consuming code because of it.
 
+## 
+
 ## KISS & functional programming
 
 **KISS** means **Keep It Simple Stupid** and it is a principle that says that _simple code design should be always preferred_. It is similar to the single responsibility principle that states: _Every function should have responsibility over a single part of the functionality._ One function should do one thing.
 
 **Functional programming** helps you to write **easily testable and highly reusable functions**. It breaks your code into small simple pieces that you can compose into more and more powerful pieces.
 
+## 
+
 ## SOL_**\(I\)nversion of control and \(D\)ependency injection\)**_
 
-### We can apply the principles of SOLID to functional programming as well.
+We can apply the principles of SOLID to functional programming as well.
 
 #### Single Responsibillity principle
 
@@ -54,6 +60,8 @@ using TypeScript, splitting interfaces into smaller interfaces, keeping each com
 
 Dependency is an external code that your function is dependent on, and injection is the act of providing it to your function.
 
+## 
+
 ## Pure Functions & Functional Programming
 
 **Increased Readability**
@@ -68,8 +76,6 @@ Well designed functional code can be surprisingly easy to make super performant.
 
 You can use this functional purity by leveraging caching mechanisms for Memoization.
 
-
-
 > [Kyle Simpson](https://github.com/getify/Functional-Light-JS/blob/master/manuscript/ch1.md/#chapter-1-why-functional-programming) phrases it like this:
 >
 > Declarative code is code that's more focused on describing the "what" outcome.
@@ -77,6 +83,8 @@ You can use this functional purity by leveraging caching mechanisms for Memoizat
 > Imperative code \(the opposite\) is focused on precisely instructing the computer "how" to do something.
 >
 > Because we spend the vast majority of our time reading code \(around 80% of the time I guess\) and not writing it, readability is the first thing we should enhance in order to increase our efficiency when programming.
+
+
 
 ### Pure Functions do not depend or modify the state of variables outside their scope. 
 
@@ -113,6 +121,8 @@ function Greet({ name }) {
 
 ```
 
+### 
+
 ### Immutability
 
 > Unchanging over time or unable to be changed. When data is immutable, its state cannot change after it’s created. If you want to change an immutable object, you can’t. Instead, you create a new object with the new value.
@@ -135,6 +145,8 @@ Firstly react favors immutability because of its nature, props are the main bloc
 * Immutable data objects are easy to create, test, and use.
 
 > **See the chapter on unit-testing for testing scenarios**
+
+\*\*\*\*
 
 {% page-ref page="../performance-considerations/todo-implemented-optimizations.md" %}
 
