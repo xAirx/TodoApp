@@ -2,7 +2,7 @@
 description: This project is created as part of an assignment for the company Nine.
 ---
 
-# TODO: Start here
+# Start here
 
 ## Project introduction
 
@@ -32,11 +32,9 @@ I want to unit-test my components and have them run before my CI/CD deploys to h
 
 > [https://todoapp--master.herokuapp.com/](https://todoapp--master.herokuapp.com/)
 
-## TODO: Application outline:
+### 
 
 ### You can see the old project structure here: 
 
 {% embed url="https://github.com/xAirx/HooksTodoListWithMUI\_CustomHooks" %}
-
-### New Project Structure
 

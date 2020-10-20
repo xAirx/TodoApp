@@ -4,7 +4,7 @@
 
 ## Introduction & Getting started
 
-* [TODO: Start here](introduction-and-getting-started/start-here.md)
+* [Start here](introduction-and-getting-started/start-here.md)
 
 ## Tooling
 
