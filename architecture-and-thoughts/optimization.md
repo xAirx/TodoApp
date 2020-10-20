@@ -10,11 +10,11 @@ DRY is an acronym that stands for “Don’t Repeat Yourself.” If you are doin
 
 Sometimes this means standing back from the screen until you can’t read the text and literally looking for patterns.
 
-### Clean code is predictable and testable
+#### Clean code is predictable and testable
 
-### Clean code is self-commenting
+#### Clean code is self-commenting
 
-### **Naming**
+#### **Naming**
 
 Functions should be named for what they do, not how they do it. In other words, don’t expose details of the implementation in the name. Why? Because how you do it may change some day, and you shouldn’t need to refactor your consuming code because of it.
 
@@ -70,6 +70,8 @@ The simplest way to deliver reusable code is through a pure function we know wha
 
 A pure function is a function where the return value is only determined by its input values, without observable side effects. 
 
+
+
 ### **Functions should not introduce side effects** <a id="046d"></a>
 
 If the application updates certain data that is observable outside the called function, it can be considered a side effect introduced by the function. Here are a few scenarios:
@@ -95,6 +97,8 @@ function Greet({ name }) {
 
 ```
 
+### 
+
 ### Immutability
 
 > Unchanging over time or unable to be changed. When data is immutable, its state cannot change after it’s created. If you want to change an immutable object, you can’t. Instead, you create a new object with the new value.
@@ -105,22 +109,16 @@ function Greet({ name }) {
 * An immutable value or object cannot be changed.
 * When there is an update, a new value is created in memory, leaving the old one untouched.
 
-#### Advantages: 
+
+
+### Benefits Of Immutable Data Structures
 
 Firstly react favors immutability because of its nature, props are the main blocks of the application and these have to be stored in state, and compared from time to time. comparing across renders would be very hard if we were not working with immutable data structures.
 
 * We can use immutable data structures check for a complex state change.
 * For example, if the state in your application is immutable, you can actually save all state objects in a
-* Single store with a state-management library like [Redux](https://redux.js.org/), 
-* Enabling you to easily implement undo and redo functionality for example
-* Don’t forget that we cannot change immutable data once it’s created.
-
-### Benefits Of Immutable Data Structures
-
 * They have no side effects.
 * Immutable data objects are easy to create, test, and use.
-* They help us to write logic that can be used to quickly check for up
-* dates in state, without having to check the data over and over again.
 
 > **See the chapter on unit-testing for testing scenarios**
 
