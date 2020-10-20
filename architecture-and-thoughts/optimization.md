@@ -30,7 +30,7 @@ Functions should be named for what they do, not how they do it. In other words, 
 
 ## 
 
-## SOL_**\(I\)nversion of control and \(D\)ependency injection\)**_
+## SOLID
 
 We can apply the principles of SOLID to functional programming as well.
 
