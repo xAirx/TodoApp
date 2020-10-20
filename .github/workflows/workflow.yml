@@ -62,4 +62,4 @@ jobs:
           printenv
       - name: Push to Heroku
 
-        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/todoapp--$ENVIRONMENT.git
+        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/todoapp--$ENVIRONMENT.git HEAD:$BRANCH
