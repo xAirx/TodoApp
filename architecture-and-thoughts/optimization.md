@@ -24,17 +24,33 @@ Functions should be named for what they do, not how they do it. In other words, 
 
 **Functional programming** helps you to write **easily testable and highly reusable functions**. It breaks your code into small simple pieces that you can compose into more and more powerful pieces.
 
-## Inversion of control and dependency injection?
+## SOL_**\(I\)nversion of control and \(D\)ependency injection\)**_
 
-It is easy to build code with tight dependencies and a mix of concerns that lead to solutions that are hard to cover with test and debug.
+### We can apply the principles of SOLID to functional programming as well.
 
-Functional programming helps you avoid that.
+#### Single Responsibillity principle
 
-Commonly you would load a module in your function or class to implement your functionality.
+Pure functions, what goes in comes out, we expect the return value. keeping functions clean, KISS.
 
-Inversion of control turns that around so that your functions are designed to be executed in other modules.
+#### Open-closed principle
 
-Dependency injection is a type of inversion of control.
+ the View should have a single concern — to display what is requested. Once the View is "done" then it should be closed for modification.
+
+#### Liskov subsitution principle
+
+If we replace a piece of the program with the return value of a function, it will still work.
+
+* Pure components.
+
+#### Interface segregation principle
+
+using TypeScript, splitting interfaces into smaller interfaces, keeping each component decoupled from eachother, this makes it easier to refactor change and test.
+
+#### Inversion of control turns that around so that your functions are designed to be executed in other modules.
+
+ An example could be hooks, or other imported components.
+
+#### Dependency injection is a type of inversion of control.
 
 Dependency is an external code that your function is dependent on, and injection is the act of providing it to your function.
 
@@ -96,8 +112,6 @@ function Greet({ name }) {
 }
 
 ```
-
-### 
 
 ### Immutability
 
