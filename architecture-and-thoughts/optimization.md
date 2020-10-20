@@ -22,8 +22,6 @@ Functions should be named for what they do, not how they do it. In other words, 
 
 ## Inversion of control and dependency injection?
 
-#### 
-
 It is easy to build code with tight dependencies and a mix of concerns that lead to solutions that are hard to cover with test and debug.
 
 Functional programming helps you avoid that.
