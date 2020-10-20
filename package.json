@@ -16,9 +16,9 @@
 	"dependencies": {
 		"@material-ui/core": "^4.11.0",
 		"@material-ui/icons": "^4.9.1",
-		"@testing-library/jest-dom": "^4.2.4",
-		"@testing-library/react": "^9.3.2",
-		"@testing-library/user-event": "^7.1.2",
+		"@testing-library/jest-dom": "^5.11.4",
+		"@testing-library/react": "^11.1.0",
+		"@testing-library/user-event": "^12.1.8",
 		"@types/jest": "^26.0.14",
 		"@types/node": "^14.11.8",
 		"@types/react-dom": "^16.9.8",
@@ -77,6 +77,7 @@
 		]
 	},
 	"devDependencies": {
+		"@testing-library/react-hooks": "^3.4.2",
 		"@types/react": "^16.9.52",
 		"@types/uuid": "^8.3.0",
 		"autoprefixer": "^10.0.1",
@@ -85,6 +86,7 @@
 		"eslint-plugin-jsx-a11y": "^6.3.1",
 		"husky": "^4.3.0",
 		"postcss-nested": "^5.0.1",
+		"ts-jest": "^26.4.1",
 		"webpack-bundle-analyzer": "^3.9.0"
 	}
 }

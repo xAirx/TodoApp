@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export const Todoform: React.FC<ITodoForm> = ({ addTodo }) => {
+export const TodoForm: React.FC<ITodoForm> = ({ addTodo }) => {
 	const { value, reset, update } = useInputState('');
 
 	const classes = useStyles();
@@ -60,7 +60,7 @@ export const Todoform: React.FC<ITodoForm> = ({ addTodo }) => {
 				}}
 			>
 				<TextField
-					label="Try it out and add a new todo!"
+					label="Try it out and add a new todo"
 					className={classes.textfield}
 					margin="normal"
 					required
@@ -76,4 +76,4 @@ export const Todoform: React.FC<ITodoForm> = ({ addTodo }) => {
 	);
 };
 
-export default Todoform;
+export default TodoForm;

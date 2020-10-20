@@ -43,6 +43,7 @@ export const TodoList: React.FC<ITodoList> = ({
 					{todos.map((todo, i) => (
 						<>
 							<SingleTodo
+								key={todo.id}
 								id={todo.id}
 								task={todo.task}
 								completed={todo.completed}

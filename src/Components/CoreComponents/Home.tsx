@@ -16,7 +16,7 @@ import {
 	ThemeWrapper, useColorMode, useTheme,
 } from './index';
 import { TodoList } from '../TodoList';
-import TodoForm from '../TodoForm';
+import { TodoForm } from '../TodoForm';
 import { useTodos } from '../../Hooks/useTodoState';
 
 export const HomeComponent: React.FC = () => {
@@ -104,7 +104,7 @@ export const HomeComponent: React.FC = () => {
 					elevation={3}
 				>
 					<Grid container justify="center" style={{ marginTop: '1rem' }}>
-						<Grid item xs={11} md={8} lg={4}>
+						<Grid item xs={12} sm={10} md={10} lg={6}>
 							<TodoList
 								todos={todos}
 								removeTodo={removeTodo}
