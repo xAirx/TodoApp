@@ -85,7 +85,6 @@
 		"eslint-plugin-import": "^2.22.0",
 		"eslint-plugin-jsx-a11y": "^6.3.1",
 		"husky": "^4.3.0",
-		"jest": "^26.6.0",
 		"postcss-nested": "^5.0.1",
 		"ts-jest": "^26.4.1",
 		"webpack-bundle-analyzer": "^3.9.0"
