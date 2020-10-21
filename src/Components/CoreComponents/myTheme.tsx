@@ -121,7 +121,6 @@ export const useColorMode = (): UseColorModeReturn => {
 		// depency array
 		[
 			colorMode,
-			toggleColorMode,
 		]);
 };
 
