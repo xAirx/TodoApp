@@ -3,7 +3,6 @@
 # A lot of thoughts sweat and tears went into this documentation:
 
 https://app.gitbook.com/invite/mwdesign?invite=-MJWnVKST_7kWauAPOEO
-https://app.gitbook.com/@mwdesign/s/fullstack-todoapp/~/drafts/-MK1TIFr9FhQPQPO5wkX/architecture-and-thoughts/optimization
 
 # Project description
 
