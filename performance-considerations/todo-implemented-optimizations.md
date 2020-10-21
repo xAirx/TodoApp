@@ -80,67 +80,6 @@ const toggleColorMode = useCallback(() => {
 ## UseTodoState hook
 
 {% tabs %}
-{% tab title="Old Structure" %}
-> Anyomous functions are a no go, memory is wasted, as each time this component is rerendered, new memory is used instead of allocating a single piece of memory one. with named functions. 
->
-> Each operation here will also trigger a re-render, a great useCase for avoiding unneeded re-renders if the props passed has not changed.
-
-```javascript
-
-import { useState } from 'react';
-import uuid from 'uuid/v4';
-import useLocalStorageState from './useLocalStorageState';
-
-export default (initialTodos) => {
-	// UselocalStorage state will initialize the state and make the state for us.
-	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
-	// Localstorage functionality here.
-	const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
-
-	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
-
-	return {
-		todos,
-
-		addTodo: (newTodoText) => {
-			setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
-		},
-		removeTodo: (todoId) => {
-			console.log('removetodocalled');
-			// filter out removed todo
-			const updatedTodos = todos.filter((todo) => todo.id !== todoId);
-			console.log(updatedTodos);
-			// call setTodos with new todosArray
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-		editTodo: (todoId, newTodoText) => {
-			console.log('editTodoCalled');
-			// filter out removed todo
-			/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
-			   /*  console.log(updatedTodos); */
-			/*  updatedTodos.task = newTodoText; */
-			// call setTodos with new todosArray
-			const updatedTodos = todos.map((todo) => (todo.id === todoId
-				? { ...todo, task: newTodoText } : todo));
-			console.log('this is the new todos changed from edit', updatedTodos);
-			setTodos(updatedTodos);
-			/* console.log('These are the updated todos', todos); */
-		},
-
-		toggleTodo: (todoId) => {
-			const updatedTodos = todos.map((todo) => (todo.id === todoId ? {
-				...todo,
-				completed: !todo.completed,
-			} : todo));
-			setTodos(updatedTodos);
-		},
-
-	};
-};
-```
-{% endtab %}
-
 {% tab title="New Structure" %}
 > All functionality is in a single hook useTodoState.tsx
 
@@ -238,6 +177,67 @@ export const useTodos = (initialTodos: Todo[]) => {
 
 ```
 {% endtab %}
+
+{% tab title="Old Structure" %}
+> Anyomous functions are a no go, memory is wasted, as each time this component is rerendered, new memory is used instead of allocating a single piece of memory one. with named functions. 
+>
+> Each operation here will also trigger a re-render, a great useCase for avoiding unneeded re-renders if the props passed has not changed.
+
+```javascript
+
+import { useState } from 'react';
+import uuid from 'uuid/v4';
+import useLocalStorageState from './useLocalStorageState';
+
+export default (initialTodos) => {
+	// UselocalStorage state will initialize the state and make the state for us.
+	// Bsed off of localstorage. we are using useLocalStorageState to make sure to handle the
+	// Localstorage functionality here.
+	const [todos, setTodos] = useLocalStorageState('todos', initialTodos);
+
+	console.log('THESE ARE THE TODOS INSIDE USETODOSTATE HOOK', todos);
+
+	return {
+		todos,
+
+		addTodo: (newTodoText) => {
+			setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
+		},
+		removeTodo: (todoId) => {
+			console.log('removetodocalled');
+			// filter out removed todo
+			const updatedTodos = todos.filter((todo) => todo.id !== todoId);
+			console.log(updatedTodos);
+			// call setTodos with new todosArray
+			setTodos(updatedTodos);
+			/* console.log('These are the updated todos', todos); */
+		},
+		editTodo: (todoId, newTodoText) => {
+			console.log('editTodoCalled');
+			// filter out removed todo
+			/*  const updatedTodos = todos.filter((todo) => todo.id === todoId);
+			   /*  console.log(updatedTodos); */
+			/*  updatedTodos.task = newTodoText; */
+			// call setTodos with new todosArray
+			const updatedTodos = todos.map((todo) => (todo.id === todoId
+				? { ...todo, task: newTodoText } : todo));
+			console.log('this is the new todos changed from edit', updatedTodos);
+			setTodos(updatedTodos);
+			/* console.log('These are the updated todos', todos); */
+		},
+
+		toggleTodo: (todoId) => {
+			const updatedTodos = todos.map((todo) => (todo.id === todoId ? {
+				...todo,
+				completed: !todo.completed,
+			} : todo));
+			setTodos(updatedTodos);
+		},
+
+	};
+};
+```
+{% endtab %}
 {% endtabs %}
 
 ### Alternative solutions \(using an API to grab data\)
@@ -254,7 +254,8 @@ export const useTodos = (initialTodos: Todo[]) => {
     // fire and forget approach. the ui was already updated above! we don't care
     // whether the request fails or not. we expect it not to, but its not relevant
     // for the direct continuation of the user flow. feels better, 
-    no waiting time!
+    //no waiting time!
+    
     axios.post(endpoint, newTodo).catch((error) => {
       // do whatever you want here
     });
@@ -298,9 +299,194 @@ export const useTodos = (initialTodos: Todo[]) => {
 >
 > ### Its important to keep state close to the source, this also makes it easier to test.
 
+{% page-ref page="../unittesting/overview-of-unittests.md" %}
+
 
 
 {% tabs %}
+{% tab title="Optimized structure" %}
+### Detailed explanation: 
+
+Everything is extracted into a myTheme.tsx creating a single component a custom hook to handle state aswell. this also makes it easier to test.
+
+Here naming is also improved
+
+Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo + useRef.
+
+
+
+### useState
+
+> Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
+
+> The useEffects are added to handle our side effects, component rendering and side-effect invocation have to be independent.
+
+### useEffect  \(Only syncing localStorage upon new Theme set\)
+
+> will make sure to only run whenever our localStorage changes. localStorage would change if the theme changes, the theme is created with the useTheme hook. It listens for any changes to colorMode and only runs then.
+
+
+
+### ToggleColorMode \(Determine theme based on current theme\)
+
+> ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic. 
+>
+> ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is compared to being dark, if its true then set light or dark. basic toggle logic. An empty dependency array provided to the toggle means that it only runs once!
+>
+> oh wow
+
+**Using the useCallback**
+
+> Using the useCallback This is all wrapped in a useCallback, which memoizes functions, this means that: because of how JS compares equality by reference, Javascript compares equality by reference, the function you create the first time a component renders will be different than the one created in subsequent renders.
+>
+> If you try passing a function as props or state, this means that it will be treated as a prop change every single time. By wrapping it in useCallback,
+>
+> React will know that it's the same function. This not re-rendering unnecessarily.
+
+**The Memoized Return**
+
+> In the end we return a memoized array. \[\] === \[\] is _false_. so if we execute `useColorMode` multiple times across rerenders, it would not be the same array as before, although its contents not necessarily changed. this leads to breaking any optimization depending on the return value of `useColorMode such as useTheme` so we're avoiding this here hurray for  \(IMMUTETABILLITY again!\)
+
+### UseTheme
+
+Handles setting the theme, it grabs colorMode \(state\) from useColorMode\(\), only if colormode changes, and then creates our MUItheme.
+
+
+
+```javascript
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {
+	useCallback, useEffect, useMemo, useState,
+} from 'react';
+import { createMuiTheme, ThemeOptions } from '@material-ui/core/styles';
+
+const lightTheme: ThemeOptions = {
+	palette: {
+		type: 'light',
+		background: {
+			paper: 'linear-gradient(130deg, #5D21D0 80%, #0c056d 10%)',
+
+		},
+	},
+};
+
+const darkTheme: ThemeOptions = {
+	palette: {
+		type: 'dark',
+		background: {
+			paper: 'linear-gradient(130deg, #0c056d 80%, #5D21D0  10%)',
+		},
+	},
+};
+
+// setting lskey
+const lskey = 'mode';
+
+// We want our comparison to themes too be type safe.
+// Dark and light are strings.
+// if we put any string into the state, useStatet will accept it.
+// This could lead to typos.
+// To make sure we get the right type we add the types here.
+type Theme = 'dark' | 'light';
+type ColorMode = 'dark' | 'light';
+
+// Setting colorMode to the type of ColorMode.
+// This key is used for comparisons.
+
+type UseColorModeReturn = {
+	colorMode: ColorMode;
+	toggleColorMode: () => void;
+};
+
+const trySyncToLocalStorage = (theme: Theme) => {
+	try {
+		localStorage.setItem(lskey, theme);
+	} catch {
+		// ignore
+	}
+};
+
+const tryRetrievingFromLocalStorage = (theme: Theme): Theme => {
+	try {
+		const stored = localStorage.getItem(lskey);
+
+		return stored ? JSON.parse(stored) : theme;
+	} catch {
+		return theme;
+	}
+};
+
+// useColorMode Function, with the UseColorModeReturn type.
+export const useColorMode = (): UseColorModeReturn => {
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+	// prefersDarkMode is true localStorage says false so state is initially false then
+	// useEffect comes in and sets it to true although we have a different value stored
+	// we wouldnt want that localStorage presence indicates that you have a prior visit with a changed theme */
+
+	const [colorMode, setColorMode] = useState<ColorMode>(
+		// Grabbing data from localStorage, is passed our prefersDarkmode, if nothing is found the current theme is the preferred theme.
+		tryRetrievingFromLocalStorage(prefersDarkMode ? 'dark' : 'light'),
+	);
+
+	// IF LOCALSTORAGE CHANGES:
+	/* 	will make sure to only run whenever our localStorage changes. localStorage would change if the theme changes,
+	the theme is created with the useTheme hook. It listens for any changes to colorMode and only runs then. */
+	useEffect(() => {
+		// whenever state changes, sync it
+		trySyncToLocalStorage(colorMode);
+		console.log('setting new colormode after updating state', colorMode);
+	}, [colorMode]);
+
+	// IF WE WANT TO TOGGLE THE COLORMODE (THEME)
+	/* ToggleColorMode is a toggle functionality which will determine theme based on our current theme.
+	The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic.
+	An empty dependency array provided to the toggle means that it only runs once!
+
+	Using the useCallback
+	This is all wrapped in a useCallback, which memoizes functions, this means that: because of how JS compares equality by reference,
+	Javascript compares equality by reference, the function you create the first time a component
+	renders will be different than the one created in subsequent renders.
+	If you try passing a function as props or state, this means that it will be treated as a
+	prop change every single time. By wrapping it in useCallback, React will know that it's the same function.
+	This not re-rendering unneccessarily.     */
+
+	const toggleColorMode = useCallback(() => {
+		// callback version again. determine the other theme based on the current
+		// theme
+		console.log('We are running togglecolormode');
+		// here its like saying prevProps => newProps:
+		// We can do this because of immuteabillity!
+		setColorMode(mode => (mode === 'dark' ? 'light' : 'dark'));
+		// empty dependency array means memoize once  and return.
+	}, []);
+
+	// return a memoized array. [] === [] is _false_. so if you execute
+	// `useColorMode` multiple times across rerenders, it would not be the same
+	// array as before, although its contents not necessarily changed.
+	// this leads to breaking any optimization depending on the return value of
+	// `useColorMode`, so we're avoiding this here
+	// (IMMUTETABILLITY again!) <----
+
+	return useMemo(() => (
+		// expose colorMode so we can use it in useTheme below
+		// expose togglecolormode so we can use it in app.
+		/* 		console.log('THIS IS COLORMODE RETURNED from useColorMode', colorMode), */
+		{ colorMode, toggleColorMode }),
+		// depency array
+		[
+			colorMode,
+			toggleColorMode,
+		]);
+};
+
+export const useTheme = (colorMode: ColorMode) => useMemo(() => createMuiTheme(colorMode === 'dark' ? darkTheme : lightTheme), [
+	colorMode,
+]);
+
+```
+{% endtab %}
+
 {% tab title="Initial structure" %}
 > Functionality is scattered across App Component and the useDarkModeHook within myTheme.tsx
 >
@@ -437,156 +623,7 @@ export { themeObject, useDarkmode };
 /*
 ```
 {% endtab %}
-
-{% tab title="Optimized structure" %}
-### Detailed explanation: 
-
-Everything is extracted into a myTheme.tsx creating a single component a custom hook to handle state aswell. this also makes it easier to test.
-
-Here naming is also improved
-
-Along with optimizations handling sideEffects, and render optimization using useCallback and useMemo 
-
-
-
-### useState
-
-> Initially we try to retrieve our prefersDarkMode from localStorage, if that  does not  exist we return the initial theme passed in \( the  prefersDarkmode boolean from  useMediaQuery\), thus setting dark or light.
-
-> The useEffects are added to handle our side effects, component rendering and side-effect invocation have to be independent.
-
-
-
-### ToggleColorMode \(Determine theme based on current theme\)
-
-> ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is  compared to being dark, if its true then set light or dark. basic toggle logic. 
->
-> ToggleColorMode is a toggle functionality which will determine theme based on our current theme. The current theme is compared to being dark, if its true then set light or dark. basic toggle logic. An empty dependency array provided to the toggle means that it only runs once!
->
-> oh wow
-
-#### Using UseEffect  
-
-here i use UseEffect for running sideeffects, I am  running the trySyncToLocalStorage. this will  only run if colorMode changes \(the state\).
-
-**Using the useCallback**
-
-> Using the useCallback This is all wrapped in a useCallback, which memoizes functions, this means that: because of how JS compares equality by reference, Javascript compares equality by reference, the function you create the first time a component renders will be different than the one created in subsequent renders.
->
-> If you try passing a function as props or state, this means that it will be treated as a prop change every single time. By wrapping it in useCallback,
->
-> React will know that it's the same function. This not re-rendering unnecessarily.
-
-**The Memoized Return**
-
-> In the end we return a memoized array. \[\] === \[\] is _false_. so if we execute `useColorMode` multiple times across rerenders, it would not be the same array as before, although its contents not necessarily changed. this leads to breaking any optimization depending on the return value of `useColorMode such as useTheme` so we're avoiding this here hurray for  \(IMMUTETABILLITY again!\)
-
-### UseTheme
-
-Handles setting the theme, it grabs colorMode \(state\) from useColorMode\(\), only if colormode changes, and then creates our MUItheme.
-
-
-
-```javascript
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import {
-	useCallback, useEffect, useMemo, useState, useRef,
-} from 'react';
-import { createMuiTheme, ThemeOptions } from '@material-ui/core/styles';
-
-const lightTheme: ThemeOptions = {
-	palette: {
-		primary: {
-			main: '#FFFFFF',
-		},
-		type: 'light',
-		background: {
-			paper: 'linear-gradient(130deg, #96bb7c 80%, #184d47 10%)',
-
-		},
-	},
-};
-
-const darkTheme: ThemeOptions = {
-	palette: {
-		primary: {
-			main: '#FFFFFF',
-		},
-		type: 'dark',
-		background: {
-			paper: 'linear-gradient(130deg, #0c2623 80%, #96bb7c 10%)',
-		},
-	},
-};
-
-// setting lskey
-const lskey = 'mode';
-
-// We want our comparison to themes too be type safe.
-// Dark and light are strings.
-// if we put any string into the state, useStatet will accept it.
-// This could lead to typos.
-// To make sure we get the right type we add the types here.
-type Theme = 'dark' | 'light';
-type ColorMode = 'dark' | 'light';
-
-// Setting colorMode to the type of ColorMode.
-// This key is used for comparisons.
-type UseColorModeReturn = {
-	colorMode: ColorMode;
-	toggleColorMode: () => void;
-};
-
-const trySyncToLocalStorage = (theme: Theme) => {
-  try {
-    localStorage.setItem(lskey, theme);
-  } catch {
-    // ignore
-  }
-};
-
-const tryRetrievingFromLocalStorage = (theme: Theme): Theme => {
-  try {
-    const stored = localStorage.getItem(lskey);
-
-    return stored ? (stored as Theme) : theme;
-  } catch {
-    return theme;
-  }
-};
-
-export const useColorMode = (): UseColorModeReturn => {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
-  const [colorMode, setColorMode] = useState<ColorMode>(
-    tryRetrievingFromLocalStorage(prefersDarkMode ? "dark" : "light")
-  );
-
-  useEffect(() => {
-    trySyncToLocalStorage(colorMode);
-  }, [colorMode]);
-
-  const toggleColorMode = useCallback(() => {
-    setColorMode((mode) => (mode === "dark" ? "light" : "dark"));
-  }, []);
-
-  return useMemo(() => ({ colorMode, toggleColorMode }), [
-    colorMode,
-    toggleColorMode
-  ]);
-};
-
-
-```
-{% endtab %}
 {% endtabs %}
-
-```javascript
-export const useTheme = (colorMode: ColorMode) =>
-  useMemo(() => createMuiTheme(colorMode === "dark" ? darkTheme : lightTheme), [
-    colorMode
-  ]);
-```
 
 ## Downside and Final thoughts of the approach
 

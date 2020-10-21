@@ -4,11 +4,16 @@
 
 ## Introduction & Getting started
 
-* [TODO: Start here](introduction-and-getting-started/start-here.md)
+* [Start here](introduction-and-getting-started/start-here.md)
 
 ## Tooling
 
 * [Eslint & Husky & TSConfig](tooling/eslint-+-stylelint-+-husky-+-tsconfig.md)
+
+## CI/CD setup
+
+* [Using the CI/CD setup](ci-cd-setup/using-the-ci-cd-setup.md)
+* [Github Actions yaml file.](ci-cd-setup/github-actions-yaml-file..md)
 
 ## Architecture & Thoughts
 
@@ -22,4 +27,6 @@
 * [Implemented optimizations](performance-considerations/todo-implemented-optimizations.md)
 
 ## UnitTesting
+
+* [Overview of Unittests](unittesting/overview-of-unittests.md)
 
